@@ -4,8 +4,6 @@
 import sys
 # The random library is necessary for debugging
 import random
-# The time libreary is necessary for getting the current time
-import time
 
 # Imporing the ROS library for python
 import rospy
@@ -14,105 +12,39 @@ from rospy.exceptions import ROSInterruptException
 # Importing SMACH to create FINITE STATE MACHINES
 from smach import StateMachine, State
 
-# Importing ARMOR libraries to easily interact with ARMOR
+# Importing libraties to comunicate with ARMOR
+from armor_helper import ArmorHelper
 from armor_api.armor_client import ArmorClient
-from armor_api.armor_query_client import ArmorQueryClient
-from armor_api.armor_utils_client import ArmorUtilsClient
-from armor_api.armor_manipulation_client import ArmorManipulationClient
-from armor_api.armor_exceptions import ArmorServiceCallError
 
 ROOM_EXPLORATION_TIME = 10
 RECHARGE_ROOM = 'E'
 RECHARGE_PER_SECOND = 10
 
-class ArmorHelper(object):
-	def __init__(self, armor_client):
-		self._armor_client = armor_client
-		self.armor_utils_client = ArmorUtilsClient(armor_client)
-		self.armor_query_client = ArmorQueryClient(armor_client)
-		self.armor_manipulation_client = ArmorManipulationClient(armor_client)
-	
-	def load_ontology(self):
-		# Loading ontology and syncing reasoner
-		self.armor_utils_client.load_ref_from_file(ONTOLOGY_PATH, ONTOLOGY_URI, True)
-	
-	def move_robot_to_room(self, next_room):
-		# Retrieving the current room the Robot1 is in
-		current_room = self.retrieve_current_room()
-		# Actually moving the robot to another room
-		self.armor_manipulation_client.replace_objectprop_b2_ind('isIn', 'Robot1', next_room, current_room)
-	
-	def retrieve_current_room(self):
-		# The reasoner must be started before querying something
-		self.armor_utils_client.sync_buffered_reasoner()
-		# Retrieving the current room the Robot1 is in
-		room_id = self.armor_query_client.objectprop_b2_ind('isIn', 'Robot1')[0]
-		room = ArmorHelper._name_from_id(room_id)
-		return room
-	
-	def retrieve_reachable_rooms(self):
-		# The reasoner must be started before querying something
-		self.armor_utils_client.sync_buffered_reasoner()
-		# Retrieving reachable rooms
-		rooms_ids = self.armor_query_client.objectprop_b2_ind('canReach', 'Robot1')
-		rooms = list(map(ArmorHelper._name_from_id, rooms_ids))
-		return rooms
-	
-	def retrieve_rooms_of_class(self, clss):
-		# The reasoner must be started before querying something
-		self.armor_utils_client.sync_buffered_reasoner()
-		# Retrieving all the rooms belongin to a class
-		classes_ids = self.armor_query_client.ind_b2_class(clss)
-		classes = list(map(ArmorHelper._name_from_id, classes_ids))
-		return classes
-	
-	def retrieve_last_visited_time(self, room):
-		# The reasoner must be started before querying something
-		self.armor_utils_client.sync_buffered_reasoner()
-		# Retrieving time
-		data_id = self.armor_query_client.dataprop_b2_ind('visitedAt', room)[0]
-		data = ArmorHelper._data_from_id(data_id)
-		return data
-	
-	def retrieve_robot_time(self):
-		# The reasoner must be started before querying something
-		self.armor_utils_client.sync_buffered_reasoner()
-		# Retrieving robot time
-		data_id = self.armor_query_client.dataprop_b2_ind('now', 'Robot1')[0]
-		data = ArmorHelper._data_from_id(data_id)
-		return data
-		
-	def update_room_visited_time_before_exiting(self):
-		# The robot is just exiting the room it is actually in
-		room = self.retrieve_current_room()
-		old = self.retrieve_last_visited_time(room)
-		now = str(int(time.time()))
-		# Update the last time the robot visited the room
-		self.armor_manipulation_client.replace_dataprop_b2_ind('visitedAt', room, 'Long', now, old)
-	
-	def update_robot_time(self):
-		# Getting the robot outdated time and current time
-		old = self.retrieve_robot_time()
-		now = str(int(time.time()))
-		# Update robot current time
-		self.armor_manipulation_client.replace_dataprop_b2_ind('now', 'Robot1', 'Long', now, old)
-	
-	@staticmethod
-	def _name_from_id(resource_id):
-		return resource_id.split('#')[1][0:-1]
-	
-	@staticmethod
-	def _data_from_id(resource_id):
-		return resource_id.split('"')[1]
-		
 
 class Initialization(State) :
+	"""
+    Args:
+        helper : An instance of ArmorHelper in order to communicate with ARMOR.
+        
+    |  This class is an instance of State used for initializing the robot behaviour.
+	|  Because of this, it should be executed only once. 
+    """
 	def __init__(self, helper):
 		State.__init__(self, outcomes=['initialized'])
 		# Storing th helper for possible usage
 		self._helper = helper
 	
 	def execute(self, userdata):
+		"""
+		Args:
+			userdata : The data of this State.
+		Returns:
+			The outcome of this state which is always 'initialized'.
+			
+		|  This state initializes the ontology by:
+		|  1. Loading the ontology into the ARMOR server.
+		|  2. Setting the battery level of the robot the 100%.
+		"""
 		# Loading ontology into armor 
 		self._helper.load_ontology()
 		# Initializing battery level at the maximum
@@ -120,7 +52,13 @@ class Initialization(State) :
 		return 'initialized'
 
 
-class ChooseRoomTask(State) :
+class ChooseTaskForCurrentRoom(State) :
+	"""
+    Args:
+        helper : An instance of ArmorHelper in order to communicate with ARMOR.
+        
+    |  This class is an instance of State used for choosing the 
+    """
 	def __init__(self, helper):
 		State.__init__(self, outcomes=['recharge', 'explore'])
 		# Storing the helper for possible usage
@@ -252,7 +190,7 @@ def main():
 		task_sm = StateMachine(outcomes=['task_completed'])
 		with task_sm :
 			# A task for deciding which is the task to perform in the room
-			StateMachine.add('CHOOSE_ROOM_TASK', ChooseRoomTask(helper),
+			StateMachine.add('CHOOSE_ROOM_TASK', ChooseTaskForCurrentRoom(helper),
 						transitions={'explore':'EXPLORE_TASK',
 									 'recharge':'RECHARGE_TASK'})
 			# This task makes the robot explore the current room
