@@ -8,13 +8,13 @@
     <!-- PARAMETERS FOR CONFIGURING ROBOT BEHAVIOUR -->
     <!-- The list of room which contain a recharge station -->
     <param name="recharge_rooms" type="str" value="['E']" />
-    <!-- The amount of recharge in percentage and per second -->
-    <param name="recharge_per_second" type="int" value="20" />
     <!-- The ordered list of room priorities for deciding the next room -->
     <param name="rooms_priority" type="str" value="['URGENT', 'CORRIDOR', 'ROOM']" />
     <!-- The time the robot takes to explore a room -->
-    <param name="exploration_seconds" type="int" value="10" />
+    <param name="exploration_seconds" type="int" value="2" />
+    <!-- The battery percentage for which the robot needs to recharge it -->
+    <param name="battery_level_low" type="int" value="20" />    
 
-	<!-- LAUNCHING NODE -->
+	<!-- LAUNCHING NODE FOR ROBOT BEHAVIOUR-->
     <node name="robot_behaviour" pkg="exprob_assignment_1" type="robot_behaviour.py" output="screen"/>
 </launch>

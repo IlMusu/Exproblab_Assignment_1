@@ -6,7 +6,8 @@ import random
 import threading
 # Imporing ROS library for python
 import rospy
-from std_msgs.msg import UInt8, Bool
+from std_msgs.msg import UInt8
+
 
 class RobotState(object):
     def __init__(self):
@@ -17,7 +18,7 @@ class RobotState(object):
 
     def start(self) :
         # Starting the BatteryController
-        self._battery_controller.start(self._battery_controller_em)
+        self._battery_controller.start()
     
 
 class BatteryController(object):
@@ -26,19 +27,19 @@ class BatteryController(object):
         self._execution_mode = rospy.get_param('/battery_controller_execution_mode')
         self._battery_level = rospy.get_param('/battery_intial_value')
         # Defining a publisher to notify for when the battery is low
-        self._battery_level_pub = rospy.Publisher('battery_level', UInt8, latch=True)
-        # Defining a listener for the recharge
-        self._battery_recharging_sub = rospy.Subscriber('battery_recharging', Bool, latch=True)
+        self._battery_level_pub = rospy.Publisher('battery_level', UInt8, queue_size=1, latch=True)
     
 
     def start(self):
-        match self._execution_mode :
-            case _, 'MANUAL' :
-                target=self._manual_battery_controller
-            case 'RANDOM' :
-                target=self._random_battery_controller
+        target=self._manual_battery_controller
+        if self._execution_mode == 'MANUAL' :
+            target=self._manual_battery_controller
+        elif self._execution_mode == 'RANDOM' :
+            target=self._random_battery_controller
+        else :
+            rospy.logerr('Invalid execution mode ('+self._execution_mode+').')
 
-        rospy.loginfo('Battery controller is started in '+execution_mode+' mode')
+        rospy.loginfo('Battery controller is started in '+self._execution_mode+' mode.')
         thread = threading.Thread(target=target)
         thread.start()
     
@@ -59,16 +60,16 @@ class BatteryController(object):
 
     def _random_battery_controller(self):
         # Publishing the first battery level
-        self._publish_battery_level()
+        self._change_battery_level(0)
         # Looping to simulate time and decrease battery level
         while not rospy.is_shutdown():
             # Waiting for a random amount of time
-            sleep(random.randrange(15, 25))
+            rospy.sleep(random.randrange(10, 15))
             # Switching battery state
             if self._battery_level > 0 :
                 self._change_battery_level(-100)
             else :
-                self._change_battery_level(+100)
+                self._change_battery_level(+100)    
             
 
     def _change_battery_level(self, offset):
@@ -76,7 +77,7 @@ class BatteryController(object):
         self._battery_level = self._battery_level + offset
         self._battery_level = min(max(0, self._battery_level), 100)
         # Publishing the new battery level
-        self._battery_low_pub.publish(UInt8(self._battery_level))
+        self._battery_level_pub.publish(UInt8(self._battery_level))
         rospy.loginfo('Battery level is at '+str(self._battery_level)+'%')
         
 
