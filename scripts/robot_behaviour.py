@@ -1,17 +1,14 @@
 #!/usr/bin/env python
 
-# The random library is necessary for debugging
+# The RANDOM library is necessary for debugging
 import random
-
-# Imporing the ROS library for python
+# Importing ROS library for python
 import rospy
-
 # Importing SMACH to create FINITE STATE MACHINES
 from smach import StateMachine, State
-
-# Importing libraties to comunicate with ARMOR
-from armor_helper import ArmorHelper
+# Importing HELPER to abstract interaction with ARMOR
 from armor_api.armor_client import ArmorClient
+from robot_behaviour_helper import RobotBehaviourHelper
 
 
 class Initialization(State) :
@@ -227,7 +224,7 @@ class ChooseNextRoom(State) :
 				return [_rand_in_list(rooms), room_clss]
 		
 		# Otherwise, go into any reachable room
-		return  [rand_in_list(reachable_rooms), 'ROOM']
+		return  [_rand_in_list(reachable_rooms), 'ROOM']
 
 
 class MoveToNextRoom(State) :
@@ -260,6 +257,54 @@ class MoveToNextRoom(State) :
 		return 'moved'
 
 
+
+
+class RobotBehaviour(object):
+	def __init__(self):
+		# Initializing a ROS node which represents the robot behaviour
+		rospy.init_node('robot_behaviour', log_level=rospy.INFO)
+		# Creating a instance of the helper
+		client_name = rospy.get_param('/client_name')
+		reference_name = rospy.get_param('/reference_name')
+		self._helper = RobotBehaviourHelper(ArmorClient(client_name, reference_name))
+
+	def generate_behaviour(self):
+		# A state machine that describes the behaviour of the robot
+		behaviour_sm = StateMachine(outcomes=[])
+		with behaviour_sm :
+			# A state for the initialization of the robot
+			StateMachine.add('INITIALIZATION', Initialization(self._helper),
+					transitions={'initialized':'PERFORM_ROOM_TASKS'})
+			
+			# A state machine for performing a task in a room
+			task_sm = StateMachine(outcomes=['task_completed'])
+			with task_sm :
+				# A task for deciding which is the task to perform in the room
+				StateMachine.add('CHOOSE_ROOM_TASK', ChooseTaskForCurrentRoom(self._helper),
+							transitions={'explore':'EXPLORE_TASK',
+										'recharge':'RECHARGE_TASK'})
+				# This task makes the robot explore the current room
+				StateMachine.add('EXPLORE_TASK', ExploreTask(self._helper),
+							transitions={'explored':'task_completed'})
+				# This task makes the robot recharge in the current room
+				StateMachine.add('RECHARGE_TASK', RechargeTask(self._helper),
+							transitions={'recharged':'task_completed'})
+							
+			# A state for performing tasks in the chosen room
+			StateMachine.add('PERFORM_ROOM_TASKS', task_sm,
+					transitions={'task_completed':'CHOOSE_NEXT_ROOM'})
+			# A state for choosing the next room to reach
+			StateMachine.add('CHOOSE_NEXT_ROOM', ChooseNextRoom(self._helper),
+					transitions={'chosen':'MOVE_TO_NEXT_ROOM'},
+					remapping={'next_room':'next_room'})
+			# A state for reaching the next chosen room
+			StateMachine.add('MOVE_TO_NEXT_ROOM', MoveToNextRoom(self._helper),
+					transitions={'moved':'PERFORM_ROOM_TASKS'},
+					remapping={'next_room':'next_room'})
+		
+		return behaviour_sm
+
+
 def _strlist_to_list(strlist):
 	formatted = strlist.strip('][').replace('"', '').replace("'", '').split(',')
 	return list(map(str.strip, formatted))
@@ -270,63 +315,16 @@ def _rand_in_list(lst):
 
 
 def main():
-	'''
-	| In this method the state machine which defines the robot behaviour is created.
-	| The state machine provides an INITIALIZATION state for initializing all the
-	| necessary parameters. Then, a inner state machine is created for handling the
-	| tasks that the robot may perfom in the room. In this case there are only two 
-	| possible states, which are the EXPLORE_TASK state and the RECHARGE_TASK state.
-	| After perfomrming the task, another room is selected via the CHOOSE_NEXT_ROOM 
-	| state and then the robot is move there via the MOVE_TO_NEXT_ROOM state.
-	'''
-	# Initializing this ROS node
-	rospy.init_node('robot_behaviour', log_level=rospy.INFO)
-	
-	# Creating a helper class to interract with Armor
-	client_name = rospy.get_param('/client_name')
-	reference_name = rospy.get_param('/reference_name')
-	helper = ArmorHelper(ArmorClient(client_name, reference_name))
-	
-	# A state machine for deciding which room to choose and perform tasks
-	sm = StateMachine(outcomes=[])
-	with sm :
-		# A state for the initialization of the robot
-		StateMachine.add('INITIALIZATION', Initialization(helper),
-				transitions={'initialized':'PERFORM_ROOM_TASKS'})
-		
-		# A state machine for performing a task in a room
-		task_sm = StateMachine(outcomes=['task_completed'])
-		with task_sm :
-			# A task for deciding which is the task to perform in the room
-			StateMachine.add('CHOOSE_ROOM_TASK', ChooseTaskForCurrentRoom(helper),
-						transitions={'explore':'EXPLORE_TASK',
-									 'recharge':'RECHARGE_TASK'})
-			# This task makes the robot explore the current room
-			StateMachine.add('EXPLORE_TASK', ExploreTask(helper),
-						transitions={'explored':'task_completed'})
-			# This task makes the robot recharge in the current room
-			StateMachine.add('RECHARGE_TASK', RechargeTask(helper),
-						transitions={'recharged':'task_completed'})
-						
-		# A state for performing tasks in the chosen room
-		StateMachine.add('PERFORM_ROOM_TASKS', task_sm,
-				transitions={'task_completed':'CHOOSE_NEXT_ROOM'})
-		# A state for choosing the next room to reach
-		StateMachine.add('CHOOSE_NEXT_ROOM', ChooseNextRoom(helper),
-				transitions={'chosen':'MOVE_TO_NEXT_ROOM'},
-				remapping={'next_room':'next_room'})
-		# A state for reaching the next chosen room
-		StateMachine.add('MOVE_TO_NEXT_ROOM', MoveToNextRoom(helper),
-				transitions={'moved':'PERFORM_ROOM_TASKS'},
-				remapping={'next_room':'next_room'})
-						
-	# In this case there is no output
-	outcome = sm.execute()
+	# Creating an instance of the RobotBehaviour
+	robot_behaviour = RobotBehaviour()
+	# Actually generating the behaviour of the robot
+	behaviour_sm = robot_behaviour.generate_behaviour()
+	# Executing the behaviour of the robot
+	outcome = behaviour_sm.execute()
 	
 	# Wait for ctrl-c to stop the application
 	rospy.spin()
-	
-	
+
 
 if __name__ == '__main__':
 	main()

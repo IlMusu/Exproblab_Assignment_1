@@ -6,7 +6,7 @@ from armor_api.armor_query_client import ArmorQueryClient
 from armor_api.armor_utils_client import ArmorUtilsClient
 from armor_api.armor_manipulation_client import ArmorManipulationClient
 
-class ArmorHelper(object):
+class RobotBehaviourHelper(object):
 	"""
     Args:
         armor_client : An instance of ArmorClient in order to communicate with ARMOR.
