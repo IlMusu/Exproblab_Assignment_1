@@ -40,9 +40,8 @@ class ArmorHelper(object):
 		# The reasoner must be started before querying something
 		self.armor_utils_client.sync_buffered_reasoner()
 		# Retrieving the current room the Robot1 is in
-		room_id = self.armor_query_client.objectprop_b2_ind('isIn', 'Robot1')[0]
-		room = ArmorHelper._name_from_id(room_id)
-		return room
+		room_name = self.armor_query_client.objectprop_b2_ind('isIn', 'Robot1')[0]
+		return room_name
 	
 	def retrieve_reachable_rooms(self):
 		"""
@@ -57,9 +56,8 @@ class ArmorHelper(object):
 		# The reasoner must be started before querying something
 		self.armor_utils_client.sync_buffered_reasoner()
 		# Retrieving reachable rooms
-		rooms_ids = self.armor_query_client.objectprop_b2_ind('canReach', 'Robot1')
-		rooms = list(map(ArmorHelper._name_from_id, rooms_ids))
-		return rooms
+		rooms_names = self.armor_query_client.objectprop_b2_ind('canReach', 'Robot1')
+		return rooms_names
 	
 	def retrieve_rooms_of_class(self, clss):
 		"""
@@ -76,9 +74,8 @@ class ArmorHelper(object):
 		# The reasoner must be started before querying something
 		self.armor_utils_client.sync_buffered_reasoner()
 		# Retrieving all the rooms belongin to a class
-		classes_ids = self.armor_query_client.ind_b2_class(clss)
-		classes = list(map(ArmorHelper._name_from_id, classes_ids))
-		return classes
+		classes_names = self.armor_query_client.ind_b2_class(clss)
+		return classes_names
 	
 	def move_robot_to_room(self, next_room):
 		"""
@@ -159,14 +156,6 @@ class ArmorHelper(object):
 		now = str(int(time.time()))
 		# Update robot current time
 		self.armor_manipulation_client.replace_dataprop_b2_ind('now', 'Robot1', 'Long', now, old)
-	
-	@staticmethod
-	def _name_from_id(resource_id):
-		"""
-		|  A helper method to parse the name of an individual obtained 
-		|  from ARMOR to a more human-readable name.
-		"""
-		return resource_id.split('#')[1][0:-1]
 	
 	@staticmethod
 	def _data_from_id(resource_id):

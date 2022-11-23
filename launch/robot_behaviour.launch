@@ -1,0 +1,20 @@
+<launch>
+	<!-- PARAMETERS FOR SETTING UP ARMOR-->
+    <param name="ontology_path" type="str" value="/root/exprolab_ros_ws/src/exprob_assignment_1/maps/topological_map.owl" />
+    <param name="ontology_uri" type="str" value="http://bnc/exp-rob-lab/2022-23" />
+    <param name="client_name" type="str" value="rb_client" />
+    <param name="reference_name" type="str" value="behaviour_ontology" />
+    
+    <!-- PARAMETERS FOR CONFIGURING ROBOT BEHAVIOUR -->
+    <!-- The list of room which contain a recharge station -->
+    <param name="recharge_rooms" type="str" value="['E']" />
+    <!-- The amount of recharge in percentage and per second -->
+    <param name="recharge_per_second" type="int" value="20" />
+    <!-- The ordered list of room priorities for deciding the next room -->
+    <param name="rooms_priority" type="str" value="['URGENT', 'CORRIDOR', 'ROOM']" />
+    <!-- The time the robot takes to explore a room -->
+    <param name="exploration_seconds" type="int" value="10" />
+
+	<!-- LAUNCHING NODE -->
+    <node name="robot_behaviour" pkg="exprob_assignment_1" type="robot_behaviour.py" output="screen"/>
+</launch>
