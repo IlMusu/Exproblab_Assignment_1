@@ -21,6 +21,12 @@ class ArmorHelper(object):
 		self.armor_query_client = ArmorQueryClient(armor_client)
 		self.armor_manipulation_client = ArmorManipulationClient(armor_client)
 
+	def load_ontology(self, path, uri):
+		"""
+		| Loads the specified ontology into the ARMOR server.
+		"""
+		self.armor_utils_client.load_ref_from_file(path, uri, True)
+
 	def retrieve_current_room(self):
 		"""
 		Returns:
