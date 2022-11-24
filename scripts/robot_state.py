@@ -23,6 +23,8 @@ class RobotState(object):
         # Starting all the state controllers
         for state_controller in self._state_controllers:
             state_controller.start(self)
+        # Starting to listen for user input
+        self._listen_for_user_commands()
 
 
     def register_command(self, command, callback):
@@ -50,8 +52,14 @@ class RobotState(object):
                     print('Invalid argument ('+arg+').')
                     break
                 arg_source = arg_source[arg]
-            # Invoking the callback with the last argument
-            arg_source['_callback'](command[-1])
+            else :
+                # Check if the callback actually exists
+                if not '_callback' in arg_source:
+                    print('Incomplete command')
+                    break
+                # Invoking the callback with the last argument
+                arg_source['_callback'](command[-1])
+                
 
 
 class BatteryStateController(object):
@@ -81,8 +89,6 @@ class BatteryStateController(object):
     
 
     def _manual_battery_controller(self):
-        # Registering the command
-        self._command_event = self._robot_state.register_command('battery_controller')
         # Publishing the first battery level
         self._change_battery_level(0)
         # Informing user how to control the batter
@@ -96,7 +102,7 @@ class BatteryStateController(object):
             except ValueError :
                 print('Not a valid offset for the offset.')
         
-        self._robot_state.register_command(['battery_controller','offset'], _offset_callback)
+        self._robot_state.register_command(['battery_level','offset'], _offset_callback)
 
         def _set_callback(level) :
             try :
@@ -104,7 +110,7 @@ class BatteryStateController(object):
             except ValueError :
                 print('Not a valid offset for the battery level.')
         
-        self._robot_state.register_command(['battery_controller','set'], _set_callback)
+        self._robot_state.register_command(['battery_level','set'], _set_callback)
     
 
     def _random_battery_controller(self):
