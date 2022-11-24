@@ -1,0 +1,16 @@
+## An action for moving the robot between two rooms
+
+# GOAL
+# The room the robot is currently in and the desired
+# next room to reach
+string current_room
+string next_room
+---
+# RESULT
+# The resulting path which are the rooms
+# the robot needs to travel to reach the next room
+string[] rooms
+---
+# FEEBACK
+# The remaining rooms to reach
+string[] remaining_rooms

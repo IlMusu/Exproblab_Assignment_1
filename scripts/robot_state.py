@@ -6,7 +6,9 @@ import random
 import threading
 # Imporing ROS library for python
 import rospy
+import actionlib
 from std_msgs.msg import UInt8
+from exprob_assignment_1.msg import MoveBetweenRooms
 
 
 class RobotState(object):
@@ -200,7 +202,9 @@ class MoveStateController(object):
         # Initializing the battery level to the max
         self._execution_mode = rospy.get_param('/move_controller_execution_mode')
         # Defining an action server to simulate the robot moving
-        self._move_pub = rospy.Publisher('battery_level', UInt8, queue_size=1, latch=True)
+        self._move_srv = actionlib.SimpleActionServer('robot_move', 
+                            MoveBetweenRooms, execute_cb=self._move_callback, auto_start=False)
+        self._move_srv.start()
     
     
     def start(self, robot_state):
@@ -236,6 +240,7 @@ class MoveStateController(object):
             # TODO
         
         self._robot_state.register_command(['move_controller', 'move'], self._move_callback)
+        
         
 
 if __name__ == '__main__' :
