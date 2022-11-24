@@ -10,7 +10,18 @@ from std_msgs.msg import UInt8
 
 
 class RobotState(object):
+    '''
+    |  This class represent the state of the a robot: it is based on the
+    |  concept of "state controllers" each one should be considered a module
+    |  that controls only a part of the state. It also provides some
+    |  functionalities to simplify the interaction of the controllers with
+    |  with the user.
+    '''
     def __init__(self, state_controllers):
+        '''
+        Args:
+            state_controllers: The list of StateControllers for this state.
+        '''
         # Initializing a ROS node which represents the robot state
         rospy.init_node('robot_state', log_level=rospy.INFO)
         # Storing all the state controllers
@@ -20,6 +31,10 @@ class RobotState(object):
 
 
     def start(self) :
+        '''
+        |  1. Starts all the StateControllers with the related method.
+        |  2. Starts to listen for user commands.
+        '''
         # Starting all the state controllers
         for state_controller in self._state_controllers:
             state_controller.start(self)
@@ -28,6 +43,15 @@ class RobotState(object):
 
 
     def register_command(self, command, callback):
+        '''
+        Args:
+            command: The command to register.
+            callback: The callback to invoke for the command.
+
+        |  This is a helper method which can be used by StateControllers to
+        |  register commands. The commands are deconstructed by arguments and
+        |  stored in a tree structure with the related callbacks.
+        '''
         # This source will contain at each iteration all the args that can
         # be appended after the current argument. Initially, there are all
         # the possibile commands.
@@ -42,6 +66,11 @@ class RobotState(object):
 
     
     def _listen_for_user_commands(self):
+        '''
+        |  This method continusly wait for the user input in the console.
+        |  Once a valid command is received, the related callback is called.
+        |  If the command is not valid, the user is informed.
+        '''
         while True:
             # Parsing the command from string
             command = list(filter(None, input().split(' ')))
@@ -63,6 +92,10 @@ class RobotState(object):
 
 
 class BatteryStateController(object):
+    '''
+    |  This class handles the battery level state of the robot.
+    |  It has MANUAL and RANDOM execution modes.
+    '''
     def __init__(self):
         # Initializing the battery level to the max
         self._execution_mode = rospy.get_param('/battery_controller_execution_mode')
@@ -72,6 +105,13 @@ class BatteryStateController(object):
     
 
     def start(self, robot_state):
+        '''
+        Args:
+            robot_state: The RobotState this controller belongs to.
+        
+        |  This method starts the actual controller method into a different thread
+        |  so that other controlles can be executed concurrently.
+        '''
         # Storing the robot state to retrieve the commands
         self._robot_state = robot_state
         # Actually starting the controller in the specified mode
@@ -89,6 +129,10 @@ class BatteryStateController(object):
     
 
     def _manual_battery_controller(self):
+        '''
+        |  This method registers the commands that are necessary to communica with
+        |  the user to the robot state. 
+        '''
         # Publishing the first battery level
         self._change_battery_level(0)
         # Informing user how to control the batter
@@ -114,6 +158,10 @@ class BatteryStateController(object):
     
 
     def _random_battery_controller(self):
+        '''
+        |  This method controls the battery level randomly: in a loop, waits
+        |  some time and then the level is switched between 0 and 100.
+        '''
         # Publishing the first battery level
         self._change_battery_level(0)
         # Looping to simulate time and decrease battery level
@@ -128,6 +176,14 @@ class BatteryStateController(object):
             
 
     def _change_battery_level(self, offset):
+        '''
+        Args:
+            offset: The offset to add to the current battery level.
+        
+        |  This method adds the offset to the battery level and clamps the
+        |  value of the battery level in order to keep it between 0 and 100.
+        |  Then publishes the new value of the battery level in the topic.
+        '''
         # Changing the battery level with the given offset
         self._battery_level = self._battery_level + offset
         self._battery_level = min(max(0, self._battery_level), 100)
