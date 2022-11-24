@@ -37,7 +37,10 @@ class RobotState(object):
         '''
         # Starting all the state controllers
         for state_controller in self._state_controllers:
-            state_controller.start(self)
+            # Defining the lambda for the controller start function
+            thread_func = lambda : state_controller.start(self)
+            thread = threading.Thread(target=thread_func)
+            thread.start()
         # Starting to listen for user input
         self._listen_for_user_commands()
 
@@ -115,17 +118,16 @@ class BatteryStateController(object):
         # Storing the robot state to retrieve the commands
         self._robot_state = robot_state
         # Actually starting the controller in the specified mode
-        target=self._manual_battery_controller
+        target_controller=self._manual_battery_controller
         if self._execution_mode == 'MANUAL' :
-            target=self._manual_battery_controller
+            target_controller=self._manual_battery_controller
         elif self._execution_mode == 'RANDOM' :
-            target=self._random_battery_controller
+            target_controller=self._random_battery_controller
         else :
             rospy.logerr('Invalid execution mode ('+self._execution_mode+').')
-
+        # Actually starting the controller
+        target_controller()
         rospy.loginfo('Battery controller is started in '+self._execution_mode+' mode.')
-        thread = threading.Thread(target=target)
-        thread.start()
     
 
     def _manual_battery_controller(self):
@@ -190,12 +192,57 @@ class BatteryStateController(object):
         # Publishing the new battery level
         self._battery_level_pub.publish(UInt8(self._battery_level))
         rospy.loginfo('Battery level is at '+str(self._battery_level)+'%')
+
+
+
+class MoveStateController(object):
+    def __init__(self):
+        # Initializing the battery level to the max
+        self._execution_mode = rospy.get_param('/move_controller_execution_mode')
+        # Defining an action server to simulate the robot moving
+        self._move_pub = rospy.Publisher('battery_level', UInt8, queue_size=1, latch=True)
+    
+    
+    def start(self, robot_state):
+        # Storing the robot state to retrieve the commands
+        self._robot_state = robot_state
+        # Actually starting the controller in the specified mode
+        target_controller=self._manual_move_controller
+        if self._execution_mode == 'MANUAL' :
+            target_controller=self._manual_move_controller
+        elif self._execution_mode == 'RANDOM' :
+            target_controller=self._random_move_controller
+        else :
+            rospy.logerr('Invalid execution mode ('+self._execution_mode+').')
+        # Actually starting the controller
+        target_controller()
+        rospy.loginfo('Move controller is started in '+self._execution_mode+' mode.')
+    
+
+    def _manual_move_controller(self):
+        # Informing user how to control the batter
+        print('You can interact with the move controller by typing:')
+        print('1. move_controller move [<time>, <result>] : which makes the movement take <time>' +
+                  'seconds to complete and at the end, the <result> boolean value will be the result'+
+                  'of the movement (if the target has been correctly reached).')
+        
+        def _move_callback(args):
+            # Parsing the arguments
+            time = args[0]
+            result = args[1]
+            # Simulate the passing of time
+            rospy.sleep(time)
+            # Sending the result
+            # TODO
+        
+        self._robot_state.register_command(['move_controller', 'move'], self._move_callback)
         
 
 if __name__ == '__main__' :
     # Initializing BatteryStateController
     state_controllers = [
-        BatteryStateController()
+        BatteryStateController(),
+        MoveStateController()
     ]
 
     # Creating a RobotState to handle robot state
