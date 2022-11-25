@@ -1,9 +1,10 @@
 <launch>
 	<!-- PARAMETERS FOR SETTING UP ROBOT STATE-->
-	<!-- Parameter for the battery controller execution mode -->
+	<!-- BATTERY CONTROLLER -->
 	<param name="battery_controller_execution_mode" type="str" value="MANUAL" />
-    <!-- Parameter for the initial battery level -->
     <param name="battery_intial_value" type="int" value="100" />
+    <!-- MOVE CONTROLLER -->
+    <param name="move_controller_execution_mode" type="str" value="MANUAL" />
 
 	<!-- LAUNCHING NODE -->
     <node name="robot_state" pkg="exprob_assignment_1" type="robot_state.py" output="screen"/>
