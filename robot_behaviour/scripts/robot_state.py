@@ -10,6 +10,12 @@ import actionlib
 from std_msgs.msg import UInt8
 from robot_state_msgs.msg import MoveBetweenRoomsAction, MoveBetweenRoomsResult
 
+CRED    = '\33[31m'
+CGREEN  = '\33[32m'
+CYELLOW = '\33[33m'
+CVIOLET = '\33[35m'
+CRESET  = '\033[0m'
+
 
 class RobotState(object):
     '''
@@ -67,7 +73,6 @@ class RobotState(object):
         # This source will contain at each iteration all the args that can
         # be appended after the current argument. Initially, there are all
         # the possibile commands.
-        print(command)
         arg_source = self._registered_commands
         for arg in command :
             # Appending argument one next to each other
@@ -87,6 +92,10 @@ class RobotState(object):
         while True:
             # Parsing the command from string
             command = list(filter(None, input().split(' ')))
+            # Stop listenin to commands when the user request it
+            if len(command) == 1 and command[0] == 'exit':
+                break
+                
             # Decoding the command to retrieve the callback
             arg_source = self._registered_commands
             parameters = []
@@ -96,10 +105,12 @@ class RobotState(object):
                     parameters = command[i:]
                     break
                 arg_source = arg_source[current_arg]
+                
             # Check if the callback actually exists
             if not '_callback' in arg_source:
                 print('Incomplete or wrong command')
                 continue
+                
             # Invoking the callback with the last argument
             arg_source['_callback'](parameters)
                 
@@ -117,12 +128,14 @@ class BatteryStateController(object):
     
     
     def explain_commands(self):
+        rospy.loginfo(CGREEN+'Battery controller is started in '+self._execution_mode+' mode.'+CRESET)
         # Informing user how to control the battery
-        print('You can interact with the battery controller by typing:')
-        print('- battery offset <offset> : ')
-        print('\t 1. <offset> (int) : the offset to add to the current battery level.')
-        print('- battery set <value> :')
-        print('\t 1. <value> (int) : the value to set to the battery level.')
+        if self._execution_mode == 'MANUAL' :
+            print('You can interact with the battery controller with the commands:')
+            print('- '+CGREEN+'battery offset <offset>'+CRESET+' :')
+            print('\t 1. <offset> (int) : the offset to add to the current battery level.')
+            print('- '+CGREEN+'battery set <value>'+CRESET+' :')
+            print('\t 1. <value> (int) : the value to set to the battery level.')
     
 
     def start(self, robot_state):
@@ -148,7 +161,6 @@ class BatteryStateController(object):
         self._battery_level_pub = rospy.Publisher('battery_level', UInt8, queue_size=1, latch=True)
         
         # Actually starting the controller
-        rospy.loginfo('Battery controller is started in '+self._execution_mode+' mode.')
         target_controller()
     
 
@@ -208,7 +220,7 @@ class BatteryStateController(object):
         self._battery_level = min(max(0, self._battery_level), 100)
         # Publishing the new battery level
         self._battery_level_pub.publish(UInt8(self._battery_level))
-        rospy.loginfo('Battery level is at '+str(self._battery_level)+'%')
+        rospy.loginfo(CYELLOW+'Battery level is at '+str(self._battery_level)+'%'+CRESET)
 
 
 
@@ -223,11 +235,13 @@ class MoveStateController(object):
     
     
     def explain_commands(self):
+        rospy.loginfo(CGREEN+'Move controller is started in '+self._execution_mode+' mode.'+CRESET)
         # Informing user how to use the move controller
-        print('You can interact with the move controller by typing:')
-        print('- move <time> <succeded> :')
-        print('\t 1. <time> (int) : the time in seconds to perform the movement.')
-        print('\t 2. <succeded> (true/false) : if the result is successfull.')
+        if self._execution_mode == 'MANUAL' :
+            print('You can interact with the battery controller with the commands:')
+            print('- '+CGREEN+'move <time> <success>'+CRESET+' :')
+            print('\t 1. <time> (int) : the time in seconds to perform the movement.')
+            print('\t 2. <success> (true/false) : if the result will be successfull.')
         
         
     def start(self, robot_state):
@@ -249,7 +263,6 @@ class MoveStateController(object):
         self._move_srv.start()
         
         # Actually starting the controller
-        rospy.loginfo('Move controller is started in '+self._execution_mode+' mode.')
         if not target_controller == None :
             target_controller()
     
@@ -258,11 +271,10 @@ class MoveStateController(object):
         # Storing the goal to be used later
         self._goal = goal
         # Informing the user that he has to insert the command to make the robot move
-        print('A goal for moving the robot from room '+goal.current_room+
-                ' to room '+goal.next_room+ 'is available.')
         if self._execution_mode == 'MANUAL' :
-            print('Since the move controller is set in MANUAL execution mode,'+
-                  'the robot will not move until you instruct it to do so.')
+            print(CGREEN+'A movement request from room '+goal.current_room+' to room '+ 
+                    goal.next_room+' is now available.'+CRESET)
+            print(CGREEN+'The movement will not happen until you insert the related command.'+CRESET)
             # Waiting for the user to set the response
             self._result_set_event.clear()
             self._result_set_event.wait()
@@ -272,7 +284,7 @@ class MoveStateController(object):
         
         # The result is now available
         if self._result == None :
-            self._move_srv.set_preempted()
+            self._move_srv.set_aborted()
         else :
             self._move_srv.set_succeeded(self._result)
         
@@ -313,9 +325,8 @@ class MoveStateController(object):
         
 
     def _move_robot(self, time, succeded):
-        # Loggin a info to the player  
-        rospy.loginfo('The robot will move for '+str(time)+' seconds and the result '+
-                      'will be '+('SUCCESS' if succeded else 'FAIL'))
+        # Loggin a info to the player
+        rospy.loginfo(CYELLOW+'Moving for '+str(time)+' seconds.'+CRESET)
         # Simulate the passing of time
         rospy.sleep(time)
         # Creating the action result
@@ -324,7 +335,9 @@ class MoveStateController(object):
             # In this simple case the path is simply the two rooms
             result = MoveBetweenRoomsResult()
             result.rooms = [self._goal.current_room, self._goal.next_room]
-        rospy.loginfo('Movement complete')
+        # Loggin final result
+        result = 'SUCCESS' if succeded else 'FAIL'
+        rospy.loginfo(CYELLOW+'Movement complete with '+result+' result.'+CRESET)
         return result
         
         
@@ -339,5 +352,4 @@ if __name__ == '__main__' :
     # Creating a RobotState to handle robot state
     robot_state = RobotState(state_controllers)
     robot_state.start()
-    # Spinning to prevent exiting
-    rospy.spin()
+    

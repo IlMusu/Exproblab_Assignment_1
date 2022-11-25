@@ -43,11 +43,11 @@ class Initialization(State) :
         onto_uri = rospy.get_param('/ontology_uri')
         self._helper.load_ontology(onto_path, onto_uri)
         # Setting some parameters to personalize behaviour
-        self._helper.battery_low = rospy.get_param('/battery_level_low')
-        self._helper.battery_enough = rospy.get_param('/batter_level_enough')
+        self._helper.battery_require_recharge = rospy.get_param('/battery_require_recharge', 20)
+        self._helper.battery_stop_recharge = rospy.get_param('/battery_stop_recharge', 100)
         self._helper.recharge_rooms = _strlist_to_list(rospy.get_param('/recharge_rooms'))
         self._helper.rooms_priority = _strlist_to_list(rospy.get_param('/rooms_priority'))
-        self._helper.exploration_seconds = rospy.get_param('/exploration_seconds')
+        self._helper.exploration_seconds = rospy.get_param('/exploration_seconds', 10)
         
         return 'initialized'
 
@@ -84,8 +84,7 @@ class ChooseTaskForCurrentRoom(State) :
         # Check if robot needs recharging and this is a recharge room
         current_room = self._helper.retrieve_current_room()
         is_room_for_charge = current_room in self._helper.recharge_rooms
-        is_battery_low = self._helper.is_battery_under(self._helper.battery_low)
-        if is_battery_low and is_room_for_charge:
+        if _should_robot_recharge(self._helper) and is_room_for_charge:
             return 'recharge'
         
         # Otherwise another task is perfomed (exploration)
@@ -149,8 +148,8 @@ class RechargeTask(State):
         '''    
         # Simulating the robot recharging
         rospy.loginfo('Starting recharge')
-        while self._helper.is_battery_under(self._helper.battery_enough) :
-            rospy.sleep(1)
+        while not _should_robot_stop_recharge(self._helper) :
+            rospy.sleep(2)
         rospy.loginfo('Completed recharge')
         return 'recharged'
 
@@ -187,7 +186,7 @@ class ChooseNextRoom(State) :
         # The robot time must be updated before choosing another room
         self._helper.update_robot_time()
         # Choosing the next room to visit
-        if self._helper.is_battery_low(self._helper.battery_low) :
+        if _should_robot_recharge(self._helper) :
             # If the battery level is low, it must be charged
             room = _rand_in_list(self._helper.recharge_rooms)
             rospy.loginfo('Battery level is low, going into recharge room')
@@ -323,6 +322,13 @@ def _strlist_to_list(strlist):
 def _rand_in_list(lst):
     return lst[random.randrange(len(lst))]
 
+
+def _should_robot_recharge(helper):
+    return helper.get_battery_level() <= helper.battery_require_recharge
+
+
+def _should_robot_stop_recharge(helper):
+    return helper.get_battery_level() >= helper.battery_stop_recharge
 
 
 if __name__ == '__main__':

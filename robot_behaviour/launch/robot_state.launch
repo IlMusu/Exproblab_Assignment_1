@@ -7,5 +7,5 @@
     <param name="move_controller_execution_mode" type="str" value="MANUAL" />
 
 	<!-- LAUNCHING NODE -->
-    <node name="robot_state" pkg="exprob_assignment_1" type="robot_state.py" output="screen"/>
+    <node name="robot_state" pkg="robot_behaviour" type="robot_state.py" output="screen"/>
 </launch>

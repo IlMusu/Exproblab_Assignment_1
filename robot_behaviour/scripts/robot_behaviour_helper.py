@@ -36,8 +36,6 @@ class RobotBehaviourHelper(object):
         # Subscriber for the battery level update
         self._battery_level_mutex = Lock()
         self._battery_level = 100
-        self.battery_low = 10
-        self.battery_enough = 80
         # A subscriber for the battery level
         self._battery_sub = rospy.Subscriber('/battery_level', UInt8, self._battery_level_callback)
         # An action client for moving the robot between rooms
@@ -65,21 +63,11 @@ class RobotBehaviourHelper(object):
         self._battery_level = msg.data
         self._battery_level_mutex.release()
 
-    def is_battery_under(self, threshold):
-        '''
-        Args:
-            threshold: The threshold for battery low.
-        Returns:
-            If the battery level should be considered low.
-
-        |  This is a helper method which compares the last value received
-        |  for the battery level with the threshold value for when it should
-        |  considered.
-        '''
+    def get_battery_level(self):
         self._battery_level_mutex.acquire()
-        is_battery_under = self._battery_level <= threshold
+        battery_level_temp = self._battery_level
         self._battery_level_mutex.release()
-        return is_battery_under
+        return battery_level_temp
 
     def retrieve_current_room(self):
         '''
@@ -143,15 +131,19 @@ class RobotBehaviourHelper(object):
         # Retrieving the current room the Robot1 is in
         current_room = self.retrieve_current_room()
         # Requesting to the action server to move the robot
-        self._move_clt.wait_for_server()
-        goal = MoveBetweenRoomsGoal()
-        goal.current_room = current_room
-        goal.next_room = next_room
-        self._move_clt.send_goal(goal)
-        self._move_clt.wait_for_result()
-        result = self._move_clt.get_result()
-        print(result)
-        # Actually moving the robot to another room
+        computed_path = []
+        while not computed_path :
+            self._move_clt.wait_for_server()
+            goal = MoveBetweenRoomsGoal()
+            goal.current_room = current_room
+            goal.next_room = next_room
+            self._move_clt.send_goal(goal)
+            self._move_clt.wait_for_result()
+            computed_path = self._move_clt.get_result().rooms
+            # Check if the robot managed to move to destination
+            if not computed_path :
+                print('The robot failed to move to room '+next_room+', retring..')
+        # Moving the robot in the ontology
         self.armor_manipulation_client.replace_objectprop_b2_ind('isIn', 'Robot1', next_room, current_room)
     
     def retrieve_last_visited_time(self, room):
@@ -226,6 +218,6 @@ class RobotBehaviourHelper(object):
         |  This is helper method to parse the name of a data property obtained 
         |  from ARMOR to a more human-readable name.
         '''
-        return resource_id.split(''')[1]
+        return resource_id.split('"')[1]
 
 

@@ -1,6 +1,6 @@
 <launch>
 	<!-- PARAMETERS FOR SETTING UP ARMOR-->
-    <param name="ontology_path" type="str" value="/root/exprolab_ros_ws/src/exprob_assignment_1/maps/topological_map.owl" />
+    <param name="ontology_path" type="str" value="/root/exprolab_ros_ws/src/robot_behaviour/maps/topological_map.owl" />
     <param name="ontology_uri" type="str" value="http://bnc/exp-rob-lab/2022-23" />
     <param name="client_name" type="str" value="rb_client" />
     <param name="reference_name" type="str" value="behaviour_ontology" />
@@ -13,8 +13,10 @@
     <!-- The time the robot takes to explore a room -->
     <param name="exploration_seconds" type="int" value="2" />
     <!-- The battery percentage for which the robot needs to recharge it -->
-    <param name="battery_level_low" type="int" value="20" />    
+    <param name="battery_require_recharge" type="int" value="20" />
+    <!-- The battery percentage for which the robot stops recharging -->
+    <param name="battery_stop_recharge" type="int" value="100" />    
 
 	<!-- LAUNCHING NODE FOR ROBOT BEHAVIOUR-->
-    <node name="robot_behaviour" pkg="exprob_assignment_1" type="robot_behaviour.py" output="screen"/>
+    <node name="robot_behaviour" pkg="robot_behaviour" type="robot_behaviour.py" output="screen"/>
 </launch>
