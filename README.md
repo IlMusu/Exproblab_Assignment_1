@@ -4,7 +4,7 @@ Author : Mattia Musumeci 4670261@studenti.unige.it
 This is the first assignment developed for the <b>Experimental Robotics Laboratory</b> course of the University of Genoa.  
 At this <b>[link](http://documentaiton)</b> it is possible to find the documentation describing the software contained in this repository.  
 
-## INTRODUCTION
+## 1. INTRODUCTION
 The scenario involves a <b>robot</b> deployed in an indoor environment for <b>surveillacnce purposes</b> whose objective is basically to visit the different environement locations and explore them for a given amount of time. In this context, the robot in equipped with a rechargable battery that, when not charged enough, needs to be recharge in specific location.  
   
 The software contained in this repository has been developed for <b>[ROS Noetic 1.15.9](http://wiki.ros.org/noetic)</b>.  
@@ -54,7 +54,14 @@ The indoor environment considered in this assignment is the following one:
 - The LOCATION <b>E</b> is the one in which the robot is positioned.
 
 <p align="center">
-![](https://i.imgur.com/SQZ4ySu.png)
+	<img src="https://i.imgur.com/SQZ4ySu.png" />
 </p>
 
 ## Surveillance Policy
+In order to explore the environement, the robot must follow a <b>surveillance policy</b> which is fully described by the following rules which are sorted for greater priority:
+1. The robot should go to the E location when the battery is low.
+2. The robot should go into any reachable URGENT locations.
+3. The robot prefers to stay in CORRIDORS.
+
+## 2. SOFTWARE ARCHITECTURE
+
