@@ -250,7 +250,7 @@ class MoveStateController(object):
         # Initializing the battery level to the max
         self._execution_mode = rospy.get_param('/move_controller_execution_mode', 'MANUAL')
         # Some variables for handling the server
-        self._goal_available = False
+        self._goal = None
         self._result_set_event = threading.Event()
         self._result = None
     
@@ -403,8 +403,8 @@ class MoveStateController(object):
             result = MoveBetweenRoomsResult()
             result.rooms = [self._goal.current_room, self._goal.next_room]
         # Loggin final result
-        result = 'SUCCESS' if success else 'FAIL'
-        rospy.loginfo(CYELLOW+'Movement complete with '+result+' result.'+CRESET)
+        success_str = 'SUCCESS' if success else 'FAIL'
+        rospy.loginfo(CYELLOW+'Movement complete with '+success_str+' result.'+CRESET)
         return result
         
         
