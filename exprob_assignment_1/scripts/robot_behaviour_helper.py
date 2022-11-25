@@ -10,7 +10,9 @@ from armor_api.armor_manipulation_client import ArmorManipulationClient
 
 # Importing ROS library for python
 import rospy
+import actionlib
 from std_msgs.msg import UInt8
+from robot_state_msgs.msg import MoveBetweenRoomsAction, MoveBetweenRoomsGoal
 
 class RobotBehaviourHelper(object):
     '''
@@ -36,7 +38,10 @@ class RobotBehaviourHelper(object):
         self._battery_level = 100
         self.battery_low = 10
         self.battery_enough = 80
-        rospy.Subscriber('/battery_level', UInt8, self._battery_level_callback)
+        # A subscriber for the battery level
+        self._battery_sub = rospy.Subscriber('/battery_level', UInt8, self._battery_level_callback)
+        # An action client for moving the robot between rooms
+        self._move_clt = actionlib.SimpleActionClient('/robot_move', MoveBetweenRoomsAction)
 
     def load_ontology(self, path, uri):
         '''
@@ -137,6 +142,15 @@ class RobotBehaviourHelper(object):
         '''
         # Retrieving the current room the Robot1 is in
         current_room = self.retrieve_current_room()
+        # Requesting to the action server to move the robot
+        self._move_clt.wait_for_server()
+        goal = MoveBetweenRoomsGoal()
+        goal.current_room = current_room
+        goal.next_room = next_room
+        self._move_clt.send_goal(goal)
+        self._move_clt.wait_for_result()
+        result = self._move_clt.get_result()
+        print(result)
         # Actually moving the robot to another room
         self.armor_manipulation_client.replace_objectprop_b2_ind('isIn', 'Robot1', next_room, current_room)
     

@@ -164,13 +164,13 @@ class BatteryStateController(object):
             try :
                 self._change_battery_level(int(args[0]))
             except ValueError :
-                print('Not a valid offset for the offset.')
+                print('Not a valid offset value, it must be a int.')
 
         def _set_callback(args) :
             try :
                 self._change_battery_level(-self._battery_level + int(args[0]))
             except ValueError :
-                print('Not a valid offset for the battery level.')
+                print('Not a valid set value, it must be a int.')
         
         self._robot_state.register_command(['battery','offset'], _offset_callback)
         self._robot_state.register_command(['battery','set'], _set_callback)
@@ -227,7 +227,7 @@ class MoveStateController(object):
         print('You can interact with the move controller by typing:')
         print('- move <time> <succeded> :')
         print('\t 1. <time> (int) : the time in seconds to perform the movement.')
-        print('\t 2. <succeded> (bool) : if the result is successfull.')
+        print('\t 2. <succeded> (true/false) : if the result is successfull.')
         
         
     def start(self, robot_state):
@@ -243,7 +243,7 @@ class MoveStateController(object):
             rospy.logerr('Invalid execution mode ('+self._execution_mode+').')
             
         # Defining an action server to simulate the robot moving
-        self._move_srv = actionlib.SimpleActionServer('robot_move', 
+        self._move_srv = actionlib.SimpleActionServer('/robot_move', 
             MoveBetweenRoomsAction, execute_cb=self._move_action_callback, auto_start=False)
         # Starting the action server
         self._move_srv.start()
@@ -258,9 +258,9 @@ class MoveStateController(object):
         # Storing the goal to be used later
         self._goal = goal
         # Informing the user that he has to insert the command to make the robot move
+        print('A goal for moving the robot from room '+goal.current_room+
+                ' to room '+goal.next_room+ 'is available.')
         if self._execution_mode == 'MANUAL' :
-            print('A goal for moving the robot from room '+goal.current_room+
-                  ' to room '+goal.next_room+ 'is available.')
             print('Since the move controller is set in MANUAL execution mode,'+
                   'the robot will not move until you instruct it to do so.')
             # Waiting for the user to set the response
@@ -286,8 +286,19 @@ class MoveStateController(object):
             if not self._goal :
                 print("The robot did not yet request a movement!")
                 return
+            # Casting the first argument to int
+            try :
+                time = max(int(args[0]), 0)
+            except ValueError :
+                print('Not a valid time value, it must be a int.')
+                return
+            # Casting the second parameter to bool
+            if args[1] != 'true' and args[1] != 'false' :
+                print('Not a valid succeded value, it must either "true" or "false".')
+                return
+
             # Creating the result after the robot moved
-            self._result = self._move_robot(int(args[0]), args[1] == 'True')
+            self._result = self._move_robot(time, args[1] == 'true')
             self._result_set_event.set()
             
         self._robot_state.register_command(['move'], _move_callback)
@@ -298,7 +309,7 @@ class MoveStateController(object):
         time = random.randrange(5, 10)
         success = random.choice([True, False])
         # Creating the result after the robot moved
-        self._result = self._move_robot(int(args[0]), args[1] == 'True')
+        self._result = self._move_robot(time, success)
         
 
     def _move_robot(self, time, succeded):
