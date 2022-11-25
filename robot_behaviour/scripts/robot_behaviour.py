@@ -20,7 +20,7 @@ class Initialization(State) :
     def __init__(self, helper):
         '''
         Args:
-            helper : An instance of ArmorHelper to communicate with ARMOR.
+            helper (RobotBehaviourHelper) : An instance of the RobotBehaviourHelper .
         '''
         State.__init__(self, outcomes=['initialized'])
         # Storing th helper for possible usage
@@ -29,9 +29,9 @@ class Initialization(State) :
     def execute(self, userdata):
         '''
         Args:
-            userdata : The data of this State.
+            userdata (object) : The data of this State.
         Returns:
-            The outcome 'initialized' when the initialization is complete.
+            (string) : The outcome 'initialized' when the initialization is complete.
             
         |  This state initializes the robot behaviour by:
         |  1. Loading the ontology into the ARMOR server.
@@ -62,7 +62,7 @@ class ChooseTaskForCurrentRoom(State) :
     def __init__(self, helper):
         '''
         Args:
-            helper : An instance of ArmorHelper to communicate with ARMOR.
+            helper (RobotBehaviourHelper) : An instance of the RobotBehaviourHelper .
         '''
         State.__init__(self, outcomes=['recharge', 'explore'])
         # Storing the helper for possible usage
@@ -71,10 +71,10 @@ class ChooseTaskForCurrentRoom(State) :
     def execute(self, userdata):
         '''
         Args:
-            userdata : The data of this State.
+            userdata (object) : The data of this State.
         Returns:
-            The outcome 'recharge' when the robot should recharge.
-            The outcome 'explore' when the robot should explore the room.
+            (string): - The outcome 'recharge' when the robot should recharge.
+                      - The outcome 'explore' when the robot should explore the room.
             
         |  This states choosing the next task to be executed:
         |  1. If the battery is low and there is a reacharge station in
@@ -99,7 +99,7 @@ class ExploreTask(State):
     def __init__(self, helper):
         '''
         Args:
-            helper : An instance of ArmorHelper to communicate with ARMOR.
+            helper (RobotBehaviourHelper) : An instance of the RobotBehaviourHelper .
         '''
         State.__init__(self, outcomes=['explored'])
         # Storing the helper for possible usage
@@ -108,9 +108,9 @@ class ExploreTask(State):
     def execute(self, userdata):
         '''
         Args:
-            userdata : The data of this State.
+            userdata (object) : The data of this State.
         Returns:
-            The outcome 'explored' when exploration is complete.
+            (string) : The outcome 'explored' when exploration is complete.
             
         |  The robot explores the room for the amount of seconds that
         |  the user specified in the launch file.
@@ -130,7 +130,7 @@ class RechargeTask(State):
     def __init__(self, helper):
         '''
         Args:
-            helper : An instance of ArmorHelper to communicate with ARMOR.
+            helper (RobotBehaviourHelper) : An instance of the RobotBehaviourHelper .
         '''
         State.__init__(self, outcomes=['recharged'])
         # Storing the helper for possible usage
@@ -139,9 +139,9 @@ class RechargeTask(State):
     def execute(self, userdata):
         '''
         Args:
-            userdata : The data of this State.
+            userdata (object) : The data of this State.
         Returns:
-            The outcome 'recharged' when the recharge is complete.
+            (string) : The outcome 'recharged' when the recharge is complete.
             
         |  This method makes the robot wait until the battery is charged
         |  enough. The threshold is parameter defined by the user.
@@ -165,7 +165,7 @@ class ChooseNextRoom(State) :
     def __init__(self, helper):
         '''
         Args:
-            helper : An instance of ArmorHelper to communicate with ARMOR.
+            helper (RobotBehaviourHelper) : An instance of the RobotBehaviourHelper .
         '''
         State.__init__(self, outcomes=['chosen'], output_keys=['next_room'])
         # Storing the helper for possible usage
@@ -174,9 +174,9 @@ class ChooseNextRoom(State) :
     def execute(self, userdata):
         '''
         Args:
-            userdata : The data of this State.
+            userdata (object) : The data of this State.
         Returns:
-            The outcome 'chosen' when a room has been selected.
+            (string) : The outcome 'chosen' when a room has been selected.
             
         |  If the battery of robot is not enough to reach another room,
         |  makes the robot go into the room with the recharging station.
@@ -202,8 +202,8 @@ class ChooseNextRoom(State) :
     def choose_next_priotized_room(self):
         '''
         Returns:
-            1. The reachable room with the highest priority.
-            2. The class name of the room.
+            (string) : The reachable room with the highest priority.
+            (string) : The class name of the room.
         
         |  The rooms priorities are decided by user with the dedicated parameter.
         |  This method loops over all the priorities in order and checks if
@@ -232,7 +232,7 @@ class MoveToNextRoom(State) :
     def __init__(self, helper):
         '''
         Args:
-            helper : An instance of ArmorHelper to communicate with ARMOR.
+            helper (RobotBehaviourHelper) : An instance of the RobotBehaviourHelper .
         '''
         State.__init__(self, outcomes=['moved'], input_keys=['next_room'])
         # Storing the helper for possible usage
@@ -240,8 +240,10 @@ class MoveToNextRoom(State) :
     
     def execute(self, userdata):
         '''
+        Args:
+            userdata (object) : The data of this State.
         Returns:
-            The outcome 'moved' when the robot moved to the selected room.
+            (string) : The outcome 'moved' when the robot moved to the selected room.
         
         | Makes the robot move from the current room to the selected room.
         '''
@@ -256,12 +258,16 @@ class MoveToNextRoom(State) :
 
 
 
-
 class RobotBehaviour(object):
     '''
     |  This class generating the robot behaviour by creating a state machine.
     '''
     def __init__(self):
+        '''
+        This is the constructor method of the RobotBehaviour class.
+        It initializes a ros node with name 'robot_behaviour'.
+        It retrieves some parameters from rospy and initializes the RobotBehaviourHelper.
+        '''
         # Initializing a ROS node which represents the robot behaviour
         rospy.init_node('robot_behaviour', log_level=rospy.INFO)
         # Creating a instance of the helper
@@ -271,6 +277,9 @@ class RobotBehaviour(object):
 
     def generate_behaviour(self):
         '''
+        Returns:
+            (StateMachine) : The state machine representing the behaviour.
+            
         |  In this method the actual behaviour of the robot is created: in this
         |  context the robot is initialized and then explores the environment by
         |  normally moving in corridors but moving into a room if it didn't explore

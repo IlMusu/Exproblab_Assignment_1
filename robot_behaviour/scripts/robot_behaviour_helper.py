@@ -16,6 +16,11 @@ from robot_state_msgs.msg import MoveBetweenRoomsAction, MoveBetweenRoomsGoal
 
 class RobotBehaviourHelper(object):
     '''
+    Subscribes to:
+        /battery_level (UInt8)
+    Action Client :
+        /robot_move (MoveBetweenRoomsAction)
+
     |  This is an helper class which provides some useful methods in order to
     |  abstract the comunication with the ARMOR server. In order to provide this
     |  behaviour, this class is heavily related to the armor_api library.
@@ -23,10 +28,11 @@ class RobotBehaviourHelper(object):
     def __init__(self, armor_client):
         '''
         Args:
-            armor_client : An instance of ArmorClient in order to communicate with ARMOR.
+            armor_client (ArmoClient) : The client used to communicate with ARMOR.
         
         |  This is the costructor method in which some variables are initialized.
-        |  Also, a subscriber to the /battery_level topic is created. 
+        |  A Subscriber to the /battery_level topic is created.
+        |  An ActionClient for the ActionServer /robot_move is created.
         '''
         # Creating objects for handling the comunication with ARMOR
         self._armor_client = armor_client
@@ -50,7 +56,7 @@ class RobotBehaviourHelper(object):
     def _battery_level_callback(self, msg):
         '''
         Args:
-            msg: The message relative to /battery_level topic.
+            msg (UInt8) : The message relative to /battery_level topic.
         
         |  This is callback for the /battery_level topic which provides
         |  the updated value of the battery level when it changes.
@@ -64,6 +70,14 @@ class RobotBehaviourHelper(object):
         self._battery_level_mutex.release()
 
     def get_battery_level(self):
+        '''
+        Returns:
+            (int) : The current percentage of the battery
+
+        |  This method creates a thread-safe copy of the value of the battery 
+        |  level and returns it. Notice that in order to always have the latest
+        |  value of the battery level, this methos needs to be called.
+        '''
         self._battery_level_mutex.acquire()
         battery_level_temp = self._battery_level
         self._battery_level_mutex.release()
@@ -72,7 +86,7 @@ class RobotBehaviourHelper(object):
     def retrieve_current_room(self):
         '''
         Returns:
-            The name of the room in which 'Robot1' is currently in.
+            (string) : The name of the room in which 'Robot1' is currently in.
 
         |  Obtains from ARMOR the current room the 'Robot1' is in:
         |  1. Requests a reasoner synchronization to update the ontology.
@@ -88,7 +102,7 @@ class RobotBehaviourHelper(object):
     def retrieve_reachable_rooms(self):
         '''
         Returns:
-            The list of names of currently reachable rooms by 'Robot1'.
+            (list) : The list of names of currently reachable rooms by 'Robot1'.
 
         |  Obtains from ARMOR the rooms reachable by 'Robot1':
         |  1. Requests a reasoner synchronization to update the ontology.
@@ -104,9 +118,9 @@ class RobotBehaviourHelper(object):
     def retrieve_rooms_of_class(self, clss):
         '''
         Args:
-            clss : The class name of the rooms to retrieve.
+            clss (string) : The class name of the rooms to retrieve.
         Returns:
-            The list of the names of the rooms beloning to class clss.
+            (list) : The list of the names of the rooms beloning to class clss.
 
         |  Obtains from ARMOR all the rooms belonging to a class:
         |  1. Requests a reasoner synchronization to update the ontology.
@@ -122,11 +136,13 @@ class RobotBehaviourHelper(object):
     def move_robot_to_room(self, next_room):
         '''
         Args:
-            next_room : the next room the 'Robot1' needs to move into.
+            next_room (string) : the next room the 'Robot1' needs to move into.
             
         |  Requests ARMOR to move the 'Robot1' in next_room:
         |  1. Retrieves the robot's current room.
-        |  2. Replaces the 'isIn' object property of 'Robot1' to next_room.
+        |  2. Sends a request to the /robot_move ActionServer to move the robot
+        |     to the desired room. This is done until successdfull.
+        |  3. Replaces the 'isIn' object property of 'Robot1' to next_room.
         '''
         # Retrieving the current room the Robot1 is in
         current_room = self.retrieve_current_room()
@@ -149,9 +165,9 @@ class RobotBehaviourHelper(object):
     def retrieve_last_visited_time(self, room):
         '''
         Args:
-            room : The room from which to retrieve the time.
+            room (string) : The room from which to retrieve the time.
         Returns:
-            The time in seconds at which 'Robot1' last visited the room.
+            (int) : The time in seconds at which 'Robot1' last visited the room.
 
         |  Obtains from ARMOR the time at which 'Robot1' visited the room:
         |  1. Requests a reasoner synchronization to update the ontology.
@@ -168,7 +184,7 @@ class RobotBehaviourHelper(object):
     def retrieve_robot_time(self):
         '''
         Returns:
-            The time in seconds of 'Robot1' representing the current time.
+            (int) : The time in seconds of 'Robot1' representing the current time.
 
         |  Obtains from ARMOR the current time of 'Robot1' :
         |  1. Requests a reasoner synchronization to update the ontology.
@@ -215,8 +231,11 @@ class RobotBehaviourHelper(object):
     @staticmethod
     def _data_from_id(resource_id):
         '''
-        |  This is helper method to parse the name of a data property obtained 
-        |  from ARMOR to a more human-readable name.
+        Returns:
+            (string) : The actual value of the resource.
+
+        |  This is helper method to parse the value of a data property obtained 
+        |  from ARMOR from a id to a more human-readable name.
         '''
         return resource_id.split('"')[1]
 

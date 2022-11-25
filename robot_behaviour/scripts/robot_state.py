@@ -19,16 +19,17 @@ CRESET  = '\033[0m'
 
 class RobotState(object):
     '''
-    |  This class represent the state of the a robot: it is based on the
-    |  concept of "state controllers" each one should be considered a module
-    |  that controls only a part of the state. It also provides some
-    |  functionalities to simplify the interaction of the controllers with
-    |  with the user.
+    |  This class represent the state of the a robot. 
+    |  It is a collection of "state controllers": each one is a module that controls only 
+    |  a dedicated section of the state of the robot. Therefore, a more complex robot state
+    |  can be obtained by simply creating and adding more controllers.
+    |  It also provides some functionalities to simplify the concurrent interaction of the 
+    |  controllers with with the user.
     '''
     def __init__(self, state_controllers):
         '''
         Args:
-            state_controllers: The list of StateControllers for this state.
+            state_controllers (list) : The list of StateControllers for this state.
         '''
         # Initializing a ROS node which represents the robot state
         rospy.init_node('robot_state', log_level=rospy.INFO)
@@ -40,14 +41,15 @@ class RobotState(object):
 
     def start(self) :
         '''
-        |  1. Starts all the StateControllers with the related method.
-        |  2. Starts to listen for user commands.
+        |  This method is used to start the RobotState :
+        |  1. Shows to the user all the possible commands.
+        |  2. Starts all the StateControllers with the related method.
+        |  3. Starts to listen for user commands.
         '''
         # First, explaining all the commands to the user
         for state_controller in self._state_controllers:
             print()
-            state_controller.explain_commands()
-            
+            state_controller.explain_commands()    
         # Starting all the state controllers
         print()
         for state_controller in self._state_controllers:
@@ -55,7 +57,6 @@ class RobotState(object):
             thread_func = lambda : state_controller.start(self)
             thread = threading.Thread(target=thread_func)
             thread.start()
-            
         # Starting to listen for user input
         self._listen_for_user_commands()
 
@@ -63,8 +64,8 @@ class RobotState(object):
     def register_command(self, command, callback):
         '''
         Args:
-            command: The command to register.
-            callback: The callback to invoke for the command.
+            command (list) : The list of args that compose the command.
+            callback (function) : The callback to invoke for the command.
 
         |  This is a helper method which can be used by StateControllers to
         |  register commands. The commands are deconstructed by arguments and
@@ -95,7 +96,6 @@ class RobotState(object):
             # Stop listenin to commands when the user request it
             if len(command) == 1 and command[0] == 'exit':
                 break
-                
             # Decoding the command to retrieve the callback
             arg_source = self._registered_commands
             parameters = []
@@ -105,12 +105,10 @@ class RobotState(object):
                     parameters = command[i:]
                     break
                 arg_source = arg_source[current_arg]
-                
             # Check if the callback actually exists
             if not '_callback' in arg_source:
                 print('Incomplete or wrong command')
                 continue
-                
             # Invoking the callback with the last argument
             arg_source['_callback'](parameters)
                 
@@ -118,16 +116,28 @@ class RobotState(object):
 
 class BatteryStateController(object):
     '''
-    |  This class handles the battery level state of the robot.
-    |  It has MANUAL and RANDOM execution modes.
+    Publishes to:
+        /battery_level (UInt8)
+
+    |  This controller handles the battery level of the robot.
+    |  It has both MANUAL and RANDOM execution modes.
     '''
     def __init__(self):
+        '''
+        |  This is the constructor method for the BatteryStateController class.
+        |  It gets the required parameters from the rospy.
+        '''
         # Initializing the battery level to the max
         self._execution_mode = rospy.get_param('/battery_controller_execution_mode', 'MANUAL')
         self._battery_level = rospy.get_param('/battery_intial_value', 100)
     
     
     def explain_commands(self):
+        '''
+        |  This method is used to print in console the available commands in console.
+        |  Actually, the commands are shown to the user only if the controller is set
+        |  in MANUAL execution mode, becuase in AUTOMAIC mode the commands are not used.
+        '''
         rospy.loginfo(CGREEN+'Battery controller is started in '+self._execution_mode+' mode.'+CRESET)
         # Informing user how to control the battery
         if self._execution_mode == 'MANUAL' :
@@ -141,10 +151,10 @@ class BatteryStateController(object):
     def start(self, robot_state):
         '''
         Args:
-            robot_state: The RobotState this controller belongs to.
+            robot_state (RobotState) : The RobotState this controller belongs to.
         
-        |  This method starts the actual controller method into a different thread
-        |  so that other controlles can be executed concurrently.
+        |  This method starts the controller in the specified execution mode.
+        |  Also, creates a Publisher to the /battery_level topic.
         '''
         # Storing the robot state to retrieve the commands
         self._robot_state = robot_state
@@ -156,40 +166,40 @@ class BatteryStateController(object):
             target_controller=self._random_battery_controller
         else :
             rospy.logerr('Invalid execution mode ('+self._execution_mode+').')
-            
         # Defining a publisher to notify for when the battery is low
         self._battery_level_pub = rospy.Publisher('battery_level', UInt8, queue_size=1, latch=True)
-        
         # Actually starting the controller
         target_controller()
     
 
     def _manual_battery_controller(self):
         '''
-        |  This method registers the commands that are necessary to communicate with
-        |  the user to the robot state. 
+        |  This method is executed only if the controller is execute in MANUAL mode.
+        |  It is used to register the commands that are necessary to for the 
+        |  communication between the user and this controller.
         '''
         # Publishing the first battery level
         self._change_battery_level(0)
-        
+        # The callback for the offset command
         def _offset_callback(args) :
             try :
                 self._change_battery_level(int(args[0]))
             except ValueError :
                 print('Not a valid offset value, it must be a int.')
-
+        # The callback for the set command
         def _set_callback(args) :
             try :
                 self._change_battery_level(-self._battery_level + int(args[0]))
             except ValueError :
                 print('Not a valid set value, it must be a int.')
-        
+        # Registering commands with the related callbacks
         self._robot_state.register_command(['battery','offset'], _offset_callback)
         self._robot_state.register_command(['battery','set'], _set_callback)
     
 
     def _random_battery_controller(self):
         '''
+        |  This method is executed only if the controller is execute in AUTOMATIC mode.
         |  This method controls the battery level randomly: in a loop, waits
         |  some time and then the level is switched between 0 and 100.
         '''
@@ -209,7 +219,7 @@ class BatteryStateController(object):
     def _change_battery_level(self, offset):
         '''
         Args:
-            offset: The offset to add to the current battery level.
+            offset (int) : The offset to add to the current battery level.
         
         |  This method adds the offset to the battery level and clamps the
         |  value of the battery level in order to keep it between 0 and 100.
@@ -225,7 +235,18 @@ class BatteryStateController(object):
 
 
 class MoveStateController(object):
+    '''
+    Action Server:
+        /robot_move - MoveBetweenRoomsAction
+
+    |  This controller handles the movement of the robot.
+    |  It has both MANUAL and RANDOM execution modes.
+    '''
     def __init__(self):
+        '''
+        |  This is the constructor method for the MoveStateController class.
+        |  It gets the required parameters from the rospy and initializes some variables.
+        '''
         # Initializing the battery level to the max
         self._execution_mode = rospy.get_param('/move_controller_execution_mode', 'MANUAL')
         # Some variables for handling the server
@@ -235,6 +256,11 @@ class MoveStateController(object):
     
     
     def explain_commands(self):
+        '''
+        |  This method is used to print in console the available commands in console.
+        |  Actually, the commands are shown to the user only if the controller is set
+        |  in MANUAL execution mode, becuase in AUTOMAIC mode the commands are not used.
+        '''
         rospy.loginfo(CGREEN+'Move controller is started in '+self._execution_mode+' mode.'+CRESET)
         # Informing user how to use the move controller
         if self._execution_mode == 'MANUAL' :
@@ -245,6 +271,13 @@ class MoveStateController(object):
         
         
     def start(self, robot_state):
+        '''
+        Args:
+            robot_state (RobotState) : The RobotState this controller belongs to.
+        
+        |  This method starts the controller in the specified execution mode.
+        |  Also, creates and starts an ActionServer with name /robot_move .
+        '''
         # Storing the robot state to retrieve the commands
         self._robot_state = robot_state
         # Actually starting the controller in the specified mode
@@ -268,6 +301,17 @@ class MoveStateController(object):
     
     
     def _move_action_callback(self, goal):
+        '''
+        Args:
+            goal (MoveBetweenRoomsGoal) : The requested goal.
+        
+        | This is the callback for the /robot_move ActionServer:
+        | 1. If the execution mode is MANUAL, it waits for user input to set
+        |    the result of the requested goal.
+        | 2. If the execution mode is AUTOMATIC, the result is automatically
+        |    computed by the controller.
+        | The it sets the computed result to the ActionServer.
+        '''
         # Storing the goal to be used later
         self._goal = goal
         # Informing the user that he has to insert the command to make the robot move
@@ -281,17 +325,22 @@ class MoveStateController(object):
             self._result_set_event.clear()
         else :
             self._random_move_controller()
-        
         # The result is now available
         if self._result == None :
             self._move_srv.set_aborted()
         else :
             self._move_srv.set_succeeded(self._result)
-        
+        # Resetting the state
         self._goal = None
+        self._result = None
         
     
     def _manual_move_controller(self):
+        '''
+        |  This method is executed only if the controller is execute in MANUAL mode.
+        |  It is used to register the commands that are necessary to for the 
+        |  communication between the user and this controller.
+        '''
         # The callback for the command
         def _move_callback(args):
             # Check if the robot has actually requested a path
@@ -308,15 +357,20 @@ class MoveStateController(object):
             if args[1] != 'true' and args[1] != 'false' :
                 print('Not a valid succeded value, it must either "true" or "false".')
                 return
-
             # Creating the result after the robot moved
             self._result = self._move_robot(time, args[1] == 'true')
             self._result_set_event.set()
-            
+        # Registering the command with the related callback
         self._robot_state.register_command(['move'], _move_callback)
 
 
     def _random_move_controller(self):
+        '''
+        |  This method is executed only if the controller is execute in AUTOMATIC mode.
+        |  This method controls the movement of the robot randomly: the robot takes a
+        |  random number of seconds to complete the movement and then the result of 
+        |  the movement is also computed randomly.
+        '''
         # Completing the command
         time = random.randrange(5, 10)
         success = random.choice([True, False])
@@ -324,19 +378,32 @@ class MoveStateController(object):
         self._result = self._move_robot(time, success)
         
 
-    def _move_robot(self, time, succeded):
+    def _move_robot(self, time, success):
+        '''
+        Args:
+            time (int) : The number of seconds the robot takes to move.
+            success (bool) : If the result of the movement is successful.
+        Returns:
+            (MoveBetweenRoomsResult) : The result for the requested goal.
+        
+        |  This method simulates the robot moving in the environment to reach
+        |  a requested room. In order to do this, the robot takes some time
+        |  to complete the movement and at then the movement may not be successful.
+        |  In case the movement is not successful, it is as if the robot did
+        |  not move from the initial position.
+        '''
         # Loggin a info to the player
         rospy.loginfo(CYELLOW+'Moving for '+str(time)+' seconds.'+CRESET)
         # Simulate the passing of time
         rospy.sleep(time)
         # Creating the action result
         result = None
-        if succeded :
+        if success :
             # In this simple case the path is simply the two rooms
             result = MoveBetweenRoomsResult()
             result.rooms = [self._goal.current_room, self._goal.next_room]
         # Loggin final result
-        result = 'SUCCESS' if succeded else 'FAIL'
+        result = 'SUCCESS' if success else 'FAIL'
         rospy.loginfo(CYELLOW+'Movement complete with '+result+' result.'+CRESET)
         return result
         

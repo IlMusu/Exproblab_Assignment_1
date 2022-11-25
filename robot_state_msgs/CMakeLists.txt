@@ -39,10 +39,10 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES robot_state_msgs
-   CATKIN_DEPENDS
-       std_msgs 
-       actionlib_msgs
-       message_runtime
+  CATKIN_DEPENDS
+      std_msgs 
+      actionlib_msgs
+      message_runtime
 #  DEPENDS system_lib
 )
 
