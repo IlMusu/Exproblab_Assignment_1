@@ -13,14 +13,48 @@ The <b>Robot Operating System (ROS)</b> is an open-source, meta-operating system
 The behaviour of the robot has been described with a finite state machine developed for <b>[SMACH](http://wiki.ros.org/smach)</b>.  
 The <b>SMACH</b> library which is a task level architecture for describing and executing complex behaviours. At its core, it is a ROS-independent python library to build hierarchical state machines and the interaction with the ROS environment is obtained by implementing dedicated states inside the finite state machine.  
   
-The ontology concepts and reasoning have been implemented with <b>[ARMOR](https://github.com/EmaroLab/armor)</b>.
+The ontology concepts and reasoning have been implemented with <b>[ARMOR](https://github.com/EmaroLab/armor)</b>.  
 A <b>ROS Multi-Ontology Reference (ARMOR)</b> is a powerful and versatile management system for single and multi-ontology architectures under ROS. It allows to load, query and modify multiple ontologies and requires very little knowledge of OWL APIs and Java.  
 
 ## Ontology
 The ontology developed for this assignment is composed by the following class hierarchy :
-### Environment
-The indoor environment is composed of ROOMS and CORRIDORS. In particular:
+
+    Thing
+	  ├──── DOOR
+	  ├──── LOCATION
+	  │            ├──── CORRIDOR 
+	  │            ├──── ROOM
+	  │            └──── URGENT
+	  └──── ROBOT
+
+In which:
+- a DOOR is a thing.
+- a LOCATION is thing that has the <b>visitedAt</b> property.
+  - a CORRIDOR is a LOCATION that has at least 2 <b>hasDoor</b> properties.
+  - a ROOM is a LOCATION that has at least 2 <b>hasDoor</b> properties.
+  - a URGENT is a LOCATION.
+- a ROBOT is a thing that has the <b>now</b>, <b>isIn</b>, <b>urgencyThreshold</b> properties.
+  
+The <b>visitedAt</b> data property contains the last time in seconds at which the robot visited the thing.  
+The <b>hasDoor</b> object property contains the name of a DOOR.  
+The <b>now</b> data property contains the value of the current time in seconds  
+The <b>isIn</b> object property contains the name of a LOCATION.  
+The <b>urgencyThreshold</b> data property of contains a delta time value in seconds.  
+  
+The following pseudo-code explains when a LOCATION becomes URGENT to be visited by the ROBOT:  
+
+	 ROBOT.now - LOCATION.visitedAt > ROBOT.urgencyThreshold
+
+
+## Environment
+The indoor environment considered in this assignment is the following one:
 - The ROOMs are <b>R1</b>, <b>R2</b>, <b>R3</b>, <b>R4</b>.
 - The CORRIDORs are <b>E</b>, <b>C1</b>, <b>C2</b>.
 - The LOCATION <b>E</b> contains the recharging station.
 - The LOCATION <b>E</b> is the one in which the robot is positioned.
+
+<p align="center">
+![](https://i.imgur.com/SQZ4ySu.png)
+</p>
+
+## Surveillance Policy
