@@ -1,10 +1,13 @@
 <launch>
 	<!-- PARAMETERS FOR SETTING UP ROBOT STATE-->
 	<!-- BATTERY CONTROLLER -->
-	<param name="battery_controller_execution_mode" type="str" value="MANUAL" />
-    <param name="battery_intial_value" type="int" value="100" />
+	<arg name="battery_controller_execution_mode" default="MANUAL" />
+	<param name="battery_controller_execution_mode" type="str" value="$(arg battery_controller_execution_mode)" />
+    <arg name="battery_intial_value" default="100" />
+    <param name="battery_intial_value" type="int" value="$(arg battery_intial_value)" />
     <!-- MOVE CONTROLLER -->
-    <param name="move_controller_execution_mode" type="str" value="MANUAL" />
+    <arg name="move_controller_execution_mode" default="MANUAL" />
+    <param name="move_controller_execution_mode" type="str" value="$(arg move_controller_execution_mode)" />
 
 	<!-- LAUNCHING NODE -->
     <node name="robot_state" pkg="robot_behaviour" type="robot_state.py" output="screen"/>

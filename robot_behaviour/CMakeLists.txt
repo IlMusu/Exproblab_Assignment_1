@@ -23,17 +23,18 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate actions in the 'action' folder
-# add_action_files(
-#   FILES
-#   Action1.action
-#   Action2.action
-# )
+#add_action_files(
+#  FILES
+#  Action1.action
+#  Action2.action
+#)
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   std_msgs
-# )
+generate_messages(
+  DEPENDENCIES
+      std_msgs
+      actionlib_msgs
+)
 
 ## The catkin_package macro generates cmake config files for your package
 catkin_package(
@@ -42,6 +43,7 @@ catkin_package(
   CATKIN_DEPENDS 
     rospy 
     std_msgs
+    actionlib_msgs
 #  DEPENDS system_lib
 )
 
@@ -60,8 +62,8 @@ include_directories(
 catkin_install_python(
   PROGRAMS 
     scripts/robot_behaviour_helper.py 
-    scripts/robot_behaviour.py
-    scripts/robot_state.py
+    scripts/robot_behaviour_surveillance.py
+    scripts/robot_stimulus_provider.py
   DESTINATION 
     ${CATKIN_PACKAGE_BIN_DESTINATION}
 )

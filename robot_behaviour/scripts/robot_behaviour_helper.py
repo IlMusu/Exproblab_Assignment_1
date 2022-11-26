@@ -146,21 +146,22 @@ class RobotBehaviourHelper(object):
         '''
         # Retrieving the current room the Robot1 is in
         current_room = self.retrieve_current_room()
+        reached_room = next_room
         # Requesting to the action server to move the robot
-        computed_path = []
-        while not computed_path :
+        while True :
             self._move_clt.wait_for_server()
             goal = MoveBetweenRoomsGoal()
             goal.current_room = current_room
             goal.next_room = next_room
             self._move_clt.send_goal(goal)
             self._move_clt.wait_for_result()
-            computed_path = self._move_clt.get_result().rooms
-            # Check if the robot managed to move to destination
-            if not computed_path :
-                print('The robot failed to move to room '+next_room+', retring..')
+            # Now we have the result
+            result = self._move_clt.get_result()
+            if not result.success :
+                print('The robot failed to move to room '+next_room+'.')
+            reached_room = result.current_room
         # Moving the robot in the ontology
-        self.armor_manipulation_client.replace_objectprop_b2_ind('isIn', 'Robot1', next_room, current_room)
+        self.armor_manipulation_client.replace_objectprop_b2_ind('isIn', 'Robot1', reached_room, current_room)
     
     def retrieve_last_visited_time(self, room):
         '''

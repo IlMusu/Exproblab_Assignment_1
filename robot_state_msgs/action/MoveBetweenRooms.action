@@ -1,16 +1,20 @@
 ## An action for moving the robot between two rooms
 
 # GOAL
-# The room the robot is currently in and the desired
-# next room to reach
+# The room the robot is currently in
 string current_room
+# The room the robot wants to reach
 string next_room
 ---
 # RESULT
-# The resulting path which are the rooms
-# the robot needs to travel to reach the next room
+# If the movement request was fully completed
+bool success
+# The room the robot is now currently in
+string current_room
+# The computed path to reach the goal room
 string[] rooms
 ---
 # FEEBACK
-# The remaining rooms to reach
+# The list of remaining rooms the robot has to travel between in
+# order to be able to reach the goal
 string[] remaining_rooms

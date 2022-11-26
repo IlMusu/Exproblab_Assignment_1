@@ -1,0 +1,4 @@
+<launch>
+	<!-- LAUNCHING NODE -->
+    <node name="robot_state" pkg="robot_behaviour" type="robot_stimulus_provider.py" output="screen"/>
+</launch>

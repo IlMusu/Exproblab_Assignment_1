@@ -247,13 +247,13 @@ class MoveToNextRoom(State) :
         
         | Makes the robot move from the current room to the selected room.
         '''
+        # Updating the time the robot visited the room
+        self._helper.update_room_visited_time_before_exiting()
         # Taking the chosen room
         room = userdata.next_room
         # Moving to next room
         self._helper.move_robot_to_room(room)
         rospy.loginfo('Moved to room: %s', room)
-        # Updating the time the robot visited the room
-        self._helper.update_room_visited_time_before_exiting()
         return 'moved'
 
 
