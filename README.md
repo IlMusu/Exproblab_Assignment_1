@@ -16,7 +16,7 @@ The <b>SMACH</b> library which is a task level architecture for describing and e
 The ontology concepts and reasoning have been implemented with <b>[ARMOR](https://github.com/EmaroLab/armor)</b>.  
 A <b>ROS Multi-Ontology Reference (ARMOR)</b> is a powerful and versatile management system for single and multi-ontology architectures under ROS. It allows to load, query and modify multiple ontologies and requires very little knowledge of OWL APIs and Java.  
 
-## Ontology
+### Ontology
 The ontology developed for this assignment is composed by the following class hierarchy :
 
     Thing
@@ -49,7 +49,7 @@ The following pseudo-code explains when a LOCATION becomes URGENT to be visited 
 	 ROBOT.now - LOCATION.visitedAt > ROBOT.urgencyThreshold
 
 
-## Environment
+### Environment
 The indoor environment considered in this assignment is the following one:
 - The ROOMs are `R1`, `R2`, `R3`, `R4`.
 - The CORRIDORs are `E`, `C1`, `C2`.
@@ -60,28 +60,28 @@ The indoor environment considered in this assignment is the following one:
 	<img src="https://i.imgur.com/SQZ4ySu.png" />
 </p>
 
-## Surveillance Policy
+### Surveillance Policy
 In order to explore the environement, the robot must follow a <b>surveillance policy</b> which is fully described by the following rules which are sorted for greater priority:
 1. The robot should go to the E location when the battery is low.
 2. The robot should go into any reachable URGENT locations.
 3. The robot prefers to stay in CORRIDORS.
 
 ## 2. WORKING HYPOTHESIS
-## Limitations
+### Limitations
 The surveillance software has been developed under the following hypothesis:
 - The robot in an fixed two-dimensional environment that does not change in time.
 - There is no concept of position for the robot: either the robot is or not is in a room.
 - Even if the battery is complitely empty, the robot is still able to reach the recharge station.
 
-## Features
+### Features
 The developed software provides the following features:
 - The level of the battery of the robot may become low at any time.
 - The robot movement between two rooms may not be completed fully.
 - The movement policy makes it possible to abstracts the map of the environment.
 - Abstraction from the path planning and movement procedures.
 
-### 3. SOFTWARE ARCHITECTURE
-## Component Diagram
+## 3. SOFTWARE ARCHITECTURE
+### Component Diagram
 In the <b>component diagram</b> are shown all the <b>blocks</b> and <b>interfaces</b> that have been used or developed in order to obtain the desired software architecture.
 
 <p align="center">
@@ -96,7 +96,7 @@ In the <b>component diagram</b> are shown all the <b>blocks</b> and <b>interface
 
 A more detailed explaination of the use of the interfaces is available <b>[here](#ros-messages,-services-and-actions)</b>.
 
-## States Diagram
+### States Diagram
 This <b>state diagram</b> shows the state machine representing the desired behaviour of the robot. In particular, all the possible states and transitions are shown.
 
 <p align="center">
@@ -126,7 +126,7 @@ This <b>state diagram</b> shows the state machine representing the desired behav
   2) Moves the robot from the current room to the selected room.  
   3) Returns the outcome <b>"moved"</b>.  
 
-## ROS Messages, Services And Actions
+### ROS Messages, Services And Actions
 In order to develop the interfaces between the components, the following messages have been used:  
 - The <b>robot_behaviour</b> node which:  
   - Uses the <b>/armor_interface_srv</b> service, of type `ArmorDirective.srv`, to interact with the ARMOR in order to modify the ontology and retrieve knowledge.  
