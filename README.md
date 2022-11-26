@@ -106,7 +106,7 @@ Open a new console and run the following command:
 rosrun armor execute it.emarolab.armor.ARMORMainService
 ```
 
-Then, open a new console and run the robot_state node:
+Then, open a new console and run the robot_state node:  
 Notice that only one between the three shown commands are necessary to run the node. The last two commands show how it is possible to use command line arguments to modify the execution mode of the controllers ("RANDOM" or "MANUAL").
 To see the complete list of arguments for this launch file, look at [this]() section.
 ```bash
@@ -115,7 +115,7 @@ roslaunch robot_behaviour robot_state.launch
 # roslaunch robot_behaviour robot_state.launch battery_controller_execution_mode:="RANDOM"
 ```
 
-Finally, open a new console and run the robot_state node:
+Finally, open a new console and run the robot_state node:  
 To see the complete list of arguments for this launch file, look at [this]() section.
 ```bash
 roslaunch robot_behaviour robot_behaviour.launch
