@@ -33,15 +33,18 @@ In which:
   - a CORRIDOR is a LOCATION that has at least 2 `hasDoor` properties.
   - a ROOM is a LOCATION that has at least 2 `hasDoor` properties.
   - a URGENT is a LOCATION.
-- a ROBOT is a thing that has the `now`, `isIn`, `urgencyThreshold` properties.
+- a ROBOT is a thing.
   
-The `visitedAt` data property contains the last time in seconds at which the robot visited the thing.  
-The `hasDoor` object property contains the name of a DOOR.  
-The `now` data property contains the value of the current time in seconds  
-The `isIn` object property contains the name of a LOCATION.  
-The `urgencyThreshold` data property of contains a delta time value in seconds.  
+In the following are explained all the properties used in the ontology :
+- The `visitedAt` data property contains the last time in seconds at which the robot visited the thing.
+- The `hasDoor` object property contains the name of a DOOR.
+- The `now` data property contains the value of the current time in seconds.
+- The `isIn` object property contains the name of a LOCATION.
+- The `urgencyThreshold` data property of contains a delta time value in seconds.
   
-The following pseudo-code explains when a LOCATION becomes URGENT to be visited by the ROBOT:  
+Notice that the last three properties are relative to the ROBOT.
+  
+The following pseudo-code explains when a LOCATION becomes URGENT to be visited by the ROBOT:
 
 	 ROBOT.now - LOCATION.visitedAt > ROBOT.urgencyThreshold
 
@@ -93,7 +96,28 @@ A more detailed explaination of the implementation of the software is available 
 </p>
 
 ## States Diagram
-This <b>state diagram</b> shows all the possible states and transitions of the state machine which describes the desired behavior of the robot.
+This <b>state diagram</b> shows all the possible states and transitions of the state machine which describes the desired behavior of the robot.  
+- Inside the `INITIALIZATION` state, the following operations are performed:
+  1) Retrieves parameters from the ROS Parameter Server.
+  2) Loads the requested ontology onto ARMOR.
+  3) Returns the outcome <b>"initialized"</b>.
+- The `PERFORM_ROOM_TASK` state is a sub state machine containing the following states:
+  - Inside the `CHOOSE_ROOM_TASK` state, the following operations are performed:
+    1) If the battery needs to be recharged, returns the outcome <b>"recharge"</b>.
+    2) Otherwise, returns the outcome <b>"explore"</b>
+  - Inside the `EXPLORE_TASK` state, the following operations are performed:
+    1) Waits for a predefined number of seconds to simulate the robot exploring the room.
+    2) Returns the outcome <b>"explored"</b>.
+ - Inside the `RECHARGE_TASK` state, the following operations are performed:
+    1) Waits until the battery level is considered enough to stop recharging.
+    2) Returns the outcome <b>"recharged"</b>.
+- Inside the `CHOOSE_NEXT_ROOM` state, the following operations are performed:
+  1) If the battery needs to be recharged, selects the recharging room as the next room.
+  2) Otherwise, selects the next room on the basis of the [surveillance policy](#surveillance-policy).
+  3) Returns the outcome <b>"chosen"</b>.
+- Inside the `MOVE_TO_NEXT_ROOM` state, the following operations are performed:
+  1) Updates the time at which the robot visited the room it is leaving.
+  2) Moves the robot from the current room to the selected room.
 <p align="center">
 	<img src="https://i.imgur.com/xDzJn9D.png" />
 </p>
