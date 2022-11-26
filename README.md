@@ -87,3 +87,13 @@ In the component diagram are shown all the <b>blocks</b> and <b>interfaces</b> t
 - The `robot_state` node is the representation of the current state of the robot and provides some functionalities to give to the user the possibility of changing the state of the robot. Basically, this node is container of subcomponents, each one describing a section of the state of the robot.
 
 A more detailed explaination of the implementation of the software is available in the [dedicated]() section.
+
+<p align="center">
+	<img src="https://i.imgur.com/7MVC1EI.png" />
+</p>
+
+## States Diagram
+This <b>state diagram</b> shows all the possible states and transitions of the state machine which describes the desired behavior of the robot.
+<p align="center">
+	<img src="https://i.imgur.com/xDzJn9D.png" />
+</p>
