@@ -29,17 +29,17 @@ The ontology developed for this assignment is composed by the following class hi
 
 In which:
 - a DOOR is a thing.
-- a LOCATION is thing that has the <b>visitedAt</b> property.
-  - a CORRIDOR is a LOCATION that has at least 2 <b>hasDoor</b> properties.
-  - a ROOM is a LOCATION that has at least 2 <b>hasDoor</b> properties.
+- a LOCATION is thing that has the 'visitedAt' property.
+  - a CORRIDOR is a LOCATION that has at least 2 'hasDoor' properties.
+  - a ROOM is a LOCATION that has at least 2 'hasDoor' properties.
   - a URGENT is a LOCATION.
-- a ROBOT is a thing that has the <b>now</b>, <b>isIn</b>, <b>urgencyThreshold</b> properties.
+- a ROBOT is a thing that has the 'now', 'isIn', 'urgencyThreshold' properties.
   
-The <b>visitedAt</b> data property contains the last time in seconds at which the robot visited the thing.  
-The <b>hasDoor</b> object property contains the name of a DOOR.  
-The <b>now</b> data property contains the value of the current time in seconds  
-The <b>isIn</b> object property contains the name of a LOCATION.  
-The <b>urgencyThreshold</b> data property of contains a delta time value in seconds.  
+The 'visitedAt' data property contains the last time in seconds at which the robot visited the thing.  
+The 'hasDoor' object property contains the name of a DOOR.  
+The 'now' data property contains the value of the current time in seconds  
+The 'isIn' object property contains the name of a LOCATION.  
+The 'urgencyThreshold' data property of contains a delta time value in seconds.  
   
 The following pseudo-code explains when a LOCATION becomes URGENT to be visited by the ROBOT:  
 
@@ -48,10 +48,10 @@ The following pseudo-code explains when a LOCATION becomes URGENT to be visited 
 
 ## Environment
 The indoor environment considered in this assignment is the following one:
-- The ROOMs are <b>R1</b>, <b>R2</b>, <b>R3</b>, <b>R4</b>.
-- The CORRIDORs are <b>E</b>, <b>C1</b>, <b>C2</b>.
-- The LOCATION <b>E</b> contains the recharging station.
-- The LOCATION <b>E</b> is the one in which the robot is positioned.
+- The ROOMs are 'R1', 'R2', 'R3', 'R4'.
+- The CORRIDORs are 'E', 'C1', 'C2'.
+- The LOCATION 'E' contains the recharging station.
+- The LOCATION 'E' is the one in which the robot is positioned.
 
 <p align="center">
 	<img src="https://i.imgur.com/SQZ4ySu.png" />
@@ -63,5 +63,22 @@ In order to explore the environement, the robot must follow a <b>surveillance po
 2. The robot should go into any reachable URGENT locations.
 3. The robot prefers to stay in CORRIDORS.
 
-## 2. SOFTWARE ARCHITECTURE
+## 2. WORKING HYPOTHESIS
+## Limitations
+The surveillance software has been developed under the following hypothesis:
+- The robot in an fixed two-dimensional environment that does not change in time.
+- There is no concept of position for the robot: either the robot is or not is in a room.
+- Even if the battery is complitely empty, the robot is still able to reach the recharge station.
+
+## Features
+The developed software provides the following features:
+- The level of the battery of the robot may become low at any time.
+- The robot movement between two rooms may not be completed fully.
+- The movement policy makes it possible to abstracts the map of the environment.
+- Abstraction from the path planning and movement procedures.
+
+### 3. SOFTWARE ARCHITECTURE
+## Component Diagram
+In the component diagram are shown all the <b>blocks</b> and <b>interfaces</b> that have been used or created in order to obtain the desired software architecture:
+- The 'robot_behavior' node contains the state machine that describes the desired behavior of the robot
 
