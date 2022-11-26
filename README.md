@@ -82,7 +82,10 @@ The developed software provides the following features:
 
 ### 3. SOFTWARE ARCHITECTURE
 ## Component Diagram
-In the component diagram are shown all the <b>blocks</b> and <b>interfaces</b> that have been used or developed in order to obtain the desired software architecture:
+In the component diagram are shown all the <b>blocks</b> and <b>interfaces</b> that have been used or developed in order to obtain the desired software architecture.
+<p align="center">
+	<img src="https://i.imgur.com/DoopjNY.png" />
+</p>
 - The `robot_behavior` node contains the state machine that describes the desired behavior of the robot. The functionality of this node is based on the interaction with other nodes. In particular, it interacts with:
   - The `ARMOR` library through the <b>/armor_interface_srv</b> service in order to modify the ontology and retrieve knowledge about the environment.
   - The `BatteryStateController` subcomponent through the <b>/battery_level</b> message to retrieve the value of the current battery level of the robot.
@@ -91,12 +94,11 @@ In the component diagram are shown all the <b>blocks</b> and <b>interfaces</b> t
 
 A more detailed explaination of the implementation of the software is available in the [dedicated]() section.
 
-<p align="center">
-	<img src="https://i.imgur.com/7MVC1EI.png" />
-</p>
-
 ## States Diagram
-This <b>state diagram</b> shows all the possible states and transitions of the state machine which describes the desired behavior of the robot.  
+This <b>state diagram</b> shows the state machine representing the desired behaviour of the robot. In particular, all the possible states and transitions are shown.
+<p align="center">
+	<img src="https://i.imgur.com/nynYen4.png" />
+</p>
 - Inside the `INITIALIZATION` state, the following operations are performed:
   1) Retrieves parameters from the ROS Parameter Server.
   2) Loads the requested ontology onto ARMOR.
@@ -118,6 +120,4 @@ This <b>state diagram</b> shows all the possible states and transitions of the s
 - Inside the `MOVE_TO_NEXT_ROOM` state, the following operations are performed:
   1) Updates the time at which the robot visited the room it is leaving.
   2) Moves the robot from the current room to the selected room.
-<p align="center">
-	<img src="https://i.imgur.com/xDzJn9D.png" />
-</p>
+
