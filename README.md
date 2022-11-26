@@ -29,17 +29,17 @@ The ontology developed for this assignment is composed by the following class hi
 
 In which:
 - a DOOR is a thing.
-- a LOCATION is thing that has the 'visitedAt' property.
-  - a CORRIDOR is a LOCATION that has at least 2 'hasDoor' properties.
-  - a ROOM is a LOCATION that has at least 2 'hasDoor' properties.
+- a LOCATION is thing that has the `visitedAt` property.
+  - a CORRIDOR is a LOCATION that has at least 2 `hasDoor` properties.
+  - a ROOM is a LOCATION that has at least 2 `hasDoor` properties.
   - a URGENT is a LOCATION.
-- a ROBOT is a thing that has the 'now', 'isIn', 'urgencyThreshold' properties.
+- a ROBOT is a thing that has the `now`, `isIn`, `urgencyThreshold` properties.
   
-The 'visitedAt' data property contains the last time in seconds at which the robot visited the thing.  
-The 'hasDoor' object property contains the name of a DOOR.  
-The 'now' data property contains the value of the current time in seconds  
-The 'isIn' object property contains the name of a LOCATION.  
-The 'urgencyThreshold' data property of contains a delta time value in seconds.  
+The `visitedAt` data property contains the last time in seconds at which the robot visited the thing.  
+The `hasDoor` object property contains the name of a DOOR.  
+The `now` data property contains the value of the current time in seconds  
+The `isIn` object property contains the name of a LOCATION.  
+The `urgencyThreshold` data property of contains a delta time value in seconds.  
   
 The following pseudo-code explains when a LOCATION becomes URGENT to be visited by the ROBOT:  
 
@@ -48,10 +48,10 @@ The following pseudo-code explains when a LOCATION becomes URGENT to be visited 
 
 ## Environment
 The indoor environment considered in this assignment is the following one:
-- The ROOMs are 'R1', 'R2', 'R3', 'R4'.
-- The CORRIDORs are 'E', 'C1', 'C2'.
-- The LOCATION 'E' contains the recharging station.
-- The LOCATION 'E' is the one in which the robot is positioned.
+- The ROOMs are `R1`, `R2`, `R3`, `R4`.
+- The CORRIDORs are `E`, `C1`, `C2`.
+- The LOCATION `E` contains the recharging station.
+- The LOCATION `E` is the one in which the robot is positioned.
 
 <p align="center">
 	<img src="https://i.imgur.com/SQZ4ySu.png" />
@@ -79,6 +79,11 @@ The developed software provides the following features:
 
 ### 3. SOFTWARE ARCHITECTURE
 ## Component Diagram
-In the component diagram are shown all the <b>blocks</b> and <b>interfaces</b> that have been used or created in order to obtain the desired software architecture:
-- The 'robot_behavior' node contains the state machine that describes the desired behavior of the robot
+In the component diagram are shown all the <b>blocks</b> and <b>interfaces</b> that have been used or developed in order to obtain the desired software architecture:
+- The `robot_behavior` node contains the state machine that describes the desired behavior of the robot. It interacts with:
+  - The `ARMOR` library with the <b>/armor_interface_srv</b> service in order to modify the ontology and retrieve knowledge.
+  - The `BatteryStateController` subcomponent with the <b>/battery_level</b> message to retrieve the value of the current battery level of the robot.
+  - The `MoveStateController` subcomponent with the <b>/robot_move</b> action to make to robot move between rooms and reach a desired room.
+- The `robot_state` node is the representation of the current state of the robot and provides some functionalities to give to the user the possibility of changing the state of the robot. Basically, this node is container of subcomponents, each one describing a section of the state of the robot.
 
+A more detailed explaination of the implementation of the software is available in the [dedicated]() section.
