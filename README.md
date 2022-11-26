@@ -82,19 +82,19 @@ The developed software provides the following features:
 
 ### 3. SOFTWARE ARCHITECTURE
 ## Component Diagram
-In the component diagram are shown all the <b>blocks</b> and <b>interfaces</b> that have been used or developed in order to obtain the desired software architecture.
+In the <b>component diagram</b> are shown all the <b>blocks</b> and <b>interfaces</b> that have been used or developed in order to obtain the desired software architecture.
 
 <p align="center">
 	<img src="https://i.imgur.com/DoopjNY.png" />
 </p>
 
 - The `robot_behavior` node contains the state machine that describes the desired behavior of the robot. The functionality of this node is based on the interaction with other nodes. In particular, it interacts with:  
-  - The `ARMOR` library through the <b>/armor_interface_srv</b> service in order to modify the ontology and retrieve knowledge about the environment.  
-  - The `BatteryStateController` subcomponent through the <b>/battery_level</b> message to retrieve the value of the current battery level of the robot.  
-  - The `MoveStateController` subcomponent through the <b>/robot_move</b> action to make to robot move between rooms and reach a desired room.  
+  - The `ARMOR` library through the <b>/armor_interface_srv</b> service.
+  - The `BatteryStateController` subcomponent through the <b>/battery_level</b> message.
+  - The `MoveStateController` subcomponent through the <b>/robot_move</b> action.
 - The `robot_state` node is the representation of the current state of the robot and provides some functionalities to give to the user the possibility of changing the state of the robot. Basically, this node is container of subcomponents, each one describing a section of the state of the robot.  
 
-A more detailed explaination of the implementation of the software is available in the [dedicated]() section.
+A more detailed explaination of the use of the interfaces is available <b>[here](#ros-messages,-services-and-actions)</b>.
 
 ## States Diagram
 This <b>state diagram</b> shows the state machine representing the desired behaviour of the robot. In particular, all the possible states and transitions are shown.
@@ -119,9 +119,23 @@ This <b>state diagram</b> shows the state machine representing the desired behav
     2) Returns the outcome <b>"recharged"</b>.  
 - Inside the `CHOOSE_NEXT_ROOM` state, the following operations are performed:  
   1) If the battery needs to be recharged, selects the recharging room as the next room.  
-  2) Otherwise, selects the next room on the basis of the [surveillance policy](#surveillance-policy).  
+  2) Otherwise, selects the next room on the basis of the <b>[surveillance policy](#surveillance-policy)</b>.  
   3) Returns the outcome <b>"chosen"</b>.  
 - Inside the `MOVE_TO_NEXT_ROOM` state, the following operations are performed:  
   1) Updates the time at which the robot visited the room it is leaving.  
   2) Moves the robot from the current room to the selected room.  
+  3) Returns the outcome <b>"moved"</b>.  
 
+## ROS Messages, Services And Actions
+In order to develop the interfaces between the components, the following messages have been used:  
+- The <b>robot_behaviour</b> node which:  
+  - Uses the <b>/armor_interface_srv</b> service, of type `ArmorDirective.srv`, to interact with the ARMOR in order to modify the ontology and retrieve knowledge.  
+  - Subscribes to the <b>/battery_level</b> topic, of type `UInt8.msg`, to retrieve the updated battery level.  
+  - Creates a client for the <b>/move_robot</b> action server, of type  ` MoveBetweenRooms.action` in order to move the robot from its current room to a goal room.  
+- The <b>robot_state</b> node has:  
+  - The <b>BatteryStateController</b> subcomponent which:  
+    - Publishes on the <b>/battery_level</b> topic, of type `UInt8.msg`, the updated value of the battery level.  
+  - The <b>MoveStateController</b> subcomponent which:  
+    - Provides a server for the <b>/move_robot</b> action, of type  ` MoveBetweenRooms.action` in order to move the robot from its current room to a goal room.  
+
+In more detail, the structure of the ` MoveBetweenRooms.action`  in <b>[this](https://github.com/IlMusu/Exproblab_Assignment_1/blob/master/robot_state_msgs/action/MoveBetweenRooms.action)</b> file.
