@@ -45,9 +45,9 @@ In the following are explained all the properties used in the ontology :
 Notice that the last three properties are relative to the ROBOT.
   
 The following pseudo-code explains when a LOCATION becomes URGENT to be visited by the ROBOT:
-
-	 ROBOT.now - LOCATION.visitedAt > ROBOT.urgencyThreshold
-
+```bash
+ROBOT.now - LOCATION.visitedAt > ROBOT.urgencyThreshold
+```
 
 ### Environment
 The indoor environment considered in this assignment is the following one:
@@ -66,7 +66,63 @@ In order to explore the environement, the robot must follow a <b>surveillance po
 2. The robot should go into any reachable URGENT locations.
 3. The robot prefers to stay in CORRIDORS.
 
-## 2. WORKING HYPOTHESIS
+## 2. INSTALLATION AND RUNNING
+### Installation
+The software contained in this repository is composed of two ROS packages.  
+Therefore, in order to install the software, it is necessary to create a workspace:  
+```bash
+mkdir -p [workspace_name]/src
+cd [workspace_name]/
+catkin_make
+```
+Then, clone this repository inside the src folder just created:
+```bash
+cd src/
+git clone [this_repo_link] .
+```
+
+Then, rebuild the workspace by returning to the workspace folder:
+```bash
+cd ..
+catkin_make
+```
+
+The setup.bash file must be sourced so that ROS can find the workspace.  
+To do this, the following line must be added at the end of the .bashrc file:
+```bash
+source [workspace_folder]/devel/setup.bash
+export PYTHONPATH=$PYTHONPATH:[workspace_folder]/src
+```
+### Running
+In order to run the scripts, it is necessary to first run the ROS master.  
+Open a new console and run the following command:
+```bash
+roscore
+```
+
+Then, it is necessary to run the ARMOR library.  
+Open a new console and run the following command:
+```bash
+rosrun armor execute it.emarolab.armor.ARMORMainService
+```
+
+Then, open a new console and run the robot_state node:
+Notice that only one between the three shown commands are necessary to run the node. The last two commands show how it is possible to use command line arguments to modify the execution mode of the controllers ("RANDOM" or "MANUAL").
+To see the complete list of arguments for this launch file, look at [this]() section.
+```bash
+roslaunch robot_behaviour robot_state.launch
+# roslaunch robot_behaviour robot_state.launch move_controller_execution_mode:="RANDOM"
+# roslaunch robot_behaviour robot_state.launch battery_controller_execution_mode:="RANDOM"
+```
+
+Finally, open a new console and run the robot_state node:
+To see the complete list of arguments for this launch file, look at [this]() section.
+```bash
+roslaunch robot_behaviour robot_behaviour.launch
+```
+
+
+## 3. WORKING HYPOTHESIS
 ### Limitations
 The surveillance software has been developed under the following hypothesis:
 - The robot in an fixed two-dimensional environment that does not change in time.
@@ -80,7 +136,7 @@ The developed software provides the following features:
 - The movement policy makes it possible to abstracts the map of the environment.
 - Abstraction from the path planning and movement procedures.
 
-## 3. SOFTWARE ARCHITECTURE
+## 4. SOFTWARE ARCHITECTURE
 ### Component Diagram
 In the <b>component diagram</b> are shown all the <b>blocks</b> and <b>interfaces</b> that have been used or developed in order to obtain the desired software architecture.
 
@@ -138,4 +194,4 @@ In order to develop the interfaces between the components, the following message
   - The <b>MoveStateController</b> subcomponent which:  
     - Provides a server for the <b>/move_robot</b> action, of type  ` MoveBetweenRooms.action` in order to move the robot from its current room to a goal room.  
 
-In more detail, the structure of the ` MoveBetweenRooms.action`  in <b>[this](https://github.com/IlMusu/Exproblab_Assignment_1/blob/master/robot_state_msgs/action/MoveBetweenRooms.action)</b> file.
+In more detail, the structure of the ` MoveBetweenRooms.action` is described in <b>[this](https://github.com/IlMusu/Exproblab_Assignment_1/blob/master/robot_state_msgs/action/MoveBetweenRooms.action)</b> file.
