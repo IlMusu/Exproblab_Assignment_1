@@ -80,10 +80,10 @@ The developed software provides the following features:
 ### 3. SOFTWARE ARCHITECTURE
 ## Component Diagram
 In the component diagram are shown all the <b>blocks</b> and <b>interfaces</b> that have been used or developed in order to obtain the desired software architecture:
-- The `robot_behavior` node contains the state machine that describes the desired behavior of the robot. It interacts with:
-  - The `ARMOR` library with the <b>/armor_interface_srv</b> service in order to modify the ontology and retrieve knowledge.
-  - The `BatteryStateController` subcomponent with the <b>/battery_level</b> message to retrieve the value of the current battery level of the robot.
-  - The `MoveStateController` subcomponent with the <b>/robot_move</b> action to make to robot move between rooms and reach a desired room.
+- The `robot_behavior` node contains the state machine that describes the desired behavior of the robot. The functionality of this node is based on the interaction with other nodes. In particular, it interacts with:
+  - The `ARMOR` library through the <b>/armor_interface_srv</b> service in order to modify the ontology and retrieve knowledge about the environment.
+  - The `BatteryStateController` subcomponent through the <b>/battery_level</b> message to retrieve the value of the current battery level of the robot.
+  - The `MoveStateController` subcomponent through the <b>/robot_move</b> action to make to robot move between rooms and reach a desired room.
 - The `robot_state` node is the representation of the current state of the robot and provides some functionalities to give to the user the possibility of changing the state of the robot. Basically, this node is container of subcomponents, each one describing a section of the state of the robot.
 
 A more detailed explaination of the implementation of the software is available in the [dedicated]() section.
