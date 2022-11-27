@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- PARAMETERS FOR SETTING UP ARMOR CLIENT-->
+    <!-- The path for the ontology to load into ARMOR -->
+	<arg name="ontology_path" default="/root/exprolab_ros_ws/src/robot_behaviour/maps/topological_map.owl" />
+    <param name="ontology_path" type="str" value="$(arg ontology_path)" />
+    <!-- The ontology uri associated with the ontology loaded into ARMOR -->
+    <arg name="ontology_uri" default="http://bnc/exp-rob-lab/2022-23" />
+    <param name="ontology_uri" type="str" value="$(arg ontology_uri)" />
+    <!-- The reference name associated to the ontology loaded into ARMOR -->
+    <arg name="ontology_reference_name" default="ontology_reference" />
+    <param name="ontology_reference_name" type="str" value="$(arg ontology_reference_name)" />
+    
+    <!-- PARAMETERS FOR CREATING THE MAP -->
+    <!-- The encoded map that will be decoded and added to the ontology -->
+    <param name="map" type="str" value="[
+        ['R1', ['D1']],
+        ['R2', ['D2']],
+        ['R3', ['D3']],
+        ['R4', ['D4']],
+        ['E',  ['D6', 'D7']],
+        ['C1', ['D1', 'D2', 'D5', 'D6']],
+        ['C2', ['D3', 'D4', 'D5', 'D7']]
+    ]"/>
+    <!-- The positions of the rooms in the space relateive to the world transform -->
+    <param name="room_positions" type="str" value="[
+        ['R1', [10, 5]],
+        ['R2', [15, 5]],
+        ['R3', [10, 15]],
+        ['R4', [15, 15]],
+        ['E',  [5, 10]],
+        ['C1', [10, 8]],
+        ['C2', [10, 14]]
+    ]" />
+    <!-- The initial position of the Robot1 -->
+    <arg name="robot_room" default="E" />
+    <param name="robot_room" type="str" value="$(arg robot_room)" />
+    
+	<!-- LAUNCHING NODE -->
+    <node name="map_builder_helper" pkg="robot_behaviour" type="ontology_map_builder.py" output="screen"/>
+</launch>

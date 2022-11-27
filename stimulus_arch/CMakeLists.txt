@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(robot_behaviour)
+project(stimulus_arch)
 
 ## Find catkin macros and libraries
 find_package(catkin REQUIRED COMPONENTS
@@ -65,3 +65,4 @@ catkin_install_python(
   DESTINATION 
     ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
+

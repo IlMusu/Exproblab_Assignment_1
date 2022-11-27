@@ -1,0 +1,14 @@
+## An action for moving the robot between two rooms
+
+# GOAL
+# The starting position
+geometry_msgs/Point start
+# The goal position
+geometry_msgs/Point goal
+---
+# RESULT
+# The computed path
+geometry_msgs/Point[] path
+---
+# FEEBACK
+# There is no feedback for this action

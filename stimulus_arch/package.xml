@@ -1,26 +1,24 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>robot_state_msgs</name>
+  <name>stimulus_arch</name>
   <version>0.0.0</version>
-  <description>The robot_state_msgs package</description>
+  <description>The stimulus_arch package</description>
   <maintainer email="root@todo.todo">root</maintainer>
   <license>TODO</license>
-  
+
   <buildtool_depend>catkin</buildtool_depend>
   
+  <build_depend>rospy</build_depend>
   <build_depend>std_msgs</build_depend>
-  <build_depend>geometry_msgs</build_depend>
   <build_depend>actionlib_msgs</build_depend>
-  <build_depend>message_generation</build_depend>
   
+  <build_export_depend>rospy</build_export_depend>
   <build_export_depend>std_msgs</build_export_depend>
-  <build_export_depend>geometry_msgs</build_export_depend>
   <build_export_depend>actionlib_msgs</build_export_depend>
   
+  <exec_depend>rospy</exec_depend>
   <exec_depend>std_msgs</exec_depend>
-  <exec_depend>geometry_msgs</exec_depend>
   <exec_depend>actionlib_msgs</exec_depend>
-  <exec_depend>message_runtime</exec_depend>
 
   <export>
   </export>

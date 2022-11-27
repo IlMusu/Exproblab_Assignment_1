@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 class CommandHelper(object):
 
     def __init__(self):

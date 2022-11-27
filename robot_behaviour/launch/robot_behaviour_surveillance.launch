@@ -1,19 +1,9 @@
-<launch>
-	<!-- PARAMETERS FOR SETTING UP ARMOR-->
-	<!-- The path for the ontology to load into ARMOR -->
-	<arg name="ontology_path" default="/root/exprolab_ros_ws/src/robot_behaviour/maps/topological_map.owl" />
-    <param name="ontology_path" type="str" value="$(arg ontology_path)" />
-    <!-- The ontology uri associated with the ontology loaded into ARMOR -->
-    <arg name="ontology_uri" default="http://bnc/exp-rob-lab/2022-23" />
-    <param name="ontology_uri" type="str" value="$(arg ontology_uri)" />
-    <!-- The client name that is operating on the ontology loaded into ARMOR -->
-    <arg name="client_name" default="rb_client" />
-    <param name="client_name" type="str" value="$(arg client_name)" />
-    <!-- The reference name associated to the ontology loaded into ARMOR -->
-    <arg name="reference_name" default="behaviour_ontology" />
-    <param name="reference_name" type="str" value="$(arg reference_name)" />
-    
+<?xml version="1.0"?>
+<launch>    
     <!-- PARAMETERS FOR CONFIGURING ROBOT BEHAVIOUR -->
+    <!-- The urgency threshold for the robot policy -->
+    <arg name="urgency_threshold" default="20" />
+    <param name="urgency_threshold" type="int" value="$(arg urgency_threshold)" />  
     <!-- The list of room which contain a recharge station -->
     <arg name="recharge_rooms" default="['E']" />
     <param name="recharge_rooms" type="str" value="$(arg recharge_rooms)" />
@@ -31,5 +21,5 @@
     <param name="battery_stop_recharge" type="int" value="$(arg battery_stop_recharge)" />    
 
 	<!-- LAUNCHING NODE FOR ROBOT BEHAVIOUR-->
-    <node name="robot_behaviour" pkg="robot_behaviour" type="robot_behaviour_surveillance.py" output="screen"/>
+    <node name="robot_behaviour_surveillance" pkg="robot_behaviour" type="robot_surveillance.py" output="screen"/>
 </launch>

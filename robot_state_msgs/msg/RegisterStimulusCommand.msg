@@ -1,2 +1,0 @@
-string command_explenation
-string command

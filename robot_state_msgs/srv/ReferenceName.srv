@@ -1,0 +1,7 @@
+## A service the reference name used for the ontology
+
+## REQUEST
+---
+## RESPONSE
+# The reference name used
+string name

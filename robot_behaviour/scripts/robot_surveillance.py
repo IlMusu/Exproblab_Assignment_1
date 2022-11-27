@@ -1,26 +1,30 @@
 #!/usr/bin/env python
 
+# Importing AST library for safely evaluating strings
+import ast
 # The RANDOM library is necessary for debugging
 import random
+
 # Importing ROS library for python
 import rospy
+
 # Importing SMACH to create FINITE STATE MACHINES
 from smach import StateMachine, State
+
 # Importing HELPER to abstract interaction with ARMOR
-from armor_api.armor_client import ArmorClient
 from robot_behaviour_helper import RobotBehaviourHelper
 
 
 class Initialization(State) :
-    '''
-    |  This class is an instance of State used for the initialization
-    |  of the parameters which define the behaviour of the robot.
-    |  Because of this functionality, it should be executed only once. 
+    ''' 
+    This class is an instance of State used for the initialization
+    of the parameters which define the behaviour of the robot.
+    Because of this functionality, it should be executed only once. 
     '''
     def __init__(self, helper):
         '''
         Args:
-            helper (RobotBehaviourHelper) : An instance of the RobotBehaviourHelper .
+            helper (RobotBehaviourHelper) : An instance of the RobotBehaviourHelper.
         '''
         State.__init__(self, outcomes=['initialized'])
         # Storing th helper for possible usage
@@ -33,36 +37,29 @@ class Initialization(State) :
         Returns:
             (string) : The outcome 'initialized' when the initialization is complete.
             
-        |  This state initializes the robot behaviour by:
-        |  1. Loading the ontology into the ARMOR server.
-        |  2. Setting the battery level of the robot the 100%.
-        |  3. Loading the parameters set in the launch file.
+        This state initializes the robot behaviour by:
+        1. Waits until the ontology is fully loaded.
         '''
-        # Loading ontology into armor 
-        onto_path = rospy.get_param('/ontology_path')
-        onto_uri = rospy.get_param('/ontology_uri')
-        self._helper.load_ontology(onto_path, onto_uri)
-        # Setting some parameters to personalize behaviour
-        self._helper.battery_require_recharge = rospy.get_param('/battery_require_recharge', 20)
-        self._helper.battery_stop_recharge = rospy.get_param('/battery_stop_recharge', 100)
-        self._helper.recharge_rooms = _strlist_to_list(rospy.get_param('/recharge_rooms'))
-        self._helper.rooms_priority = _strlist_to_list(rospy.get_param('/rooms_priority'))
-        self._helper.exploration_seconds = rospy.get_param('/exploration_seconds', 10)
+        # Waiting until the ontology is loaded into ARMOR
+        self._helper.wait_for_ontology()
+        # Updates Robot urgency threshold
+        treshold = self._helper.urgency_threshold
+        self._helper.update_robot_urgency_threshold(treshold)
         
         return 'initialized'
 
 
 class ChooseTaskForCurrentRoom(State) :
     '''
-    |  This class is an instance of State used for choosing the most 
-    |  suitable task to be executed by the robot. In particular, the
-    |  task is chosen consider some parameters of the robot and the
-    |  capabilities of the room.
+    This class is an instance of State used for choosing the most 
+    suitable task to be executed by the robot. In particular, the
+    task is chosen consider some parameters of the robot and the
+    capabilities of the room.
     '''
     def __init__(self, helper):
         '''
         Args:
-            helper (RobotBehaviourHelper) : An instance of the RobotBehaviourHelper .
+            helper (RobotBehaviourHelper) : An instance of the RobotBehaviourHelper.
         '''
         State.__init__(self, outcomes=['recharge', 'explore'])
         # Storing the helper for possible usage
@@ -76,10 +73,10 @@ class ChooseTaskForCurrentRoom(State) :
             (string): - The outcome 'recharge' when the robot should recharge.
                       - The outcome 'explore' when the robot should explore the room.
             
-        |  This states choosing the next task to be executed:
-        |  1. If the battery is low and there is a reacharge station in
-        |     the room, then the robot must recharge.
-        |  2. Otherwise the robot must explore the room.
+        This states choosing the next task to be executed:
+        1. If the battery is low and there is a reacharge station in
+           the room, then the robot must recharge.
+        2. Otherwise the robot must explore the room.
         '''    
         # Check if robot needs recharging and this is a recharge room
         current_room = self._helper.retrieve_current_room()
@@ -93,13 +90,13 @@ class ChooseTaskForCurrentRoom(State) :
         
 class ExploreTask(State):
     '''
-    |  This class is an instance of State which simulates the robot
-    |  exploring the room it is currenlty in.
+    This class is an instance of State which simulates the robot
+    exploring the room it is currenlty in.
     '''
     def __init__(self, helper):
         '''
         Args:
-            helper (RobotBehaviourHelper) : An instance of the RobotBehaviourHelper .
+            helper (RobotBehaviourHelper) : An instance of the RobotBehaviourHelper.
         '''
         State.__init__(self, outcomes=['explored'])
         # Storing the helper for possible usage
@@ -112,8 +109,8 @@ class ExploreTask(State):
         Returns:
             (string) : The outcome 'explored' when exploration is complete.
             
-        |  The robot explores the room for the amount of seconds that
-        |  the user specified in the launch file.
+        The robot explores the room for the amount of seconds that
+        the user specified in the launch file.
         '''    
         # Simulating the robot exploring the room
         rospy.loginfo('Exploring room (%i seconds)', self._helper.exploration_seconds)
@@ -124,13 +121,13 @@ class ExploreTask(State):
 
 class RechargeTask(State):
     '''
-    |  This class is an instance of State which simulates the robot
-    |  recharging into the designated recharge room.
+    This class is an instance of State which simulates the robot
+    recharging into the designated recharge room.
     '''
     def __init__(self, helper):
         '''
         Args:
-            helper (RobotBehaviourHelper) : An instance of the RobotBehaviourHelper .
+            helper (RobotBehaviourHelper) : An instance of the RobotBehaviourHelper.
         '''
         State.__init__(self, outcomes=['recharged'])
         # Storing the helper for possible usage
@@ -143,8 +140,8 @@ class RechargeTask(State):
         Returns:
             (string) : The outcome 'recharged' when the recharge is complete.
             
-        |  This method makes the robot wait until the battery is charged
-        |  enough. The threshold is parameter defined by the user.
+        This method makes the robot wait until the battery is charged
+        enough. The threshold is parameter defined by the user.
         '''    
         # Simulating the robot recharging
         rospy.loginfo('Starting recharge')
@@ -156,16 +153,16 @@ class RechargeTask(State):
 
 class ChooseNextRoom(State) :
     '''
-    |  This class is an instance of State which decides the next room
-    |  the robot should visit based on the following policy: if the
-    |  robot has not enough battery to reach another room, a room which
-    |  contains a recharge station is chosen. Otherwise, the reachable
-    |  room with the highest priority is chosen.
+    This class is an instance of State which decides the next room
+    the robot should visit based on the following policy: if the
+    robot has not enough battery to reach another room, a room which
+    contains a recharge station is chosen. Otherwise, the reachable
+    room with the highest priority is chosen.
     '''
     def __init__(self, helper):
         '''
         Args:
-            helper (RobotBehaviourHelper) : An instance of the RobotBehaviourHelper .
+            helper (RobotBehaviourHelper) : An instance of the RobotBehaviourHelper.
         '''
         State.__init__(self, outcomes=['chosen'], output_keys=['next_room'])
         # Storing the helper for possible usage
@@ -178,10 +175,10 @@ class ChooseNextRoom(State) :
         Returns:
             (string) : The outcome 'chosen' when a room has been selected.
             
-        |  If the battery of robot is not enough to reach another room,
-        |  makes the robot go into the room with the recharging station.
-        |  Otherwise, makes the robot go into another room depending on
-        |  the rooms priorities.
+        If the battery of robot is not enough to reach another room,
+        makes the robot go into the room with the recharging station.
+        Otherwise, makes the robot go into another room depending on
+        the rooms priorities.
         '''    
         # The robot time must be updated before choosing another room
         self._helper.update_robot_time()
@@ -205,10 +202,10 @@ class ChooseNextRoom(State) :
             (string) : The reachable room with the highest priority.
             (string) : The class name of the room.
         
-        |  The rooms priorities are decided by user with the dedicated parameter.
-        |  This method loops over all the priorities in order and checks if
-        |  there is a reachable room of the given priority.
-        |  If no room is found, returns any reachable room.
+        The rooms priorities are decided by user with the dedicated parameter.
+        This method loops over all the priorities in order and checks if
+        there is a reachable room of the given priority.
+        If no room is found, returns any reachable room.
         '''
         # Retrieve the list of all the reachable rooms from the robot position
         reachable_rooms = self._helper.retrieve_reachable_rooms()
@@ -226,13 +223,13 @@ class ChooseNextRoom(State) :
 
 class MoveToNextRoom(State) :
     '''
-    |  This class is an instance of State which makes the robot move
-    |  to the selected room.
+    This class is an instance of State which makes the robot move
+    to the selected room.
     '''
     def __init__(self, helper):
         '''
         Args:
-            helper (RobotBehaviourHelper) : An instance of the RobotBehaviourHelper .
+            helper (RobotBehaviourHelper) : An instance of the RobotBehaviourHelper.
         '''
         State.__init__(self, outcomes=['moved'], input_keys=['next_room'])
         # Storing the helper for possible usage
@@ -258,9 +255,17 @@ class MoveToNextRoom(State) :
 
 
 
-class RobotBehaviour(object):
+class RobotBehaviourSurveillance(object):
     '''
-    |  This class generating the robot behaviour by creating a state machine.
+    Params:
+        /urgency_threshold (int) : The urgency threshold time in seconds for the robot policy
+        /battery_require_recharge (int) : The battery level under which it is necessary to start recharging.
+        /battery_stop_recharge (int) : The battery level over which it is possible to stop recharging.
+        /recharge_rooms (list) : The list of rooms containing a recharge station.
+        /rooms_priority (list) : The list of room classes in order of priority.
+        /exploration_seconds (int) : The time in seconds the robot takes to explore a room.
+        
+    This class generating the robot behaviour by creating a state machine.
     '''
     def __init__(self):
         '''
@@ -269,23 +274,28 @@ class RobotBehaviour(object):
         It retrieves some parameters from rospy and initializes the RobotBehaviourHelper.
         '''
         # Initializing a ROS node which represents the robot behaviour
-        rospy.init_node('robot_behaviour', log_level=rospy.INFO)
+        rospy.init_node('robot_behaviour_surveillance', log_level=rospy.INFO)
         # Creating a instance of the helper
-        client_name = rospy.get_param('/client_name')
-        reference_name = rospy.get_param('/reference_name')
-        self._helper = RobotBehaviourHelper(ArmorClient(client_name, reference_name))
+        self._helper = RobotBehaviourHelper()
+        # Setting some parameters to personalize behaviour
+        self._helper.urgency_threshold = rospy.get_param('/urgency_threshold')
+        self._helper.battery_require_recharge = rospy.get_param('/battery_require_recharge', 20)
+        self._helper.battery_stop_recharge = rospy.get_param('/battery_stop_recharge', 100)
+        self._helper.recharge_rooms = ast.literal_eval(rospy.get_param('/recharge_rooms'))
+        self._helper.rooms_priority = ast.literal_eval(rospy.get_param('/rooms_priority'))
+        self._helper.exploration_seconds = rospy.get_param('/exploration_seconds', 10)
 
     def generate_behaviour(self):
         '''
         Returns:
             (StateMachine) : The state machine representing the behaviour.
             
-        |  In this method the actual behaviour of the robot is created: in this
-        |  context the robot is initialized and then explores the environment by
-        |  normally moving in corridors but moving into a room if it didn't explore
-        |  it for some time. When the battery of the robot is low, it goes into
-        |  a room containing a recharge station and charges until the battery
-        |  level is enough to start moving again.
+        In this method the actual behaviour of the robot is created: in this
+        context the robot is initialized and then explores the environment by
+        normally moving in corridors but moving into a room if it didn't explore
+        it for some time. When the battery of the robot is low, it goes into
+        a room containing a recharge station and charges until the battery
+        level is enough to start moving again.
         '''
         # A state machine that describes the behaviour of the robot
         behaviour_sm = StateMachine(outcomes=[])
@@ -321,28 +331,37 @@ class RobotBehaviour(object):
                     remapping={'next_room':'next_room'})
         
         return behaviour_sm
-
-
-def _strlist_to_list(strlist):
-    formatted = strlist.strip('][').replace('"', '').replace("'", '').split(',')
-    return list(map(str.strip, formatted))
-
+        
 
 def _rand_in_list(lst):
+    '''
+    Args:
+        lst (list) : A list of objects.
+    Returns:
+        (object): A random object inside the list.
+    '''
     return lst[random.randrange(len(lst))]
 
 
 def _should_robot_recharge(helper):
+    '''
+    Returns:
+        (bool) : If the robot should recharge.
+    '''
     return helper.get_battery_level() <= helper.battery_require_recharge
 
 
 def _should_robot_stop_recharge(helper):
+    '''
+    Returns:
+        (bool) : If the robot should stop recharging.
+    '''
     return helper.get_battery_level() >= helper.battery_stop_recharge
 
 
 if __name__ == '__main__':
     # Creating an instance of the RobotBehaviour
-    robot_behaviour = RobotBehaviour()
+    robot_behaviour = RobotBehaviourSurveillance()
     # Actually generating the behaviour of the robot
     behaviour_sm = robot_behaviour.generate_behaviour()
     # Executing the behaviour of the robot
