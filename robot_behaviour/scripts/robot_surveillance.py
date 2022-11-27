@@ -188,14 +188,14 @@ class ChooseNextRoom(State) :
             rospy.loginfo('Battery level is low, going into recharge room')
         else :
             # If the battery is not low, choose a room based on priority
-            room, clss = self.choose_next_priotized_room()            
+            room, clss = self.choose_next_prioritized_room()            
             rospy.loginfo('Choosing a room of type %s', clss)
         # Loggin chosen next room
         rospy.loginfo('The next room is: %s', room)
         userdata.next_room = room
         return 'chosen'
     
-    def choose_next_priotized_room(self):
+    def choose_next_prioritized_room(self):
         '''
         Returns:
             (string) : The reachable room with the highest priority.

@@ -23,12 +23,12 @@ class OntologyMapBuilder(object):
         /ontology_map/reference_name (ReferenceName)
         /ontology_map/room_position (RoomPosition)
     Parameters:
-        /ontology_reference : A string to use as the reference name of the ontology.
-        /ontology_path : The global path of the default ontology.
-        /ontology_uri : A string to use as the uri of the ontology.
-        /map : The list of pairs (room, [doors]) for building the map.
-        /room_positions : The list of pairs (room, position) for the rooms positions.
-        /robot_room : The initial room at which the robot is located.
+        /ontology_reference (string) : The reference name of the ontology.
+        /ontology_path (string) : The global path of the default ontology.
+        /ontology_uri (string) : The uri of the ontology.
+        /map (list) : The list of pairs (room, [doors]) for building the map.
+        /room_positions (list) : The list of pairs (room, position) for the rooms positions.
+        /robot_room (string) : The initial room at which the robot is located.
     
     This ROS node loads a default ontology into the ARMOR server and then creates
     the map specified by the user. The description of the map is provided through 
