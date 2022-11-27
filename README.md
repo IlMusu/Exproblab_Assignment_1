@@ -143,7 +143,7 @@ In the <b>component diagram</b> are shown all the <b>blocks</b> and <b>interface
 	<img src="https://i.imgur.com/qKbQabN.png" />
 </p>
 
-- The `ontology_map_builder` node loads the default ontology into ARMOR and builds the map following the user requests. It also contains a mapping between each room and its position with respect to the world frame. In this context, the "position of a room" is defined as a point inside the room that the robot is able to reach.  It interacts with:
+- The `ontology_map_builder` node loads the default ontology into ARMOR and builds the map following the user requests. It also contains a mapping between each room and its position with respect to the world frame. Notice that in this context, the "position of a room" is defined as a point inside the room that the robot is able to reach.  It interacts with:
    - The `armor_service` library through the <b>/armor_interface_srv</b> service.  
 - The `robot_behavior` node contains the state machine that describes the desired behavior of the robot. The functionality of this node is based on the interaction with other nodes. In particular, it interacts with:  
   - The `ontology_map_builder` node through the <b>/ontology_map/reference_name</b> service.  
@@ -211,4 +211,4 @@ In order to develop the interfaces between the components:
 - The <b>motion_controller</b> node which:  
   - Creates a <b>/follow_path</b> action server, of type ` FollowPath.action`, in order to obtain the path that the robot has to follow and make the robot follow it until the final position is reached.  
 
-In more detail, the structure of the ` MoveBetweenRooms.action` is described in <b>[this](https://github.com/IlMusu/Exproblab_Assignment_1/blob/master/robot_state_msgs/action/MoveBetweenRooms.action)</b> file.
+The description of the custom messages, actions and services can be found in the related files: [ReferenceName](https://github.com/IlMusu/Exproblab_Assignment_1/blob/master/robot_state_msgs/srv/ReferenceName.srv), [RoomPosition](https://github.com/IlMusu/Exproblab_Assignment_1/blob/master/robot_state_msgs/srv/RoomPosition.srv), [ComputePath](https://github.com/IlMusu/Exproblab_Assignment_1/blob/master/robot_state_msgs/action/ComputePath.action), [FollowPath](https://github.com/IlMusu/Exproblab_Assignment_1/blob/master/robot_state_msgs/action/FollowPath.action).
