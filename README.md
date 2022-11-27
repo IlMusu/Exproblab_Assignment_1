@@ -107,12 +107,12 @@ rosrun armor execute it.emarolab.armor.ARMORMainService
 ```
 
 Then, open a new console and run the robot_state node:  
-Notice that only one between the three shown commands are necessary to run the node. The last two commands show how it is possible to use command line arguments to modify the execution mode of the controllers ("RANDOM" or "MANUAL").
+Notice that only one between the three shown commands are necessary to run the node. The last two commands show how it is possible to use command line arguments to modify the execution mode of the controllers.
 To see the complete list of arguments for this launch file, look at [this]() section.
 ```bash
 roslaunch robot_behaviour robot_state.launch
 # roslaunch robot_behaviour robot_state.launch move_controller_execution_mode:="RANDOM"
-# roslaunch robot_behaviour robot_state.launch battery_controller_execution_mode:="RANDOM"
+# roslaunch robot_behaviour robot_state.launch battery_controller_execution_mode:="MANUAL"
 ```
 
 Finally, open a new console and run the robot_state node:  
@@ -161,8 +161,8 @@ In the <b>component diagram</b> are shown all the <b>blocks</b> and <b>interface
 - The `motion_controller` node controls the movement of the robot. It interact with:  
   - The `robot_behaviour` node through the <b>/follow_path</b> message.  
 
-A more detailed explaination of the use of the interfaces is available <b>[here](#ros-messages,-services-and-actions)</b>.
-A more detailed explaination of the controllers is available <b>[here](#ros-messages,-services-and-actions)</b>.
+A more detailed explaination of the use of the interfaces is available <b>[here](#ros-messages,-services-and-actions)</b>.  
+A more detailed explaination of the controllers is available <b>[here](#ros-messages,-services-and-actions)</b>.  
 
 ### States Diagram
 This <b>state diagram</b> shows the state machine representing the desired behaviour of the robot. In particular, all the possible states and transitions are shown.
@@ -224,3 +224,30 @@ In order to develop the interfaces between the components:
   - Creates a <b>`/follow_path`</b> action server, of type ` FollowPath.action`, in order to obtain the path that the robot has to follow and make the robot follow it until the final position is reached.  
 
 A more detailed description of the custom messages, actions and services that have been created for this architecture can be found in the related files [ReferenceName](https://github.com/IlMusu/Exproblab_Assignment_1/blob/master/robot_state_msgs/srv/ReferenceName.srv),  [RoomPosition](https://github.com/IlMusu/Exproblab_Assignment_1/blob/master/robot_state_msgs/srv/RoomPosition.srv),  [ComputePath](https://github.com/IlMusu/Exproblab_Assignment_1/blob/master/robot_state_msgs/action/ComputePath.action) and [FollowPath](https://github.com/IlMusu/Exproblab_Assignment_1/blob/master/robot_state_msgs/action/FollowPath.action).
+
+### ROS Parameters
+The <b>ontology_map_builder</b> node uses the following parameters:
+- `/ontology_reference (string)` : The reference name of the ontology.
+- `/ontology_path (string)` : The global path of the default ontology.
+- `/ontology_uri (string)` : The uri of the ontology.
+- `/map (list)` : The list of pairs (room, [doors]) for building the map.
+- `/room_positions (list)` : The list of pairs (room, position) for the rooms positions.
+- `/robot_room (string)` : The initial room at which the robot is located.
+
+The <b>robot_behaviour</b> node uses the following parameters:
+- `/urgency_threshold (int)` : The urgency threshold time in seconds for the robot policy
+- `/battery_require_recharge (int)` : The battery level under which it is necessary to start recharging.
+- `/battery_stop_recharge (int)` : The battery level over which it is possible to stop recharging.
+- `/recharge_rooms (list)` : The list of rooms containing a recharge station.
+- `/rooms_priority (list)` : The list of room classes in order of priority.
+- `/exploration_seconds (int)` : The time in seconds the robot takes to explore a room.
+
+The <b>battery_controller</b> node uses the following paramters:
+- `/battery_initial_value (int)` : The initial value for the battery level.
+- `/execution_mode (string)` : The execution mode of this controller (MANUAL or RANDOM).
+
+The <b>planner_controller</b> node uses the following parameters:
+- `/execution_mode (string)` : The execution mode of this controller (MANUAL or RANDOM)..
+
+The <b>motion_controller</b> node uses the following parameters:
+- `/execution_mode (string)` : The execution mode of this controller (MANUAL or RANDOM)..
