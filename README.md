@@ -122,17 +122,19 @@ roslaunch robot_behaviour robot_behaviour.launch
 ```
 
 
-## 3. WORKING HYPOTHESIS
+## 3. LIMITATIONS, FEATURES AND FUTURE WORK
 ### Limitations
 The surveillance software has been developed under the following hypothesis:
 - The robot in an fixed two-dimensional environment that does not change in time.
+- The robot is always able to compute and follow a path to the goal position.
 - Even if the battery is complitely empty, the robot is still able to reach the recharge station.
 
 ### Features
 The developed software provides the following features:
 - The level of the battery of the robot may become low at any time.
-- The robot movement between two rooms may not be completed fully.
 - The movement policy makes it possible to abstracts the map of the environment.
+- The creation of different maps is easy, fast and intuitive.
+- The policy for choosing the next room may be changed at run-time easily.
 - Abstraction from the path planning and movement procedures.
 
 ## 4. SOFTWARE ARCHITECTURE
@@ -221,8 +223,4 @@ In order to develop the interfaces between the components:
 - The <b>motion_controller</b> node which:  
   - Creates a <b>`/follow_path`</b> action server, of type ` FollowPath.action`, in order to obtain the path that the robot has to follow and make the robot follow it until the final position is reached.  
 
-The description of the custom messages, actions and services can be found in the related files:  
-- [ReferenceName](https://github.com/IlMusu/Exproblab_Assignment_1/blob/master/robot_state_msgs/srv/ReferenceName.srv)  
-- [RoomPosition](https://github.com/IlMusu/Exproblab_Assignment_1/blob/master/robot_state_msgs/srv/RoomPosition.srv)  
-- [ComputePath](https://github.com/IlMusu/Exproblab_Assignment_1/blob/master/robot_state_msgs/action/ComputePath.action)  
-- [FollowPath](https://github.com/IlMusu/Exproblab_Assignment_1/blob/master/robot_state_msgs/action/FollowPath.action)  
+A more detailed description of the custom messages, actions and services that have been created for this architecture can be found in the related files [ReferenceName](https://github.com/IlMusu/Exproblab_Assignment_1/blob/master/robot_state_msgs/srv/ReferenceName.srv),  [RoomPosition](https://github.com/IlMusu/Exproblab_Assignment_1/blob/master/robot_state_msgs/srv/RoomPosition.srv),  [ComputePath](https://github.com/IlMusu/Exproblab_Assignment_1/blob/master/robot_state_msgs/action/ComputePath.action) and [FollowPath](https://github.com/IlMusu/Exproblab_Assignment_1/blob/master/robot_state_msgs/action/FollowPath.action).
