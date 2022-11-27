@@ -192,6 +192,16 @@ This <b>state diagram</b> shows the state machine representing the desired behav
   2) Moves the robot from the current room to the selected room.  
   3) Returns the outcome <b>"moved"</b>.  
 
+### States Diagram
+This <b>sequence diagram</b> shows a possible execution of the software contained in this repository. More in details, this diagram shows the execution in time of all the nodes and the requests/responses between them.
+
+<p align="center">
+	<img src="https://i.imgur.com/bgzpput.png" />
+</p>
+
+One thing to immediately notice in this diagram is that every time something is retrieved from the armor_server node, the reasoner is updated so that the retrieved value is always updated. This should be shown in the diagram but it is not shown for simplicity.  
+The middle horizontal line shows that at the time of the "CHOOSE_ROOM_TASK" state, the robot is surely not in the E room where it has the capability of recharging (that is because it moved only once and initially it was in the E room). Therefore, the diagram would be identical to before. Instead, it is shown what would happen the next time the robot moves, hence, when the robot returns to the E room and the state machine starts the "RECHARGE_TASK" state.  
+
 ### ROS Messages, Services And Actions
 In order to develop the interfaces between the components:  
 - The <b>ontology_map_builder</b> node which:  
