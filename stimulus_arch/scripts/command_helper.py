@@ -1,8 +1,17 @@
 #!/usr/bin/env python
 
 class CommandHelper(object):
+    '''
+    This class is a helper for memorizing commands and then parse them
+    from strings. 
+    '''
 
     def __init__(self):
+        '''
+        This is the constructor method for the CommandHelper class.
+        It initialized the registered_commands to empty map and sets the
+        default exit command to 'exit'.
+        '''
         # The possible commands that the user can prompt
         self._registered_commands = {}
         self._exit_command = 'exit'
@@ -14,9 +23,9 @@ class CommandHelper(object):
             command (list) : The list of strings that compose the command.
             callback (function) : The callback to invoke for the command.
 
-        |  This is a helper method which can be used by to register commands. 
-        |  The commands are deconstructed by strings and stored in a tree 
-        |  structure with the related callbacks.
+        This is a helper method which can be used by to register commands. 
+        The commands are deconstructed by strings and stored in a tree 
+        structure with the related callbacks.
         '''
         # This source will contain at each iteration all the args that can
         # be appended after the current argument. Initially, there are all
@@ -38,10 +47,10 @@ class CommandHelper(object):
         Returns:
             (bool) : If the user requested the exit command.
 
-        |  This method parses the command from a string to the list of string
-        |  composing the command and the actual arguments.
-        |  If a valid command is received, the related callback is called.
-        |  If the command is not valid, the user is informed.
+        This method parses the command from a string to the list of string
+        composing the command and the actual arguments.
+        If a valid command is received, the related callback is called.
+        If the command is not valid, the user is informed.
         '''
         # Parsing the command from string
         command = list(filter(None, command_str.split(' ')))
@@ -69,6 +78,13 @@ class CommandHelper(object):
 
 
     def listen_for_user_commands(self, exit_command):
+        '''
+        Args:
+            exit_command (string) : The exit command for stop listening.
+
+        This methods starts to listen for user commands on the console
+        until the exit_command is received.
+        '''
         # Registering the special exit command
         self._exit_command = exit_command
         # Start listening for user inputs

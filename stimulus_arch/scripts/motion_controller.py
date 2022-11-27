@@ -21,8 +21,19 @@ CYELLOW = '\33[33m'
 CRESET  = '\033[0m'
 
 class MotionController(StimulusActionController):
+    '''
+    Creates an action server for:
+        /follow_path (FollowPath)
+
+    This class is a controller that handles the movement of the robot.
+    In particular, it makes the robot follow a predefined path.
+    '''
     
     def __init__(self):
+        '''
+        This is the constructor method for the MotionController class.
+        It initializes the /motion_controller node.
+        '''
         StimulusActionController.__init__(self)
         # Initializing the ROS node
         rospy.init_node('motion_controller', log_level=rospy.INFO)
@@ -45,7 +56,8 @@ class MotionController(StimulusActionController):
 
     def start(self):
         '''
-        This method start the controller in the specified execution mode.
+        This method creates and starts an ActionServer called /follow_path.
+        And then starts the StimulusController.
         '''
         # Defining an action server to simulate computing the plan
         server = actionlib.SimpleActionServer('/follow_path', FollowPathAction, 
@@ -57,9 +69,9 @@ class MotionController(StimulusActionController):
     
     def _manual_controller(self):
         '''
-        |  This method is executed only if the controller is execute in MANUAL mode.
-        |  It is used to register the commands that are necessary to for the 
-        |  communication between the user and this controller.
+        This method is executed only if the controller is executed in MANUAL mode.
+        It is used to register the commands that are necessary to for the communication 
+        between the user and this controller.
         '''
         # Registering the command with the related callback
         self._commands = CommandHelper()
@@ -69,6 +81,13 @@ class MotionController(StimulusActionController):
     
     
     def _move_command(self, args):
+        '''
+        Args:
+            args (list) : The list of arguments for the command.
+
+        This method is the callback for the "move" command, it makes the robot move
+        with the related method.
+        '''
         # Parsing the arguments
         try:
             time = int(args[0])
@@ -86,9 +105,8 @@ class MotionController(StimulusActionController):
         
     def _random_controller(self):
         '''
-        This method is executed only if the controller is execute in RANDOM mode.
-        It makes the robot wait for a random number of seconds and then returns
-        a position randomized near the requested goal.
+        This method is executed only if the controller is executed in RANDOM mode.
+        It makes the robot move with the related method.
         '''
         # Making the robot reach the goal
         time = random.randrange(5, 10)
@@ -97,6 +115,15 @@ class MotionController(StimulusActionController):
 
 
     def _move_robot(self, time, goal_delta):
+        '''
+        Args:
+            time (int) : The number of seconds that the robot takes to move.
+            goal_delta (float) : The randomization of the path goal position.
+        
+        This method makes the robot wait for the specified number of seconds and then
+        creates the ActionServer result by setting the robot position near the path
+        goal position randomized with the specified amount.
+        '''
         # Waiting for the specified number of seconds
         rospy.loginfo(CYELLOW+'Moving the robot for '+str(time)+' seconds.'+CRESET)
         rospy.sleep(time)

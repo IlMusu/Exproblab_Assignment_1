@@ -1,9 +1,7 @@
 #!/usr/bin/env python
 
-# The time libreary is necessary for getting the current time
+# The time library is necessary for getting the current time
 import time
-# Importing mutexes to handle multi-threading
-from threading import Event
 
 # Importing ARMOR libraries to easily interact with ARMOR
 from armor_api.armor_client import ArmorClient
@@ -14,31 +12,35 @@ from armor_api.armor_manipulation_client import ArmorManipulationClient
 # Importing ROS library for python
 import rospy
 import actionlib
-from std_msgs.msg import UInt8, String
+from std_msgs.msg import UInt8
 from robot_state_msgs.srv import ReferenceName, RoomPosition
 from robot_state_msgs.msg import ComputePathAction, ComputePathGoal
 from robot_state_msgs.msg import FollowPathAction, FollowPathGoal
 
-class RobotBehaviourHelper(object):
+class RobotBehaviorHelper(object):
     '''
     Subscribes to:
         /battery_level (UInt8)
     Requests service to:
         /ontology_map/reference_name (ReferenceName)
-    Requests action to :
-        /robot_move (MoveBetweenRoomsAction)
+        /ontology_map/room_position (RoomPosition)
+    Creates an action client for :
+        /compute_path (ComputePathAction)
+        /follow_path (FollowPathAction)
 
     This is an helper class which provides some useful methods in order to abstract 
-    the comunication with the ARMOR server in the particular context of the robot
-    bahaviour. In order to provide this functionality, this class is heavily related 
+    the communication with the ARMOR server in the particular context of the robot
+    behavior. In order to provide this functionality, this class is heavily related 
     to the armor_api library.
     '''
+
     def __init__(self):
         '''
-        This is the costructor method for the RobotBehaviourHelper class.
-        1. Initilizes some internal variables.
+        This is the constructor method for the RobotBehaviorHelper class.
+        1. Initializes some internal variables.
         2. Creates a Subscriber to the /battery_level topic.
-        3. Creates an ActionClietn for /robot_move ActionServer.
+        3. Creates an ActionClient for /robot_move ActionServer.
+        4. Creates an ActionClient for /follow_path ActionServer.
         '''
         # Subscriber for the battery level update
         self._battery_level = 100
@@ -54,15 +56,15 @@ class RobotBehaviourHelper(object):
         '''
         This method makes the called wait until the ontology is fully loaded and
         then initializes the objects to communicate with ARMOR.
-        This behaviour is obtained by calling the '/ontology_map/reference_name'
+        This behavior is obtained by calling the '/ontology_map/reference_name'
         service which responds only when the ontology is loaded.
         '''
         # Calling the service for obtaining the reference name
         rospy.wait_for_service('/ontology_map/reference_name')
         get_reference_name = rospy.ServiceProxy('/ontology_map/reference_name', ReferenceName)
         reference_name = get_reference_name().name
-        # Creating objects for handling the comunication with ARMOR
-        self._armor_client = ArmorClient('robot_behaviour', reference_name)
+        # Creating objects for handling the communication with ARMOR
+        self._armor_client = ArmorClient('robot_behavior', reference_name)
         self.onto_utils = ArmorUtilsClient(self._armor_client)
         self.onto_query = ArmorQueryClient(self._armor_client)
         self.onto_manip = ArmorManipulationClient(self._armor_client)
@@ -132,7 +134,7 @@ class RobotBehaviourHelper(object):
         Args:
             clss (string) : The class name of the rooms to retrieve.
         Returns:
-            (list) : The list of the names of the rooms beloning to class clss.
+            (list) : The list of the names of the rooms belonging to class clss.
 
         Obtains from ARMOR all the rooms belonging to a class:
         1. Requests a reasoner synchronization to update the ontology.
@@ -141,7 +143,7 @@ class RobotBehaviourHelper(object):
         '''
         # The reasoner must be started before querying something
         self.onto_utils.sync_buffered_reasoner()
-        # Retrieving all the rooms belongin to a class
+        # Retrieving all the rooms belonging to a class
         classes_names = self.onto_query.ind_b2_class(clss)
         return classes_names
     
@@ -154,7 +156,7 @@ class RobotBehaviourHelper(object):
         Requests ARMOR to move the 'Robot1' in next_room:
         1. Retrieves the robot's current room.
         2. Sends a request to the /robot_move ActionServer to move the robot
-           to the desired room. This is done until successdfull.
+           to the desired room. This is done until successful.
         3. Replaces the 'isIn' object property of 'Robot1' to next_room.
         '''
         # Retrieving the current room the Robot1 is in
@@ -200,7 +202,7 @@ class RobotBehaviourHelper(object):
         self.onto_utils.sync_buffered_reasoner()
         # Retrieving time
         data_id = self.onto_query.dataprop_b2_ind('visitedAt', room)[0]
-        data = RobotBehaviourHelper._data_from_id(data_id)
+        data = RobotBehaviorHelper._data_from_id(data_id)
         return data
     
     
@@ -218,7 +220,7 @@ class RobotBehaviourHelper(object):
         self.onto_utils.sync_buffered_reasoner()
         # Retrieving robot time
         data_id = self.onto_query.dataprop_b2_ind('now', 'Robot1')[0]
-        data = RobotBehaviourHelper._data_from_id(data_id)
+        data = RobotBehaviorHelper._data_from_id(data_id)
         return data
         
         
@@ -263,7 +265,7 @@ class RobotBehaviourHelper(object):
         self.onto_utils.sync_buffered_reasoner()
         # Getting the robot outdated time and current time
         old_id = self.onto_query.dataprop_b2_ind('urgencyThreshold', 'Robot1')[0]
-        old = RobotBehaviourHelper._data_from_id(old_id)
+        old = RobotBehaviorHelper._data_from_id(old_id)
         # Update robot current time
         self.onto_manip.replace_dataprop_b2_ind('urgencyThreshold', 'Robot1', 'Long', str(value), old)
     

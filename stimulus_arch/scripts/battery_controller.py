@@ -3,7 +3,7 @@
 # The RANDOM library is necessary for debugging
 import random
 
-# Imporing ROS library for python
+# Importing ROS library for python
 import rospy
 from std_msgs.msg import UInt8
 
@@ -20,13 +20,16 @@ class BatteryController(StimulusController):
     '''
     Publishes to:
         /battery_level (UInt8)
+    Parameters :
+        /battery_initial_value (int) : The initial value for the battery level.
 
-    This controller handles the battery level of the robot.
+    This class is a controller that handles the battery level of the robot.
     '''
+    
     def __init__(self):
         '''
         This is the constructor method for the BatteryController class.
-        1. Initializes the /battery_controller ros node.
+        1. Initializes the /battery_controller node.
         2. Gets the required parameters from the rospy.
         '''
         StimulusController.__init__(self)
@@ -56,6 +59,7 @@ class BatteryController(StimulusController):
     def start(self):
         '''
         This method creates a Publisher for the /battery_level topic.
+        And then starts the StimulusController.
         '''
         # Creating a publisher for the /battery_level topic
         self._battery_level_pub = rospy.Publisher('battery_level', UInt8, queue_size=1, latch=True)
@@ -65,7 +69,7 @@ class BatteryController(StimulusController):
 
     def _manual_controller(self):
         '''
-        This method is executed only if the controller is execute in MANUAL mode.
+        This method is executed only if the controller is executed in MANUAL mode.
         It is used to register the commands that are necessary to for the communication 
         between the user and this controller.
         '''
@@ -82,7 +86,7 @@ class BatteryController(StimulusController):
 
     def _random_controller(self):
         '''
-        This method is executed only if the controller is execute in RANDOM mode.
+        This method is executed only if the controller is executed in RANDOM mode.
         This method controls the battery level randomly: in a loop, waits some time 
         and then the level is switched between 0 and 100.
         '''
@@ -100,6 +104,13 @@ class BatteryController(StimulusController):
             
         
     def _offset_command(self, args) :
+        '''
+        Args:
+            args (list) : The list of arguments for the command.
+
+        This method is the callback for the "battery offset" command, it modifies
+        the battery level value with the specified offset.
+        '''
         try :
             self._offset_battery_level(int(args[0]))
         except ValueError :
@@ -107,6 +118,13 @@ class BatteryController(StimulusController):
             
             
     def _set_command(self, args) :
+        '''
+        Args:
+            args (list) : The list of arguments for the command.
+
+        This method is the callback for the "battery set" command, it sets the
+        battery level value with the specified value.
+        '''
         try :
             self._offset_battery_level(-self._battery_level + int(args[0]))
         except ValueError :

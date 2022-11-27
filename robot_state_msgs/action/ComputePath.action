@@ -1,14 +1,15 @@
-## An action for moving the robot between two rooms
+## An ACTION for computing the path between the points
+## the resulting path will be a list of of points.
 
 # GOAL
-# The starting position
+# The first position of the path
 geometry_msgs/Point start
-# The goal position
+# The last position of the path
 geometry_msgs/Point goal
 ---
 # RESULT
-# The computed path
+# The list of points composing the path
 geometry_msgs/Point[] path
 ---
 # FEEBACK
-# There is no feedback for this action
+# There is no feedback

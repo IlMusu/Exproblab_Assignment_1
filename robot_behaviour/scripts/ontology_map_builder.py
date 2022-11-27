@@ -10,11 +10,9 @@ from armor_api.armor_client import ArmorClient
 from armor_api.armor_utils_client import ArmorUtilsClient
 from armor_api.armor_query_client import ArmorQueryClient
 from armor_api.armor_manipulation_client import ArmorManipulationClient
-from armor_api.armor_exceptions import ArmorServiceInternalError, ArmorServiceCallError
 
 # Importing ROS library for python
 import rospy
-from std_msgs.msg import String
 from geometry_msgs.msg import Point
 from robot_state_msgs.srv import RoomPosition, RoomPositionResponse
 from robot_state_msgs.srv import ReferenceName, ReferenceNameResponse
@@ -24,7 +22,6 @@ class OntologyMapBuilder(object):
     Provides services on:
         /ontology_map/reference_name (ReferenceName)
         /ontology_map/room_position (RoomPosition)
-    
     Parameters:
         /ontology_reference : A string to use as the reference name of the ontology.
         /ontology_path : The global path of the default ontology.
@@ -38,12 +35,13 @@ class OntologyMapBuilder(object):
     parameters which are automatically decoded. Once the map if fully created,
     this node provides a service for providing the position of room given the name.
     '''
+
     def __init__(self) :
         '''
         This is the constructor method for the OntologyMapBuilder class.
         1. Creates a service for the "ontology_map/reference_name" service.
         2. Creates a service for the "ontology_map/room_position" service.
-        3. Intializes object to communicate with ARMOR.
+        3. Initializes objects to communicate with ARMOR.
         4. Builds the map by calling the related method.
         '''
         # Initializing the ROS node
@@ -114,7 +112,7 @@ class OntologyMapBuilder(object):
             room_positions (list) : The parsed list of pairs (rooms, position).
             
         This method parses the /room_positions argument into a dictionary. 
-        This makes the retrieval of the positons more easy.
+        This makes the retrieval of positions easier.
         '''
         self._room_positions = {}
         for [room, pos] in room_positions :
@@ -123,9 +121,14 @@ class OntologyMapBuilder(object):
     
     def _onto_reference_service(self, request):
         '''
+        Args:
+            request (ReferenceNameRequest) : The request from the client.
+        Returns:
+            (ReferenceNameResponse) : The response to the request.
+
         This is the callback for the "/ontology_map/reference_name" service.
         It makes the client wait until the the map is complete, then responds
-        with the reference name of the onotology.
+        with the reference name of the ontology.
         '''
         response = ReferenceNameResponse()
         if not self._building_complete :
@@ -136,6 +139,11 @@ class OntologyMapBuilder(object):
 
     def _room_position_service(self, request):
         '''
+        Args:
+            request (RoomPositionRequest) : The request from the client.
+        Returns:
+            (RoomPositionResponse) : The response to the request.
+
         This is the callback for the "/ontology_map/room_position" service.
         It checks that the requested room_name is valid and then fills the
         response with the position for the requested room.

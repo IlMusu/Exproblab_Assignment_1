@@ -1,12 +1,14 @@
-## An action for moving the robot on a path of points
+## An ACTION for making the robot move along a path
+## composed of a list of points.
 
 # GOAL
-# The path to follow
+# The list of points composing the path
 geometry_msgs/Point[] path
 ---
 # RESULT
-# The position that the robot reached after the
-# completion of the movement
+# The actual final position of the robot may be different
+# than the last position of the path. This contains the 
+# actual final position of the robot.
 geometry_msgs/Point position
 ---
 # FEEBACK

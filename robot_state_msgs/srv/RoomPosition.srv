@@ -1,11 +1,13 @@
-## A service for requesting the central position of a room
+## A SERVICE for requesting a position inside a room
+## The position might be any position inside the room
 
 ## REQUEST
 # The name of room for which to retrieve the position
 string room_name
 ---
 ## RESPONSE
-# If the room name was valid
+# If the room name was valid and the position has been
+# retrieved correctly without any errors
 bool valid
-# The position of the room
+# The retrieved position of the room
 geometry_msgs/Point position

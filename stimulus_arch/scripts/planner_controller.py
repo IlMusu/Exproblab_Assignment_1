@@ -5,7 +5,7 @@ import ast
 # The RANDOM library is necessary for debugging
 import random
 
-# Imporing ROS library for python
+# Importing ROS library for python
 import rospy
 import actionlib
 from robot_state_msgs.msg import ComputePathAction, ComputePathResult
@@ -21,8 +21,18 @@ CYELLOW = '\33[33m'
 CRESET  = '\033[0m'
 
 class PlannerController(StimulusActionController):
+    '''
+    Creates an action server for:
+        /follow_path (FollowPath)
+
+    This class is a controller that handles the planning of a path.
+    '''
     
     def __init__(self):
+        '''
+        This is the constructor method for the MotionController class.
+        It initializes the /motion_controller node.
+        '''
         StimulusActionController.__init__(self)
         # Initializing the ROS node
         rospy.init_node('planner_controller', log_level=rospy.INFO)
@@ -45,7 +55,8 @@ class PlannerController(StimulusActionController):
 
     def start(self):
         '''
-        This method start the controller in the specified execution mode.
+        This method creates and starts an ActionServer called /compute_path.
+        And then starts the StimulusController.
         '''
         # Defining an action server to simulate computing the plan
         server = actionlib.SimpleActionServer('/compute_path', ComputePathAction, 
@@ -57,9 +68,9 @@ class PlannerController(StimulusActionController):
     
     def _manual_controller(self):
         '''
-        |  This method is executed only if the controller is execute in MANUAL mode.
-        |  It is used to register the commands that are necessary to for the 
-        |  communication between the user and this controller.
+        This method is executed only if the controller is executed in MANUAL mode.
+        It is used to register the commands that are necessary to for the communication 
+        between the user and this controller.
         '''
         # Registering the command with the related callback
         self._commands = CommandHelper()
@@ -69,6 +80,14 @@ class PlannerController(StimulusActionController):
     
     
     def _plan_command(self, args):
+        '''
+        Args:
+            args (list) : The list of arguments for the command.
+
+        This method is the callback for the "plan" command, it creates a path with
+        the positions specified by the user. It puts the initial position as the
+        first point of the path and the goal positions as the last point.
+        '''
         # Obtaining the path inserted by the user
         try :
             argument = ast.literal_eval(''.join(args))
@@ -87,8 +106,8 @@ class PlannerController(StimulusActionController):
     def _random_controller(self):
         '''
         This method is executed only if the controller is execute in RANDOM mode.
-        It fills the path with complitely random points except the first and the last
-        one which are the initial and goal points.
+        It fills the path with completely random points except the first and the last
+        one which are the initial and goal positions.
         '''
         path = [self._goal.start]
         for i in range(5, random.randrange(5,10)):
@@ -102,6 +121,12 @@ class PlannerController(StimulusActionController):
     
     
     def _set_result_path(self, path):
+        '''
+        Args:
+            path (list) : A list of Points which compose the path.
+            
+        Sets the path as result of the ActionServer and logs some info.
+        '''
         result = ComputePathResult()
         result.path = path
         self._set_action_result(result)
