@@ -122,18 +122,19 @@ roslaunch robot_behaviour robot_behaviour.launch
 ```
 
 
-## 3. WORKING HYPOTHESIS
+## 3. LIMITATIONS, FEATURES AND FUTURE WORK
 ### Limitations
 The surveillance software has been developed under the following hypothesis:
 - The robot in an fixed two-dimensional environment that does not change in time.
-- There is no concept of position for the robot: either the robot is or not is in a room.
+- The robot is always able to compute and follow a path to the goal position.
 - Even if the battery is complitely empty, the robot is still able to reach the recharge station.
 
 ### Features
 The developed software provides the following features:
 - The level of the battery of the robot may become low at any time.
-- The robot movement between two rooms may not be completed fully.
 - The movement policy makes it possible to abstracts the map of the environment.
+- The creation of different maps is easy, fast and intuitive.
+- The policy for choosing the next room may be changed at run-time easily.
 - Abstraction from the path planning and movement procedures.
 
 ## 4. SOFTWARE ARCHITECTURE
@@ -141,16 +142,27 @@ The developed software provides the following features:
 In the <b>component diagram</b> are shown all the <b>blocks</b> and <b>interfaces</b> that have been used or developed in order to obtain the desired software architecture.
 
 <p align="center">
-	<img src="https://i.imgur.com/DoopjNY.png" />
+	<img src="https://i.imgur.com/qKbQabN.png" />
 </p>
 
+- The `ontology_map_builder` node loads the default ontology into ARMOR and builds the map following the user requests. It also contains a mapping between each room and its position with respect to the world frame. Notice that in this context, the "position of a room" is defined as a point inside the room that the robot is able to reach.  It interacts with:
+   - The `armor_service` library through the <b>/armor_interface_srv</b> service.  
 - The `robot_behavior` node contains the state machine that describes the desired behavior of the robot. The functionality of this node is based on the interaction with other nodes. In particular, it interacts with:  
-  - The `ARMOR` library through the <b>/armor_interface_srv</b> service.
-  - The `BatteryStateController` subcomponent through the <b>/battery_level</b> message.
-  - The `MoveStateController` subcomponent through the <b>/robot_move</b> action.
-- The `robot_state` node is the representation of the current state of the robot and provides some functionalities to give to the user the possibility of changing the state of the robot. Basically, this node is container of subcomponents, each one describing a section of the state of the robot.  
+  - The `ontology_map_builder` node through the <b>/ontology_map/reference_name</b> service.  
+  - The `ontology_map_builder` node through the <b>/ontology_map/room_position</b> service.  
+  - The `armor_service` library through the <b>/armor_interface_srv</b> service.  
+  - The `battery_controller` node through the <b>/battery_level</b> message.  
+  - The `planner_controller` node through the <b>/compute_path</b> action.  
+  - The `motion_controller` node through the <b>/follow_path</b> action.  
+- The `battery_controller` node controls the level of the battery. It interacts with:  
+  - The `robot_behaviour` node through the <b>/battery_level</b> message.  
+- The `planner_controller` node constructs a path between two points. It interacts with:  
+  - The `robot_behaviour` node through the <b>/compute_path</b> message.  
+- The `motion_controller` node controls the movement of the robot. It interact with:  
+  - The `robot_behaviour` node through the <b>/follow_path</b> message.  
 
 A more detailed explaination of the use of the interfaces is available <b>[here](#ros-messages,-services-and-actions)</b>.
+A more detailed explaination of the controllers is available <b>[here](#ros-messages,-services-and-actions)</b>.
 
 ### States Diagram
 This <b>state diagram</b> shows the state machine representing the desired behaviour of the robot. In particular, all the possible states and transitions are shown.
@@ -160,8 +172,8 @@ This <b>state diagram</b> shows the state machine representing the desired behav
 </p>
 
 - Inside the `INITIALIZATION` state, the following operations are performed:  
-  1) Retrieves parameters from the ROS Parameter Server.  
-  2) Loads the requested ontology onto ARMOR.  
+  1) Waits until the ontology is fully loaded onto ARMOR.  
+  2) Initializes some parameters for the robot.  
   3) Returns the outcome <b>"initialized"</b>.  
 - The `PERFORM_ROOM_TASK` state is a sub state machine containing the following states:  
   - Inside the `CHOOSE_ROOM_TASK` state, the following operations are performed:  
@@ -182,16 +194,33 @@ This <b>state diagram</b> shows the state machine representing the desired behav
   2) Moves the robot from the current room to the selected room.  
   3) Returns the outcome <b>"moved"</b>.  
 
-### ROS Messages, Services And Actions
-In order to develop the interfaces between the components, the following messages have been used:  
-- The <b>robot_behaviour</b> node which:  
-  - Uses the <b>/armor_interface_srv</b> service, of type `ArmorDirective.srv`, to interact with the ARMOR in order to modify the ontology and retrieve knowledge.  
-  - Subscribes to the <b>/battery_level</b> topic, of type `UInt8.msg`, to retrieve the updated battery level.  
-  - Creates a client for the <b>/move_robot</b> action server, of type  ` MoveBetweenRooms.action` in order to move the robot from its current room to a goal room.  
-- The <b>robot_state</b> node has:  
-  - The <b>BatteryStateController</b> subcomponent which:  
-    - Publishes on the <b>/battery_level</b> topic, of type `UInt8.msg`, the updated value of the battery level.  
-  - The <b>MoveStateController</b> subcomponent which:  
-    - Provides a server for the <b>/move_robot</b> action, of type  ` MoveBetweenRooms.action` in order to move the robot from its current room to a goal room.  
+### States Diagram
+This <b>sequence diagram</b> shows a possible execution of the software contained in this repository. More in details, this diagram shows the execution in time of all the nodes and the requests/responses between them.
 
-In more detail, the structure of the ` MoveBetweenRooms.action` is described in <b>[this](https://github.com/IlMusu/Exproblab_Assignment_1/blob/master/robot_state_msgs/action/MoveBetweenRooms.action)</b> file.
+<p align="center">
+	<img src="https://i.imgur.com/bgzpput.png" />
+</p>
+
+One thing to immediately notice in this diagram is that every time something is retrieved from the armor_server node, the reasoner is updated so that the retrieved value is always updated. This should be shown in the diagram but it is not shown for simplicity.  
+The middle horizontal line shows that at the time of the "CHOOSE_ROOM_TASK" state, the robot is surely not in the E room where it has the capability of recharging (that is because it moved only once and initially it was in the E room). Therefore, the diagram would be identical to before. Instead, it is shown what would happen the next time the robot moves, hence, when the robot returns to the E room and the state machine starts the "RECHARGE_TASK" state.  
+
+### ROS Messages, Services And Actions
+In order to develop the interfaces between the components:  
+- The <b>ontology_map_builder</b> node which:  
+  - Provides the <b>`/ontology_map/reference_name`</b> service, of type `ReferenceName.srv`, to provide the reference name of the ontology that is loaded into ARMOR. This is done only once the ontology is fully created and loaded.  
+  - Provides the <b>`/ontology_map/room_position`</b> service, of type `RoomPosition.srv`, to provide a position inside the requested room. The position is measured with respect to the world frame.  
+- The <b>robot_behaviour</b> node which:  
+  - Uses the <b>`/ontology_map/reference_name`</b> service, of type `ReferenceName.srv`, to obtain the reference name of the ontology that is loaded into ARMOR.  
+  - Uses the <b>`/ontology_map/room_position`</b> service, of type `RoomPosition.srv`, to obtain a position inside the specified room. The position is measured with respect to the world frame.
+  - Uses the <b>`/armor_interface_srv`</b> service, of type `ArmorDirective.srv`, to interact with the ARMOR in order to modify the ontology and retrieve knowledge.  
+  - Subscribes to the <b>`/battery_level`</b> topic, of type `UInt8.msg`, to retrieve the updated battery level.  
+  - Creates a client for the <b>`/compute_path`</b> action server, of type  ` ComputePath.action`, in order to compute the path between the current position of the robot and a goal position.  
+  - Creates a client for the <b>`/follow_path`</b> action server, of type  ` FollowPath.action`, in order to make the robot follow the previosly computed path until the last position of the path is reached.  
+- The <b>battery_controller</b> node which:  
+   - Publishes to the <b>`/battery_level`</b> topic, of type `UInt8.msg`, the updated value of the battery level.  
+- The <b>planner_controller</b> node which:  
+  - Creates a <b>`/compute_path`</b> action server, of type `ComputePath.action` in order to obtain the start and goal positions and computing the related path.  
+- The <b>motion_controller</b> node which:  
+  - Creates a <b>`/follow_path`</b> action server, of type ` FollowPath.action`, in order to obtain the path that the robot has to follow and make the robot follow it until the final position is reached.  
+
+A more detailed description of the custom messages, actions and services that have been created for this architecture can be found in the related files [ReferenceName](https://github.com/IlMusu/Exproblab_Assignment_1/blob/master/robot_state_msgs/srv/ReferenceName.srv),  [RoomPosition](https://github.com/IlMusu/Exproblab_Assignment_1/blob/master/robot_state_msgs/srv/RoomPosition.srv),  [ComputePath](https://github.com/IlMusu/Exproblab_Assignment_1/blob/master/robot_state_msgs/action/ComputePath.action) and [FollowPath](https://github.com/IlMusu/Exproblab_Assignment_1/blob/master/robot_state_msgs/action/FollowPath.action).
