@@ -195,21 +195,21 @@ This <b>state diagram</b> shows the state machine representing the desired behav
 ### ROS Messages, Services And Actions
 In order to develop the interfaces between the components:  
 - The <b>ontology_map_builder</b> node which:  
-  - Provides the <b>/ontology_map/reference_name</b> service, of type `ReferenceName.srv`, to provide the reference name of the ontology that is loaded into ARMOR. This is done only once the ontology is fully created and loaded.  
-  - Provides the <b>/ontology_map/room_position</b> service, of type `RoomPosition.srv`, to provide a position inside the requested room. The position is measured with respect to the world frame.  
+  - Provides the <b>`/ontology_map/reference_name`</b> service, of type `ReferenceName.srv`, to provide the reference name of the ontology that is loaded into ARMOR. This is done only once the ontology is fully created and loaded.  
+  - Provides the <b>`/ontology_map/room_position`</b> service, of type `RoomPosition.srv`, to provide a position inside the requested room. The position is measured with respect to the world frame.  
 - The <b>robot_behaviour</b> node which:  
-  - Uses the <b>/ontology_map/reference_name</b> service, of type `ReferenceName.srv`, to obtain the reference name of the ontology that is loaded into ARMOR.  
-  - Uses the <b>/ontology_map/room_position</b> service, of type `RoomPosition.srv`, to obtain a position inside the specified room. The position is measured with respect to the world frame.
-  - Uses the <b>/armor_interface_srv</b> service, of type `ArmorDirective.srv`, to interact with the ARMOR in order to modify the ontology and retrieve knowledge.  
-  - Subscribes to the <b>/battery_level</b> topic, of type `UInt8.msg`, to retrieve the updated battery level.  
-  - Creates a client for the <b>/compute_path</b> action server, of type  ` ComputePath.action`, in order to compute the path between the current position of the robot and a goal position.  
-  - Creates a client for the <b>/follow_path</b> action server, of type  ` FollowPath.action`, in order to make the robot follow the previosly computed path until the last position of the path is reached.  
+  - Uses the <b>`/ontology_map/reference_name`</b> service, of type `ReferenceName.srv`, to obtain the reference name of the ontology that is loaded into ARMOR.  
+  - Uses the <b>`/ontology_map/room_position`</b> service, of type `RoomPosition.srv`, to obtain a position inside the specified room. The position is measured with respect to the world frame.
+  - Uses the <b>`/armor_interface_srv`</b> service, of type `ArmorDirective.srv`, to interact with the ARMOR in order to modify the ontology and retrieve knowledge.  
+  - Subscribes to the <b>`/battery_level`</b> topic, of type `UInt8.msg`, to retrieve the updated battery level.  
+  - Creates a client for the <b>`/compute_path`</b> action server, of type  ` ComputePath.action`, in order to compute the path between the current position of the robot and a goal position.  
+  - Creates a client for the <b>`/follow_path`</b> action server, of type  ` FollowPath.action`, in order to make the robot follow the previosly computed path until the last position of the path is reached.  
 - The <b>battery_controller</b> node which:  
-   - Publishes to the <b>/battery_level</b> topic, of type `UInt8.msg`, the updated value of the battery level.  
+   - Publishes to the <b>`/battery_level`</b> topic, of type `UInt8.msg`, the updated value of the battery level.  
 - The <b>planner_controller</b> node which:  
-  - Creates a <b>/compute_path</b> action server, of type `ComputePath.action` in order to obtain the start and goal positions and computing the related path.  
+  - Creates a <b>`/compute_path`</b> action server, of type `ComputePath.action` in order to obtain the start and goal positions and computing the related path.  
 - The <b>motion_controller</b> node which:  
-  - Creates a <b>/follow_path</b> action server, of type ` FollowPath.action`, in order to obtain the path that the robot has to follow and make the robot follow it until the final position is reached.  
+  - Creates a <b>`/follow_path`</b> action server, of type ` FollowPath.action`, in order to obtain the path that the robot has to follow and make the robot follow it until the final position is reached.  
 
 The description of the custom messages, actions and services can be found in the related files:  
 - [ReferenceName](https://github.com/IlMusu/Exproblab_Assignment_1/blob/master/robot_state_msgs/srv/ReferenceName.srv)  
