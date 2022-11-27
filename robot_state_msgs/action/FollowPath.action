@@ -1,0 +1,14 @@
+## An action for moving the robot on a path of points
+
+# GOAL
+# The path to follow
+geometry_msgs/Point[] path
+---
+# RESULT
+# The position that the robot reached after the
+# completion of the movement
+geometry_msgs/Point position
+---
+# FEEBACK
+# The current position of the robot
+geometry_msgs/Point position

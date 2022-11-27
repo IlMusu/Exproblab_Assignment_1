@@ -15,8 +15,9 @@ from armor_api.armor_manipulation_client import ArmorManipulationClient
 import rospy
 import actionlib
 from std_msgs.msg import UInt8, String
-from robot_state_msgs.msg import MoveBetweenRoomsAction, MoveBetweenRoomsGoal
-from robot_state_msgs.srv import ReferenceName
+from robot_state_msgs.srv import ReferenceName, RoomPosition
+from robot_state_msgs.msg import ComputePathAction, ComputePathGoal
+from robot_state_msgs.msg import FollowPathAction, FollowPathGoal
 
 class RobotBehaviourHelper(object):
     '''
@@ -43,8 +44,10 @@ class RobotBehaviourHelper(object):
         self._battery_level = 100
         # A subscriber for the battery level
         self._battery_sub = rospy.Subscriber('/battery_level', UInt8, self._battery_level_callback)
-        # An action client for moving the robot between rooms
-        self._move_clt = actionlib.SimpleActionClient('/robot_move', MoveBetweenRoomsAction)
+        # An action client for computing the path between two rooms
+        self._path_clt = actionlib.SimpleActionClient('/compute_path', ComputePathAction)
+        # An action client for following a path
+        self._move_clt = actionlib.SimpleActionClient('/follow_path', FollowPathAction)
 
     
     def wait_for_ontology(self):
@@ -63,6 +66,11 @@ class RobotBehaviourHelper(object):
         self.onto_utils = ArmorUtilsClient(self._armor_client)
         self.onto_query = ArmorQueryClient(self._armor_client)
         self.onto_manip = ArmorManipulationClient(self._armor_client)
+        # Calling the service for obtaining the robot initial position
+        rospy.wait_for_service('/ontology_map/room_position')
+        get_room_position = rospy.ServiceProxy('/ontology_map/room_position', RoomPosition)
+        current_room = self.retrieve_current_room()
+        self._robot_position = get_room_position(current_room).position
         
     
     def _battery_level_callback(self, msg):
@@ -151,23 +159,29 @@ class RobotBehaviourHelper(object):
         '''
         # Retrieving the current room the Robot1 is in
         current_room = self.retrieve_current_room()
-        reached_room = next_room
-        # Requesting to the action server to move the robot
-        #self._move_clt.wait_for_server()
-        while False :
-            goal = MoveBetweenRoomsGoal()
-            goal.current_room = current_room
-            goal.next_room = next_room
-            self._move_clt.send_goal(goal)
-            self._move_clt.wait_for_result()
-            # Now we have the result
-            result = self._move_clt.get_result()
-            if not result.success :
-                print('The robot failed to move to room '+next_room+'.')
-            reached_room = result.current_room
-        rospy.sleep(10)
+        # Retrieving the position of the room
+        rospy.wait_for_service('/ontology_map/room_position')
+        get_room_position = rospy.ServiceProxy('/ontology_map/room_position', RoomPosition)
+        room_position = get_room_position(current_room).position
+        # Computing the path between the current position and the other position
+        path_goal = ComputePathGoal()
+        path_goal.start = self._robot_position
+        path_goal.goal = room_position
+        self._path_clt.wait_for_server()
+        self._path_clt.send_goal(path_goal)
+        self._path_clt.wait_for_result()
+        path = self._path_clt.get_result().path
+        # Moving on a path
+        move_goal = FollowPathGoal()
+        move_goal.path = path
+        self._move_clt.wait_for_server()
+        self._move_clt.send_goal(move_goal)
+        self._move_clt.wait_for_result()
+        # Storing the current robot position
+        self._robot_position = self._move_clt.get_result().position
+        
         # Moving the robot in the ontology
-        self.onto_manip.replace_objectprop_b2_ind('isIn', 'Robot1', reached_room, current_room)
+        self.onto_manip.replace_objectprop_b2_ind('isIn', 'Robot1', next_room, current_room)
     
     
     def retrieve_last_visited_time(self, room):

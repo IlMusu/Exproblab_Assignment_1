@@ -18,16 +18,21 @@ class StimulusController(object):
         This method starts the StimulusController is the execution mode.
         '''
         # Starting the controller in the specified mode
-        target_controller=self._manual_controller
-        if self._execution_mode == 'MANUAL' :
-            target_controller=self._manual_controller
-        elif self._execution_mode == 'RANDOM' :
-            target_controller=self._random_controller
-        else :
+        target_controller=self._get_controller_method()
+        if target_controller == None :
             rospy.logerr('Invalid execution mode ('+self._execution_mode+').')
+            return
         # Actually starting the controller in the execution mode
         self._explain_commands()
         target_controller()
+    
+
+    def _get_controller_method(self) :
+        if self._execution_mode == 'MANUAL' :
+            return self._manual_controller
+        elif self._execution_mode == 'RANDOM' :
+            return self._random_controller
+        return None
     
     
     def _explain_commands(self):

@@ -26,22 +26,18 @@ class StimulusActionController(StimulusController):
         self._result = None
         self._result_event = threading.Event()
         
-    
-    def start(self):
-        '''
-        This method starts the StimulusController is the execution mode.
-        '''
-        # Starting the controller in the specified mode
-        target_controller=self._manual_controller
+        
+    def _get_controller_method(self) :
         if self._execution_mode == 'MANUAL' :
-            target_controller=self._manual_controller
+            return self._manual_controller
         elif self._execution_mode == 'RANDOM' :
-            target_controller=self._random_controller
-        else :
-            rospy.logerr('Invalid execution mode ('+self._execution_mode+').')
-        # Actually starting the controller in the execution mode
-        self._explain_commands()
-        target_controller()
+            return (lambda : None)
+        return None
+    
+    
+    def _start_action_server(self, server):
+        self._server = server
+        self._server.start()
     
     
     def _action_callback(self, goal):
@@ -71,7 +67,7 @@ class StimulusActionController(StimulusController):
         else :
             self._random_controller()
         # The result is now available
-        self._move_srv.set_succeeded(self._result)
+        self._server.set_succeeded(self._result)
         # Resetting the state
         self._goal = None
         self._result = None

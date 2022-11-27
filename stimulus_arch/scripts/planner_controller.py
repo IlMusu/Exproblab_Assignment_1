@@ -48,9 +48,9 @@ class PlannerController(StimulusActionController):
         This method start the controller in the specified execution mode.
         '''
         # Defining an action server to simulate computing the plan
-        self._move_srv = actionlib.SimpleActionServer('/compute_plan', ComputePathAction, 
+        server = actionlib.SimpleActionServer('/compute_path', ComputePathAction, 
                             execute_cb=self._action_callback, auto_start=False)
-        self._move_srv.start()
+        self._start_action_server(server)
         # Actually starting the controller
         StimulusActionController.start(self)
         
@@ -70,16 +70,18 @@ class PlannerController(StimulusActionController):
     
     def _plan_command(self, args):
         # Obtaining the path inserted by the user
-        argument = ast.literal_eval(''.join(args))
+        try :
+            argument = ast.literal_eval(''.join(args))
+        except Exception :
+            print(CGREEN+'The inserted path was not formatted correctly.'+CRESET)
+            return
         # Computing path from array of coordinates
         path = [self._goal.start]
         for [x, y, z] in argument :
             path.append(Point(x, y, z))
         path.append(self._goal.goal)
         # Filling and setting the result
-        result = ComputePathResult()
-        result.path = path
-        self._set_action_result(result)
+        self._set_result_path(path)
         
         
     def _random_controller(self):
@@ -90,13 +92,21 @@ class PlannerController(StimulusActionController):
         '''
         path = [self._goal.start]
         for i in range(5, random.randrange(5,10)):
-            path.append(Point(random.uniform(-10.0,10.0)))
+            x = random.uniform(-10.0,10.0)
+            y = random.uniform(-10.0,10.0)
+            z = random.uniform(-10.0,10.0)
+            path.append(Point(x, y, z))
         path.append(self._goal.goal)
         # Filling and setting the result
+        self._set_result_path(path)
+    
+    
+    def _set_result_path(self, path):
         result = ComputePathResult()
         result.path = path
         self._set_action_result(result)
-    
+        rospy.loginfo(CYELLOW+'The computed path has been published.'+CRESET)
+        
 
 
 if __name__ == "__main__" :

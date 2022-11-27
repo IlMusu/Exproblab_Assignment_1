@@ -103,14 +103,14 @@ class BatteryController(StimulusController):
         try :
             self._offset_battery_level(int(args[0]))
         except ValueError :
-            print('Not a valid offset value, it must be a int.')
+            print(CGREEN+'Not a valid offset value, it must be a int.'+CRESET)
             
             
     def _set_command(self, args) :
         try :
             self._offset_battery_level(-self._battery_level + int(args[0]))
         except ValueError :
-            print('Not a valid set value, it must be a int.')
+            print(+CGREEN+'Not a valid set value, it must be a int.'+CRESET)
     
     
     def _offset_battery_level(self, offset):
