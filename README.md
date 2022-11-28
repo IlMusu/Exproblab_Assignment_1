@@ -240,7 +240,7 @@ The <b>motion_controller</b> node uses the following parameters:
 ### Waiting For The Ontology
 
 <p align="center">
-![](./documentation/gifs/wait_for_ontology.gif)
+![Uploading wait_for_ontology.gif…]()
 </p>
 
 The gif shows two running nodes:
@@ -250,7 +250,6 @@ The <b>robot_behavior node</b> requests to the <b>ontology_map_building</b> node
 
 ### Moving In The Environment
 <p align="center">
-<img src="/IlMusu/Exproblab_Assignment_1/raw/documentation/gifs/moving.gif" alt="" style="max-width: 100%; display: inline-block;" data-target="animated-image.originalImage">
 </p>
 
 The gif show four running nodes:  
