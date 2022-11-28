@@ -121,23 +121,7 @@ To see the complete list of arguments for this launch file, look at [this]() sec
 roslaunch robot_behaviour robot_behaviour.launch
 ```
 
-
-## 3. LIMITATIONS, FEATURES AND FUTURE WORK
-### Limitations
-The surveillance software has been developed under the following hypothesis:
-- The robot in a fixed two-dimensional environment that does not change in time.
-- The robot is always able to compute and follow a path to the goal position.
-- Even if the battery is completely empty, the robot is still able to reach the recharge station.
-
-### Features
-The developed software provides the following features:
-- The level of the battery of the robot may become low at any time.
-- The movement policy makes it possible to abstracts the map of the environment.
-- The creation of different maps is easy, fast and intuitive.
-- The policy for choosing the next room may be changed at run-time easily.
-- Abstraction from the path planning and movement procedures.
-
-## 4. SOFTWARE ARCHITECTURE
+## 3. SOFTWARE ARCHITECTURE
 ### Component Diagram
 In the <b>component diagram</b> are shown all the <b>blocks</b> and <b>interfaces</b> that have been used or developed in order to obtain the desired software architecture.
 
@@ -251,3 +235,50 @@ The <b>planner_controller</b> node uses the following parameters:
 
 The <b>motion_controller</b> node uses the following parameters:
 - `/execution_mode (string)` : The execution mode of this controller (MANUAL or RANDOM).
+
+## 5. RUNNING CODE
+### Waiting For The Ontology
+
+<p align="center">
+![](https://raw.githubusercontent.com/IlMusu/Exproblab_Assignment_1/documentation/gifs/wait_for_ontology.gif?token=GHSAT0AAAAAAB3G3VIRHNZ74P77UA5Q3H72Y4EUCRA)
+</p>
+
+The gif shows two running nodes:
+- On the right there is the `robot_behavior` node.  
+- On the left there is the `ontology_map_building` node.  
+The <b>robot_behavior node</b> requests to the <b>ontology_map_building</b> node the reference name used to load the ontology into ARMOR. This value is provided by the second node only once it has completed loading and modifying the ontology.
+
+### Moving In The Environment
+<p align="center">
+![](https://raw.githubusercontent.com/IlMusu/Exproblab_Assignment_1/documentation/gifs/moving.gif?token=GHSAT0AAAAAAB3G3VIQMR5UH6ELW5OTTED4Y4EUFWQ)
+</p>
+
+The gif show four running nodes:  
+- On left there is the `robot_behavior` node.  
+- On the right, from top to bottom, there are:  
+  - The `battery_controller` node executed in MANUAL mode.  
+  - The `planner_controller` node executed in MANUAL mode.  
+  - The `movement_controller` node executed in MANUAL mode.  
+
+It can be seen that at first the <b>robot_behavior</b> makes a request to the <b>/compute_path</b> ActionServer in order to obtain a path that goes from its current position to the position of room R4.  
+Since the <b>planner_controller</b> node is executed in MANUAL mode, the user has to prompt the path in console in order to make the node finalize the <b>/compute_path</b> ActionServer response.  
+Then, <b>robot_behavior</b> makes a request to the <b>/follow_path</b> ActionServer in order to make the robot follow the previously computed path.  
+Again, since the <b>movement_controller</b> node is executed in MANUAL mode, the user has to prompt the command in console in order to make the robot move and finalize the <b>/follow_path</b> ActionServer response.  
+At the end, in the <b>robot_behavior</b> console it is shown that the robot reaches the room R4.  
+
+
+
+## 4. LIMITATIONS, FEATURES AND FUTURE WORK
+### Limitations
+The surveillance software has been developed under the following hypothesis:
+- The robot in a fixed two-dimensional environment that does not change in time.
+- The robot is always able to compute and follow a path to the goal position.
+- Even if the battery is completely empty, the robot is still able to reach the recharge station.
+
+### Features
+The developed software provides the following features:
+- The level of the battery of the robot may become low at any time.
+- The movement policy makes it possible to abstracts the map of the environment.
+- The creation of different maps is easy, fast and intuitive.
+- The policy for choosing the next room may be changed at run-time easily.
+- Abstraction from the path planning and movement procedures.
