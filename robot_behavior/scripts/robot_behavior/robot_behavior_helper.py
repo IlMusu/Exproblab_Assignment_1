@@ -29,17 +29,15 @@ class RobotBehaviorHelper(object):
         - /robot_move (MoveBetweenRoomsAction)
 
     This is an helper class which provides some useful methods in order to abstract 
-    the comunication with the ARMOR server in the particular context of the robot
-    bahaviour. In order to provide this functionality, this class is heavily related 
+    the communication with the ARMOR server in the particular context of the robot
+    behavior. In order to provide this functionality, this class is heavily related 
     to the armor_api library.
+    |  Inside the initialization method, this class:
+    |  1. Initializes some internal variables.
+    |  2. Creates a Subscriber to the /battery_level topic.
+    |  3. Creates an ActionClient for /robot_move ActionServer.
     '''
     def __init__(self):
-        '''
-        |  This is the costructor method for the RobotBehaviorHelper class.
-        |  1. Initilizes some internal variables.
-        |  2. Creates a Subscriber to the /battery_level topic.
-        |  3. Creates an ActionClietn for /robot_move ActionServer.
-        '''
         # Subscriber for the battery level update
         self._battery_level = 100
         # A subscriber for the battery level
