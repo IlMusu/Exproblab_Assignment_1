@@ -1,7 +1,5 @@
 # EXPROBLAB - ASSIGNMENT 1
-Author : Mattia Musumeci 4670261@studenti.unige.it  
-
-<img src="/documentation/gifs/moving.gif?raw=true">
+Author : Mattia Musumeci 4670261@studenti.unige.it
 
 This is the first assignment developed for the <b>Experimental Robotics Laboratory</b> course of the University of Genoa.  
 At this <b>[link](http://documentaiton)</b> it is possible to find the documentation for the software contained in this repository.  
@@ -242,7 +240,7 @@ The <b>motion_controller</b> node uses the following parameters:
 ### Waiting For The Ontology
 
 <p align="center">
-![wait_for_ontology](https://user-images.githubusercontent.com/51080342/204278338-f832feab-35eb-4267-ae0e-e45ed9fc696c.gif)
+<img src="/documentation/gifs/wait_for_ontology.gif?raw=true">
 </p>
 
 The gif shows two running nodes:
@@ -252,7 +250,7 @@ The <b>robot_behavior node</b> requests to the <b>ontology_map_building</b> node
 
 ### Moving In The Environment
 <p align="center">
-![moving](https://user-images.githubusercontent.com/51080342/204278438-aa04c194-8c56-4b9e-b5c3-b9777d4512dc.gif)
+<img src="/documentation/gifs/moving.gif?raw=true">
 </p>
 
 The gif show four running nodes:  
@@ -270,7 +268,7 @@ At the end, in the <b>robot_behavior</b> console it is shown that the robot reac
 
 ### Recharging Battery
 <p align="center">
-![recharging](https://user-images.githubusercontent.com/51080342/204278519-dbcd091d-28e3-4440-93ad-049dd36e2cf7.gif)
+<img src="/documentation/gifs/recharging.gif?raw=true">
 </p>
 
 The gif show four running nodes:  
