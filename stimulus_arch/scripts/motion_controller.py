@@ -23,7 +23,7 @@ CRESET  = '\033[0m'
 class MotionController(StimulusActionController):
     '''
     Creates an action server for:
-        /follow_path (FollowPath)
+        - /follow_path (FollowPath)
 
     This class is a controller that handles the movement of the robot.
     In particular, it makes the robot follow a predefined path.

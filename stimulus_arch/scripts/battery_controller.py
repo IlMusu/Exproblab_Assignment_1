@@ -19,24 +19,24 @@ CRESET  = '\033[0m'
 class BatteryController(StimulusController):
     '''
     Publishes to:
-        /battery_level (UInt8)
-    Parameters :
-        /battery_initial_value (int) : The initial value for the battery level.
+        - /battery_level (UInt8)
+    ROS Parameters :
+        - /battery_initial_value (int) : The initial value for the battery level.
 
     This class is a controller that handles the battery level of the robot.
     '''
     
     def __init__(self):
         '''
-        This is the constructor method for the BatteryController class.
-        1. Initializes the /battery_controller node.
-        2. Gets the required parameters from the rospy.
+        |  This is the constructor method for the BatteryController class.
+        |  1. Initializes the /battery_controller node.
+        |  2. Gets the required parameters from the rospy.
         '''
         StimulusController.__init__(self)
         # Initializing the ROS node
         rospy.init_node('battery_controller', log_level=rospy.INFO)
         # Initializing the battery level to the max
-        self._battery_level = rospy.get_param('/battery_intial_value', 100)
+        self._battery_level = rospy.get_param('/battery_initial_value', 100)
     
     
     def _explain_commands(self):
