@@ -72,12 +72,10 @@ The software contained in this repository is composed of two ROS packages.
 Therefore, in order to install the software, it is necessary to create a workspace:  
 ```bash
 mkdir -p [workspace_name]/src
-cd [workspace_name]/
-catkin_make
 ```
 Then, clone this repository inside the src folder just created:
 ```bash
-cd src/
+cd [workspace_name]/src/
 git clone [this_repo_link] .
 ```
 
@@ -101,25 +99,32 @@ roscore
 ```
 
 Then, it is necessary to run the ARMOR library.  
-Open a new console and run the following command:
+Open a new console  (or split the previous one)  and run the following command:
 ```bash
 rosrun armor execute it.emarolab.armor.ARMORMainService
 ```
 
-Then, open a new console and run the robot_state node:  
-Notice that only one between the three shown commands are necessary to run the node. The last two commands show how it is possible to use command line arguments to modify the execution mode of the controllers.
-To see the complete list of arguments for this launch file, look at [this]() section.
+Then, it is necessary to load the ontology into ARMOR and create the map.
+Open a new console  (or split the previous one)  and run the following command:
 ```bash
-roslaunch robot_behaviour robot_state.launch
-# roslaunch robot_behaviour robot_state.launch move_controller_execution_mode:="RANDOM"
-# roslaunch robot_behaviour robot_state.launch battery_controller_execution_mode:="MANUAL"
+roslaunch robot_behaviour ontology_map_builder.launch
+```
+
+
+Then, open a new console and run the controller nodes.  
+It is recommended to use the Terminator terminal so that it is possible to vertically split it into three terminals, one for each controller. Notice that it is possible to run all the controllers in 'MANUAL' or 'RANDOM' mode:
+```bash
+roslaunch stimulus_arch battery_controller.launch execution_mode:='MANUAL'
+roslaunch stimulus_arch planner_controller.launch execution_mode:='MANUAL'
+roslaunch stimulus_arch motion_controller.launch execution_mode:='MANUAL'
 ```
 
 Finally, open a new console and run the robot_state node:  
-To see the complete list of arguments for this launch file, look at [this]() section.
 ```bash
-roslaunch robot_behaviour robot_behaviour.launch
+roslaunch robot_behaviour robot_surveillance.launch
 ```
+
+To see the complete list of arguments for this launch file, look at [this](#ros-parameters) section.
 
 ## 3. SOFTWARE ARCHITECTURE
 ### Component Diagram
@@ -146,7 +151,6 @@ In the <b>component diagram</b> are shown all the <b>blocks</b> and <b>interface
   - The `robot_behaviour` node through the <b>/follow_path</b> message.  
 
 A more detailed explanation of the use of the interfaces is available <b>[here](#ros-messages,-services-and-actions)</b>.  
-A more detailed explanation of the controllers is available <b>[here](#ros-messages,-services-and-actions)</b>. 
 
 ### States Diagram
 This <b>state diagram</b> shows the state machine representing the desired behavior of the robot. In particular, all the possible states and transitions are shown.
