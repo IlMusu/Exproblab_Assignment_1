@@ -34,16 +34,15 @@ class OntologyMapBuilder(object):
     the map specified by the user. The description of the map is provided through 
     parameters which are automatically decoded. Once the map if fully created,
     this node provides a service for providing the position of room given the name.
+    
+    |  In the constructor method, this class:
+    |  1. Creates a service for the "ontology_map/reference_name" service.
+    |  2. Creates a service for the "ontology_map/room_position" service.
+    |  3. Initializes objects to communicate with ARMOR.
+    |  4. Builds the map by calling the related method.
     '''
 
     def __init__(self) :
-        '''
-        This is the constructor method for the OntologyMapBuilder class.
-        1. Creates a service for the "ontology_map/reference_name" service.
-        2. Creates a service for the "ontology_map/room_position" service.
-        3. Initializes objects to communicate with ARMOR.
-        4. Builds the map by calling the related method.
-        '''
         # Initializing the ROS node
         rospy.init_node('ontology_map_builder', log_level=rospy.INFO)
         # Creating a Publisher for when the map is ready
