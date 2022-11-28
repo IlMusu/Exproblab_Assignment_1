@@ -126,7 +126,7 @@ roslaunch robot_behaviour robot_behaviour.launch
 In the <b>component diagram</b> are shown all the <b>blocks</b> and <b>interfaces</b> that have been used or developed in order to obtain the desired software architecture.
 
 <p align="center">
-<img src="/documentation/images/componets_diagram.drawio.png?raw=true">
+<img src=https://github.com/IlMusu/Exproblab_Assignment_1/blob/documentation/images/componets_diagram.drawio.png?raw=true">
 </p>
 
 - The `ontology_map_builder` node loads the default ontology into ARMOR and builds the map following the user requests. It also contains a mapping between each room and its position with respect to the world frame. Notice that in this context, the "position of a room" is defined as a point inside the room that the robot is able to reach.  It interacts with:
@@ -152,7 +152,7 @@ A more detailed explanation of the controllers is available <b>[here](#ros-messa
 This <b>state diagram</b> shows the state machine representing the desired behavior of the robot. In particular, all the possible states and transitions are shown.
 
 <p align="center">
-<img src="/documentation/images/states_diagram.drawio.png?raw=true">
+<img src="https://github.com/IlMusu/Exproblab_Assignment_1/blob/documentation/images/states_diagram.drawio.png?raw=true">
 </p>
 
 - Inside the `INITIALIZATION` state, the following operations are performed:  
@@ -182,7 +182,7 @@ This <b>state diagram</b> shows the state machine representing the desired behav
 This <b>sequence diagram</b> shows a possible execution of the software contained in this repository. More in details, this diagram shows the execution in time of all the nodes and the requests/responses between them.
 
 <p align="center">
-<img src="/documentation/images/sequence_diagram.drawio.png?raw=true">
+<img src="https://github.com/IlMusu/Exproblab_Assignment_1/blob/documentation/images/sequence_diagram.drawio.png?raw=true">
 </p>
 
 One thing to immediately notice in this diagram is that every time something is retrieved from the armor_server node, the reasoner is updated so that the retrieved value is always updated. This should be shown in the diagram but, for simplicity of visualization, is omitted.
@@ -240,7 +240,7 @@ The <b>motion_controller</b> node uses the following parameters:
 ### Waiting For The Ontology
 
 <p align="center">
-<img src="/documentation/gifs/wait_for_ontology.gif?raw=true">
+<img src="https://github.com/IlMusu/Exproblab_Assignment_1/blob/documentation/gifs/wait_for_ontology.gif?raw=true">
 </p>
 
 The gif shows two running nodes:
@@ -268,7 +268,7 @@ At the end, in the <b>robot_behavior</b> console it is shown that the robot reac
 
 ### Recharging Battery
 <p align="center">
-<img src="/documentation/gifs/recharging.gif?raw=true">
+<img src="https://github.com/IlMusu/Exproblab_Assignment_1/blob/documentation/gifs/recharging.gif?raw=true">
 </p>
 
 The gif show four running nodes:  
@@ -286,7 +286,7 @@ The <b>battery_controller</b> node publishes again the battery level value on th
 
 ### Random Execution Mode
 <p align="center">
-<img src="/documentation/gifs/random_execution.gif?raw=true">
+<img src="https://github.com/IlMusu/Exproblab_Assignment_1/blob/documentation/gifs/random_execution.gif?raw=true">
 </p>
 
 The gif show four running nodes:  
