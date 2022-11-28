@@ -240,7 +240,7 @@ The <b>motion_controller</b> node uses the following parameters:
 ### Waiting For The Ontology
 
 <p align="center">
-![Uploading wait_for_ontology.gif…]()
+![wait_for_ontology](https://user-images.githubusercontent.com/51080342/204278338-f832feab-35eb-4267-ae0e-e45ed9fc696c.gif)
 </p>
 
 The gif shows two running nodes:
@@ -250,6 +250,7 @@ The <b>robot_behavior node</b> requests to the <b>ontology_map_building</b> node
 
 ### Moving In The Environment
 <p align="center">
+![moving](https://user-images.githubusercontent.com/51080342/204278438-aa04c194-8c56-4b9e-b5c3-b9777d4512dc.gif)
 </p>
 
 The gif show four running nodes:  
@@ -265,7 +266,23 @@ Then, <b>robot_behavior</b> makes a request to the <b>/follow_path</b> ActionSer
 Again, since the <b>movement_controller</b> node is executed in MANUAL mode, the user has to prompt the command in console in order to make the robot move and finalize the <b>/follow_path</b> ActionServer response.  
 At the end, in the <b>robot_behavior</b> console it is shown that the robot reache
 
+### Recharging Battery
+<p align="center">
+![recharging](https://user-images.githubusercontent.com/51080342/204278519-dbcd091d-28e3-4440-93ad-049dd36e2cf7.gif)
+</p>
 
+The gif show four running nodes:  
+- On left there is the `robot_behavior` node.  
+- On the right, from top to bottom, there are:  
+  - The `battery_controller` node executed in MANUAL mode.  
+  - The `planner_controller` node executed in RANDOM mode.  
+  - The `movement_controller` node executed in RANDOM mode.  
+
+Initially, the robot is freely moving in the environment because the battery is charged enough.  
+Then, the user prompts the battery command and the <b>battery_controller</b> node published on the <b>/battery_level</b> topic the new value for the battery level.  
+The <b>robot_behavior</b> node receives the new battery level and the next time the state machine is in the CHOOSE_NEXT_ROOM state, it will choose a room containing the reacharging station, which is E.  
+After the robot has moved to recharging station, it waits until the battery level is enough.  
+The <b>battery_controller</b> node publishes again the battery level value on the related topic. This time the value is 90% which is considered enough for the robot to stop recharging.
 
 ## 4. LIMITATIONS, FEATURES AND FUTURE WORK
 ### Limitations
