@@ -29,7 +29,7 @@ class CommandHelper(object):
         '''
         # This source will contain at each iteration all the args that can
         # be appended after the current argument. Initially, there are all
-        # the possibile commands.
+        # the possible commands.
         arg_source = self._registered_commands
         for arg in command :
             # Appending argument one next to each other
