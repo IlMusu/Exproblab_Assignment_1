@@ -240,7 +240,7 @@ The <b>motion_controller</b> node uses the following parameters:
 ### Waiting For The Ontology
 
 <p align="center">
-![](https://raw.githubusercontent.com/IlMusu/Exproblab_Assignment_1/documentation/gifs/wait_for_ontology.gif)
+![](https://github.com/IlMusu/Exproblab_Assignment_1/blob/documentation/gifs/wait_for_ontology.gif)
 </p>
 
 The gif shows two running nodes:
