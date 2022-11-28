@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>    
-    <!-- PARAMETERS FOR CONFIGURING ROBOT BEHAVIOUR -->
+    <!-- PARAMETERS FOR CONFIGURING ROBOT BEHAVIOR -->
     <!-- The urgency threshold for the robot policy -->
     <arg name="urgency_threshold" default="20" />
     <param name="urgency_threshold" type="int" value="$(arg urgency_threshold)" />  
@@ -17,9 +17,9 @@
     <arg name="battery_require_recharge" default="20" />
     <param name="battery_require_recharge" type="int" value="$(arg battery_require_recharge)" />
     <!-- The battery percentage for which the robot stops recharging -->
-    <arg name="battery_stop_recharge" default="100" />
+    <arg name="battery_stop_recharge" default="85" />
     <param name="battery_stop_recharge" type="int" value="$(arg battery_stop_recharge)" />    
 
-	<!-- LAUNCHING NODE FOR ROBOT BEHAVIOUR-->
-    <node name="robot_behaviour_surveillance" pkg="robot_behaviour" type="robot_surveillance.py" output="screen"/>
+	<!-- LAUNCHING NODE FOR ROBOT BEHAVIOR-->
+    <node name="robot_surveillance" pkg="robot_behavior" type="robot_surveillance.py" output="screen"/>
 </launch>

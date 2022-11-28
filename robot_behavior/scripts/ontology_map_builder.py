@@ -100,7 +100,6 @@ class OntologyMapBuilder(object):
         # Organizing room positions
         self._organize_rooms_positions(rooms_positions)
         rospy.loginfo("Finished organizing rooms positions.")
-        rospy.sleep(20)
         # The building is now complete
         self._building_complete = True
         self._building_complete_event.set()

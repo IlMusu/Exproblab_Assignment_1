@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(robot_behaviour)
+project(robot_behavior)
 
 ## Find catkin macros and libraries
 find_package(catkin REQUIRED COMPONENTS
@@ -7,6 +7,9 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   actionlib_msgs
 )
+
+## Building and exporting modules
+catkin_python_setup()
 
 ## Generate messages in the 'msg' folder
 # add_message_files(
@@ -47,10 +50,6 @@ catkin_package(
 #  DEPENDS system_lib
 )
 
-###########
-## Build ##
-###########
-
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
@@ -60,8 +59,9 @@ include_directories(
 
 ## Define runnables.
 catkin_install_python(
-  PROGRAMS 
-    # TODO This
+  PROGRAMS
+    scripts/ontology_map_builder.py
+    scripts/robot_surveillance.py
   DESTINATION 
     ${CATKIN_PACKAGE_BIN_DESTINATION}
 )

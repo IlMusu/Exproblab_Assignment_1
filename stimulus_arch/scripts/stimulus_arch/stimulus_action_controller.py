@@ -3,7 +3,7 @@
 # Importing THREADING library to make system multithreaded
 import threading
 
-from stimulus_controller import StimulusController
+from stimulus_arch.stimulus_controller import StimulusController
 
 CRED    = '\33[31m'
 CGREEN  = '\33[32m'

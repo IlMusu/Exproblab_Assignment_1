@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 
-# The time library is necessary for getting the current time
+# The time libreary is necessary for getting the current time
 import time
+# Importing mutexes to handle multi-threading
+from threading import Event
 
 # Importing ARMOR libraries to easily interact with ARMOR
 from armor_api.armor_client import ArmorClient
@@ -12,7 +14,7 @@ from armor_api.armor_manipulation_client import ArmorManipulationClient
 # Importing ROS library for python
 import rospy
 import actionlib
-from std_msgs.msg import UInt8
+from std_msgs.msg import UInt8, String
 from robot_state_msgs.srv import ReferenceName, RoomPosition
 from robot_state_msgs.msg import ComputePathAction, ComputePathGoal
 from robot_state_msgs.msg import FollowPathAction, FollowPathGoal
@@ -23,24 +25,20 @@ class RobotBehaviorHelper(object):
         /battery_level (UInt8)
     Requests service to:
         /ontology_map/reference_name (ReferenceName)
-        /ontology_map/room_position (RoomPosition)
-    Creates an action client for :
-        /compute_path (ComputePathAction)
-        /follow_path (FollowPathAction)
+    Requests action to :
+        /robot_move (MoveBetweenRoomsAction)
 
     This is an helper class which provides some useful methods in order to abstract 
-    the communication with the ARMOR server in the particular context of the robot
-    behavior. In order to provide this functionality, this class is heavily related 
+    the comunication with the ARMOR server in the particular context of the robot
+    bahaviour. In order to provide this functionality, this class is heavily related 
     to the armor_api library.
     '''
-
     def __init__(self):
         '''
-        This is the constructor method for the RobotBehaviorHelper class.
-        1. Initializes some internal variables.
+        This is the costructor method for the RobotBehaviourHelper class.
+        1. Initilizes some internal variables.
         2. Creates a Subscriber to the /battery_level topic.
-        3. Creates an ActionClient for /robot_move ActionServer.
-        4. Creates an ActionClient for /follow_path ActionServer.
+        3. Creates an ActionClietn for /robot_move ActionServer.
         '''
         # Subscriber for the battery level update
         self._battery_level = 100
@@ -56,15 +54,15 @@ class RobotBehaviorHelper(object):
         '''
         This method makes the called wait until the ontology is fully loaded and
         then initializes the objects to communicate with ARMOR.
-        This behavior is obtained by calling the '/ontology_map/reference_name'
+        This behaviour is obtained by calling the '/ontology_map/reference_name'
         service which responds only when the ontology is loaded.
         '''
         # Calling the service for obtaining the reference name
         rospy.wait_for_service('/ontology_map/reference_name')
         get_reference_name = rospy.ServiceProxy('/ontology_map/reference_name', ReferenceName)
         reference_name = get_reference_name().name
-        # Creating objects for handling the communication with ARMOR
-        self._armor_client = ArmorClient('robot_behavior', reference_name)
+        # Creating objects for handling the comunication with ARMOR
+        self._armor_client = ArmorClient('robot_behaviour', reference_name)
         self.onto_utils = ArmorUtilsClient(self._armor_client)
         self.onto_query = ArmorQueryClient(self._armor_client)
         self.onto_manip = ArmorManipulationClient(self._armor_client)
@@ -134,7 +132,7 @@ class RobotBehaviorHelper(object):
         Args:
             clss (string) : The class name of the rooms to retrieve.
         Returns:
-            (list) : The list of the names of the rooms belonging to class clss.
+            (list) : The list of the names of the rooms beloning to class clss.
 
         Obtains from ARMOR all the rooms belonging to a class:
         1. Requests a reasoner synchronization to update the ontology.
@@ -143,21 +141,24 @@ class RobotBehaviorHelper(object):
         '''
         # The reasoner must be started before querying something
         self.onto_utils.sync_buffered_reasoner()
-        # Retrieving all the rooms belonging to a class
+        # Retrieving all the rooms belongin to a class
         classes_names = self.onto_query.ind_b2_class(clss)
         return classes_names
     
     
-    def move_robot_to_room(self, next_room):
+    def compute_path_to_room(self, next_room):
         '''
         Args:
-            next_room (string) : the next room the 'Robot1' needs to move into.
-            
-        Requests ARMOR to move the 'Robot1' in next_room:
-        1. Retrieves the robot's current room.
-        2. Sends a request to the /robot_move ActionServer to move the robot
-           to the desired room. This is done until successful.
-        3. Replaces the 'isIn' object property of 'Robot1' to next_room.
+            next_room (string) : The next room the 'Robot1' needs to move into.
+        Returns:
+            (list) : The list of Point composing the path.
+        
+        Requests from other nodes to compute a path:
+        1. Retrieves the current room from ARMOR.
+        2. Requests the /ontology_map/room_position service to obtain a position
+           inside next_room.
+        3. Requests from the /compute_path ActionServer to compute a path from
+           the current position of the robot to the poisition of the room.
         '''
         # Retrieving the current room the Robot1 is in
         current_room = self.retrieve_current_room()
@@ -172,7 +173,22 @@ class RobotBehaviorHelper(object):
         self._path_clt.wait_for_server()
         self._path_clt.send_goal(path_goal)
         self._path_clt.wait_for_result()
-        path = self._path_clt.get_result().path
+        return self._path_clt.get_result().path
+        
+        
+    def follow_path_for_room(self, path, next_room):
+        '''
+        Args:
+            path (list) : The list of Point composing the path.
+            room (string) : The room reached after completing the path.
+            
+        Requests from other nodes to move the Robot1 following the path:
+        1. Requests from the /follow_path ActionServer to follow the path.
+        2. Stores the actual position of the robot after moving on the path.
+        3. Replaces the 'isIn' property of 'Robot1' with the new room value.
+        '''
+        # Retrieving the current room the Robot1 is in
+        current_room = self.retrieve_current_room()
         # Moving on a path
         move_goal = FollowPathGoal()
         move_goal.path = path
@@ -202,7 +218,7 @@ class RobotBehaviorHelper(object):
         self.onto_utils.sync_buffered_reasoner()
         # Retrieving time
         data_id = self.onto_query.dataprop_b2_ind('visitedAt', room)[0]
-        data = RobotBehaviorHelper._data_from_id(data_id)
+        data = RobotBehaviourHelper._data_from_id(data_id)
         return data
     
     
@@ -220,7 +236,7 @@ class RobotBehaviorHelper(object):
         self.onto_utils.sync_buffered_reasoner()
         # Retrieving robot time
         data_id = self.onto_query.dataprop_b2_ind('now', 'Robot1')[0]
-        data = RobotBehaviorHelper._data_from_id(data_id)
+        data = RobotBehaviourHelper._data_from_id(data_id)
         return data
         
         
@@ -265,7 +281,7 @@ class RobotBehaviorHelper(object):
         self.onto_utils.sync_buffered_reasoner()
         # Getting the robot outdated time and current time
         old_id = self.onto_query.dataprop_b2_ind('urgencyThreshold', 'Robot1')[0]
-        old = RobotBehaviorHelper._data_from_id(old_id)
+        old = RobotBehaviourHelper._data_from_id(old_id)
         # Update robot current time
         self.onto_manip.replace_dataprop_b2_ind('urgencyThreshold', 'Robot1', 'Long', str(value), old)
     

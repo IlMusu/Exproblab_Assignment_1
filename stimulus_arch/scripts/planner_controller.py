@@ -12,8 +12,8 @@ from robot_state_msgs.msg import ComputePathAction, ComputePathResult
 from geometry_msgs.msg import Point
 
 # Importing the helper for handling user commands
-from command_helper import CommandHelper
-from stimulus_action_controller import StimulusActionController
+from stimulus_arch.command_helper import CommandHelper
+from stimulus_arch.stimulus_action_controller import StimulusActionController
 
 CRED    = '\33[31m'
 CGREEN  = '\33[32m'

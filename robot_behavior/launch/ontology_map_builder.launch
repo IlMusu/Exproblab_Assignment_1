@@ -2,7 +2,7 @@
 <launch>
     <!-- PARAMETERS FOR SETTING UP ARMOR CLIENT-->
     <!-- The path for the ontology to load into ARMOR -->
-	<arg name="ontology_path" default="/root/exprolab_ros_ws/src/robot_behaviour/maps/topological_map.owl" />
+	<arg name="ontology_path" default="/root/exprolab_ros_ws/src/robot_behavior/maps/topological_map.owl" />
     <param name="ontology_path" type="str" value="$(arg ontology_path)" />
     <!-- The ontology uri associated with the ontology loaded into ARMOR -->
     <arg name="ontology_uri" default="http://bnc/exp-rob-lab/2022-23" />
@@ -37,5 +37,5 @@
     <param name="robot_room" type="str" value="$(arg robot_room)" />
     
 	<!-- LAUNCHING NODE -->
-    <node name="map_builder_helper" pkg="robot_behaviour" type="ontology_map_builder.py" output="screen"/>
+    <node name="map_builder_helper" pkg="robot_behavior" type="ontology_map_builder.py" output="screen"/>
 </launch>

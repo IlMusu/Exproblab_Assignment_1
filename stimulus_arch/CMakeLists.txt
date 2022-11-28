@@ -8,6 +8,9 @@ find_package(catkin REQUIRED COMPONENTS
   actionlib_msgs
 )
 
+## Building and exporting modules
+catkin_python_setup()
+
 ## Generate messages in the 'msg' folder
 # add_message_files(
 #   FILES
@@ -47,10 +50,6 @@ catkin_package(
 #  DEPENDS system_lib
 )
 
-###########
-## Build ##
-###########
-
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
@@ -58,10 +57,12 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-## Define runnables.
+## Define runnables
 catkin_install_python(
-  PROGRAMS 
-    # TODO This
+  PROGRAMS
+    scripts/battery_controller.py
+    scripts/planner_controller.py
+    scripts/motion_controller.py
   DESTINATION 
     ${CATKIN_PACKAGE_BIN_DESTINATION}
 )

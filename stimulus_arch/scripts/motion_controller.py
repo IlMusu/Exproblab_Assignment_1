@@ -12,8 +12,8 @@ from robot_state_msgs.msg import FollowPathAction, FollowPathResult
 from geometry_msgs.msg import Point
 
 # Importing the helper for handling user commands
-from command_helper import CommandHelper
-from stimulus_action_controller import StimulusActionController
+from stimulus_arch.command_helper import CommandHelper
+from stimulus_arch.stimulus_action_controller import StimulusActionController
 
 CRED    = '\33[31m'
 CGREEN  = '\33[32m'
@@ -109,8 +109,8 @@ class MotionController(StimulusActionController):
         It makes the robot move with the related method.
         '''
         # Making the robot reach the goal
-        time = random.randrange(5, 10)
-        delta = random.uniform(-0.2, 0,2)
+        time = random.randrange(1, 6)
+        delta = random.uniform(-0.2, 0.2)
         self._move_robot(time, delta)
 
 

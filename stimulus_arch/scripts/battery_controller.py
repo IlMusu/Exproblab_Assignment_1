@@ -8,8 +8,8 @@ import rospy
 from std_msgs.msg import UInt8
 
 # Importing the helper for handling user commands
-from command_helper import CommandHelper
-from stimulus_controller import StimulusController
+from stimulus_arch.command_helper import CommandHelper
+from stimulus_arch.stimulus_controller import StimulusController
 
 CRED    = '\33[31m'
 CGREEN  = '\33[32m'

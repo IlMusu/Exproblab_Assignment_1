@@ -12,8 +12,13 @@ import rospy
 from smach import StateMachine, State
 
 # Importing HELPER to abstract interaction with ARMOR
-from robot_behavior_helper import RobotBehaviorHelper
+from robot_behavior.robot_behavior_helper import RobotBehaviorHelper
 
+
+CRED    = '\33[31m'
+CGREEN  = '\33[32m'
+CYELLOW = '\33[33m'
+CRESET  = '\033[0m'
 
 class Initialization(State) :
     ''' 
@@ -41,7 +46,9 @@ class Initialization(State) :
         1. Waits until the ontology is fully loaded.
         '''
         # Waiting until the ontology is loaded into ARMOR
+        rospy.loginfo(CYELLOW+'Waiting for ontology to be fully loaded.'+CRESET)
         self._helper.wait_for_ontology()
+        rospy.loginfo(CYELLOW+'Received ontology.'+CRESET)
         # Updates Robot urgency threshold
         threshold = self._helper.urgency_threshold
         self._helper.update_robot_urgency_threshold(threshold)
@@ -112,9 +119,9 @@ class ExploreTask(State):
         the user specified in the launch file.
         '''    
         # Simulating the robot exploring the room
-        rospy.loginfo('Exploring room (%i seconds)', self._helper.exploration_seconds)
+        rospy.loginfo(CYELLOW+'Exploring room (%i seconds).'+CRESET, self._helper.exploration_seconds)
         rospy.sleep(self._helper.exploration_seconds)
-        rospy.loginfo('Finished exploring room')
+        rospy.loginfo(CYELLOW+'Finished exploring room.'+CRESET)
         return 'explored'
 
 
@@ -143,10 +150,11 @@ class RechargeTask(State):
         enough. The threshold is parameter defined by the user.
         '''    
         # Simulating the robot recharging
-        rospy.loginfo('Starting recharge')
+        rospy.loginfo(CYELLOW+'Starting to recharge the battery.'+CRESET)
         while not _should_robot_stop_recharge(self._helper) :
             rospy.sleep(2)
-        rospy.loginfo('Completed recharge')
+        bl = self._helper.get_battery_level()
+        rospy.loginfo(CYELLOW+'Completed recharge with battery at %s%%.'+CRESET, bl)
         return 'recharged'
 
 
@@ -185,13 +193,14 @@ class ChooseNextRoom(State) :
         if _should_robot_recharge(self._helper) :
             # If the battery level is low, it must be charged
             room = _rand_in_list(self._helper.recharge_rooms)
-            rospy.loginfo('Battery level is low, going into recharge room')
+            bl = self._helper.get_battery_level()
+            rospy.loginfo(CYELLOW+'Going to recharge since battery level is low (%s%%).'+CRESET, bl)
         else :
             # If the battery is not low, choose a room based on priority
             room, clss = self.choose_next_prioritized_room()            
-            rospy.loginfo('Choosing a room of type %s', clss)
+            rospy.loginfo(CYELLOW+'Choosing a prioritized room of type %s.'+CRESET, clss)
         # Loggin chosen next room
-        rospy.loginfo('The next room is: %s', room)
+        rospy.loginfo(CYELLOW+'The next room is: %s .'+CRESET, room)
         userdata.next_room = room
         return 'chosen'
     
@@ -248,13 +257,17 @@ class MoveToNextRoom(State) :
         # Taking the chosen room
         room = userdata.next_room
         # Moving to next room
-        self._helper.move_robot_to_room(room)
-        rospy.loginfo('Moved to room: %s', room)
+        rospy.loginfo(CYELLOW+'Starting to compute a path for room %s .'+CRESET, room)
+        path = self._helper.compute_path_to_room(room)
+        rospy.loginfo(CYELLOW+'Received the path for room %s .'+CRESET, room)
+        rospy.loginfo(CYELLOW+'Starting to move on the computed path.'+CRESET)
+        self._helper.follow_path_for_room(path, room)
+        rospy.loginfo(CYELLOW+'Completed movement, the current room is %s .'+CRESET, room)
         return 'moved'
 
 
 
-class RobotBehaviorSurveillance(object):
+class RobotSurveillance(object):
     '''
     Params:
         /urgency_threshold (int) : The urgency threshold time in seconds for the robot policy
@@ -268,12 +281,12 @@ class RobotBehaviorSurveillance(object):
     '''
     def __init__(self):
         '''
-        This is the constructor method of the RobotBehavior class.
+        This is the constructor method of the RobotSurveillance class.
         It initializes a ros node with name 'robot_behavior'.
         It retrieves some parameters from rospy and initializes the RobotBehaviorHelper.
         '''
         # Initializing a ROS node which represents the robot behavior
-        rospy.init_node('robot_behavior_surveillance', log_level=rospy.INFO)
+        rospy.init_node('robot_behavior', log_level=rospy.INFO)
         # Creating a instance of the helper
         self._helper = RobotBehaviorHelper()
         # Setting some parameters to personalize behavior
@@ -360,7 +373,7 @@ def _should_robot_stop_recharge(helper):
 
 if __name__ == '__main__':
     # Creating an instance of the RobotBehavior
-    robot_behavior = RobotBehaviorSurveillance()
+    robot_behavior = RobotSurveillance()
     # Actually generating the behavior of the robot
     behavior_sm = robot_behavior.generate_behavior()
     # Executing the behavior of the robot
