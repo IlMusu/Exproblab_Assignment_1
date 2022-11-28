@@ -1,7 +1,7 @@
 # EXPROBLAB - ASSIGNMENT 1
 Author : Mattia Musumeci 4670261@studenti.unige.it  
 
-<img src="/documentation/gifs/moving.gif?raw=true" width="200px">
+<img src="/documentation/gifs/moving.gif?raw=true">
 
 This is the first assignment developed for the <b>Experimental Robotics Laboratory</b> course of the University of Genoa.  
 At this <b>[link](http://documentaiton)</b> it is possible to find the documentation for the software contained in this repository.  
