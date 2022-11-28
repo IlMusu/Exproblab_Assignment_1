@@ -312,3 +312,8 @@ The developed software provides the following features:
 - The creation of different maps is easy, fast and intuitive.
 - The policy for choosing the next room may be changed at run-time easily.
 - Abstraction from the path planning and movement procedures.
+
+### Future Work And Possible Improvements
+1. The main limitation of this architecture is the fact that it is supposed that the environment does not change in time. This limitation may be overcome by creating a more complex state machine for the robot behavior that continuosly checks the surroundings of the robot.
+2. Another limitation is the fact that it is supposed that the robot always reaches the desired destination. Also this limitation may be overcome by improving the state machine: maybe the robot could use SLAM algorithms or other techniques that provides its current position in the environment. If that is the case, the robot always knows were it is located and should be able to perform recovery procedures to return were it first was or to try again to reach the destination.
+3. From the point of view of the software, it is complex to handle a console for each controller, it would be better to insert all the commands in a single console.
