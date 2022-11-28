@@ -32,10 +32,6 @@ class RobotBehaviorHelper(object):
     the communication with the ARMOR server in the particular context of the robot
     behavior. In order to provide this functionality, this class is heavily related 
     to the armor_api library.
-    Inside the initialization method, this class:
-    - Initializes some internal variables.
-    - Creates a Subscriber to the /battery_level topic.
-    - Creates an ActionClient for /robot_move ActionServer.
     '''
     def __init__(self):
         # Subscriber for the battery level update

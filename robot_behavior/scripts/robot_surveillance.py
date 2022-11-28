@@ -264,7 +264,7 @@ class MoveToNextRoom(State) :
 
 class RobotSurveillance(object):
     '''
-    Ros Parameters:
+    ROS Parameters:
         - /urgency_threshold (int) : The urgency threshold time in seconds for the robot policy.
         - /battery_require_recharge (int) : The battery level under which it is necessary to start recharging.
         - /battery_stop_recharge (int) : The battery level over which it is possible to stop recharging.
