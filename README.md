@@ -250,8 +250,8 @@ The <b>robot_behavior node</b> requests to the <b>ontology_map_building</b> node
 
 ### Moving In The Environment
 <p align="center">
-![moving](https://user-images.githubusercontent.com/51080342/204278438-aa04c194-8c56-4b9e-b5c3-b9777d4512dc.gif)
 </p>
+![moving](https://user-images.githubusercontent.com/51080342/204278438-aa04c194-8c56-4b9e-b5c3-b9777d4512dc.gif)
 
 The gif show four running nodes:  
 - On left there is the `robot_behavior` node.  
