@@ -2,7 +2,7 @@
 Author : Mattia Musumeci 4670261@studenti.unige.it
 
 This is the first assignment developed for the <b>Experimental Robotics Laboratory</b> course of the University of Genoa.  
-At this <b>[link](http://documentaiton)</b> it is possible to find the documentation for the software contained in this repository.  
+At this <b>[link](https://ilmusu.github.io/Exproblab_Assignment_1/)</b> it is possible to find the documentation for the software contained in this repository.  
 
 ## 1. INTRODUCTION
 The scenario involves a <b>robot</b> deployed in an indoor environment for <b>surveillance purposes</b> whose objective is to visit the different environment locations and explore them for a given amount of time. In this context, the robot in equipped with a rechargeable battery which needs to be recharged in a specific location when required.  
