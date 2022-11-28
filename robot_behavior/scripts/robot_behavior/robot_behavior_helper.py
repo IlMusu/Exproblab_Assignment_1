@@ -22,11 +22,11 @@ from robot_state_msgs.msg import FollowPathAction, FollowPathGoal
 class RobotBehaviorHelper(object):
     '''
     Subscribes to:
-        /battery_level (UInt8)
+        - /battery_level (UInt8)
     Requests service to:
-        /ontology_map/reference_name (ReferenceName)
-    Requests action to :
-        /robot_move (MoveBetweenRoomsAction)
+        - /ontology_map/reference_name (ReferenceName)
+    Requests action to:
+        - /robot_move (MoveBetweenRoomsAction)
 
     This is an helper class which provides some useful methods in order to abstract 
     the comunication with the ARMOR server in the particular context of the robot
@@ -35,10 +35,10 @@ class RobotBehaviorHelper(object):
     '''
     def __init__(self):
         '''
-        This is the costructor method for the RobotBehaviorHelper class.
-        1. Initilizes some internal variables.
-        2. Creates a Subscriber to the /battery_level topic.
-        3. Creates an ActionClietn for /robot_move ActionServer.
+        |  This is the costructor method for the RobotBehaviorHelper class.
+        |  1. Initilizes some internal variables.
+        |  2. Creates a Subscriber to the /battery_level topic.
+        |  3. Creates an ActionClietn for /robot_move ActionServer.
         '''
         # Subscriber for the battery level update
         self._battery_level = 100
@@ -98,10 +98,10 @@ class RobotBehaviorHelper(object):
         Returns:
             (string) : The name of the room in which 'Robot1' is currently in.
 
-        Obtains from ARMOR the current room the 'Robot1' is in:
-        1. Requests a reasoner synchronization to update the ontology.
-        2. Requests the object property 'isIn' of 'Robot1'.
-        3. Returns the room name obtained for property 'isIn'.
+        |  Obtains from ARMOR the current room the 'Robot1' is in:
+        |  1. Requests a reasoner synchronization to update the ontology.
+        |  2. Requests the object property 'isIn' of 'Robot1'.
+        |  3. Returns the room name obtained for property 'isIn'.
         '''
         # The reasoner must be started before querying something
         self.onto_utils.sync_buffered_reasoner()
@@ -115,10 +115,10 @@ class RobotBehaviorHelper(object):
         Returns:
             (list) : The list of names of currently reachable rooms by 'Robot1'.
 
-        Obtains from ARMOR the rooms reachable by 'Robot1':
-        1. Requests a reasoner synchronization to update the ontology.
-        2. Requests the object property 'canReach' of 'Robot1'.
-        3. Returns the list of room names obtained for property 'canReach'.
+        |  Obtains from ARMOR the rooms reachable by 'Robot1':
+        |  1. Requests a reasoner synchronization to update the ontology.
+        |  2. Requests the object property 'canReach' of 'Robot1'.
+        |  3. Returns the list of room names obtained for property 'canReach'.
         '''
         # The reasoner must be started before querying something
         self.onto_utils.sync_buffered_reasoner()
@@ -134,10 +134,10 @@ class RobotBehaviorHelper(object):
         Returns:
             (list) : The list of the names of the rooms beloning to class clss.
 
-        Obtains from ARMOR all the rooms belonging to a class:
-        1. Requests a reasoner synchronization to update the ontology.
-        2. Requests all the individuals belonging to a class.
-        3. Returns the names of the obtained individuals.
+        |  Obtains from ARMOR all the rooms belonging to a class:
+        |  1. Requests a reasoner synchronization to update the ontology.
+        |  2. Requests all the individuals belonging to a class.
+        |  3. Returns the names of the obtained individuals.
         '''
         # The reasoner must be started before querying something
         self.onto_utils.sync_buffered_reasoner()
@@ -153,11 +153,11 @@ class RobotBehaviorHelper(object):
         Returns:
             (list) : The list of Point composing the path.
         
-        Requests from other nodes to compute a path:
-        1. Retrieves the current room from ARMOR.
-        2. Requests the /ontology_map/room_position service to obtain a position
+        |  Requests from other nodes to compute a path:
+        |  1. Retrieves the current room from ARMOR.
+        |  2. Requests the /ontology_map/room_position service to obtain a position
            inside next_room.
-        3. Requests from the /compute_path ActionServer to compute a path from
+        |  3. Requests from the /compute_path ActionServer to compute a path from
            the current position of the robot to the poisition of the room.
         '''
         # Retrieving the current room the Robot1 is in
@@ -182,10 +182,10 @@ class RobotBehaviorHelper(object):
             path (list) : The list of Point composing the path.
             room (string) : The room reached after completing the path.
             
-        Requests from other nodes to move the Robot1 following the path:
-        1. Requests from the /follow_path ActionServer to follow the path.
-        2. Stores the actual position of the robot after moving on the path.
-        3. Replaces the 'isIn' property of 'Robot1' with the new room value.
+        |  Requests from other nodes to move the Robot1 following the path:
+        |  1. Requests from the /follow_path ActionServer to follow the path.
+        |  2. Stores the actual position of the robot after moving on the path.
+        |  3. Replaces the 'isIn' property of 'Robot1' with the new room value.
         '''
         # Retrieving the current room the Robot1 is in
         current_room = self.retrieve_current_room()
@@ -209,10 +209,10 @@ class RobotBehaviorHelper(object):
         Returns:
             (int) : The time in seconds at which 'Robot1' last visited the room.
 
-        Obtains from ARMOR the time at which 'Robot1' visited the room:
-        1. Requests a reasoner synchronization to update the ontology.
-        2. Requests the data property 'visitedAt' of the room.
-        3. Returns the time value obtained for property 'visitedAt'.
+        |  Obtains from ARMOR the time at which 'Robot1' visited the room:
+        |  1. Requests a reasoner synchronization to update the ontology.
+        |  2. Requests the data property 'visitedAt' of the room.
+        |  3. Returns the time value obtained for property 'visitedAt'.
         '''
         # The reasoner must be started before querying something
         self.onto_utils.sync_buffered_reasoner()
@@ -227,10 +227,10 @@ class RobotBehaviorHelper(object):
         Returns:
             (int) : The time in seconds of 'Robot1' representing the current time.
 
-        Obtains from ARMOR the current time of 'Robot1' :
-        1. Requests a reasoner synchronization to update the ontology.
-        2. Requests the data property 'now' of the 'Robot1'.
-        3. Returns the obtained value for property 'now'.
+        |  Obtains from ARMOR the current time of 'Robot1' :
+        |  1. Requests a reasoner synchronization to update the ontology.
+        |  2. Requests the data property 'now' of the 'Robot1'.
+        |  3. Returns the obtained value for property 'now'.
         '''
         # The reasoner must be started before querying something
         self.onto_utils.sync_buffered_reasoner()
@@ -242,12 +242,12 @@ class RobotBehaviorHelper(object):
         
     def update_room_visited_time_before_exiting(self):
         '''
-        Requests ARMOR to update the time at which 'Robot1' visited the
-        room it is currently in with the value of the current time:
-        1. Obtains the room the 'Robot1' is currently in.
-        2. Obtains the old time the robot visited the room.
-        2. Computes the current time in seconds.
-        3. Replaces the 'visitedAt' data property of the room to the current time.
+        |  Requests ARMOR to update the time at which 'Robot1' visited the
+           room it is currently in with the value of the current time:
+        |  1. Obtains the room the 'Robot1' is currently in.
+        |  2. Obtains the old time the robot visited the room.
+        |  2. Computes the current time in seconds.
+        |  3. Replaces the 'visitedAt' data property of the room to the current time.
         '''
         # The robot is just exiting the room it is actually in
         room = self.retrieve_current_room()
@@ -259,10 +259,10 @@ class RobotBehaviorHelper(object):
     
     def update_robot_time(self):
         '''
-        Requests ARMOR to update the time value of 'Robot1':
-        1. Obtains the old time of the 'Robot1'.
-        2. Computes the current time in seconds.
-        3. Replaces the 'now' data property of 'Robot1' to the current time.
+        |  Requests ARMOR to update the time value of 'Robot1':
+        |  1. Obtains the old time of the 'Robot1'.
+        |  2. Computes the current time in seconds.
+        |  3. Replaces the 'now' data property of 'Robot1' to the current time.
         '''
         # Getting the robot outdated time and current time
         old = self.retrieve_robot_time()
@@ -273,9 +273,9 @@ class RobotBehaviorHelper(object):
     
     def update_robot_urgency_threshold(self, value):
         '''
-        Requests ARMOR to update the urgencyThreshold value of 'Robot1':
-        1. Obtains the old value of the urgencyThreshold.
-        3. Replaces the old value with the new value.
+        |  Requests ARMOR to update the urgencyThreshold value of 'Robot1':
+        |  1. Obtains the old value of the urgencyThreshold.
+        |  2. Replaces the old value with the new value.
         '''
         # The reasoner must be started before querying something
         self.onto_utils.sync_buffered_reasoner()

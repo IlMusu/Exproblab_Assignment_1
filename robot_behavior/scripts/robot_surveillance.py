@@ -42,8 +42,8 @@ class Initialization(State) :
         Returns:
             (string) : The outcome 'initialized' when the initialization is complete.
             
-        This state initializes the robot behavior by:
-        1. Waits until the ontology is fully loaded.
+        |  This state initializes the robot behavior by:
+        |  1. Waits until the ontology is fully loaded.
         '''
         # Waiting until the ontology is loaded into ARMOR
         rospy.loginfo(CYELLOW+'Waiting for ontology to be fully loaded.'+CRESET)
@@ -77,13 +77,14 @@ class ChooseTaskForCurrentRoom(State) :
         Args:
             userdata (object) : The data of this State.
         Returns:
-            (string): - The outcome 'recharge' when the robot should recharge.
-                      - The outcome 'explore' when the robot should explore the room.
+            (string) : 
+                - The outcome 'recharge' when the battery needs recharge.
+                - The outcome 'explore' when it is possible to explore.
             
-        This states choosing the next task to be executed:
-        1. If the battery is low and there is a recharge station in
-           the room, then the robot must recharge.
-        2. Otherwise the robot must explore the room.
+        |  This states choosing the next task to be executed:
+        |  1. If the battery is low and there is a recharge station in the 
+              room, then the robot must recharge.
+        |  2. Otherwise the robot must explore the room.
         '''    
         # Check if robot needs recharging and this is a recharge room
         current_room = self._helper.retrieve_current_room()
@@ -207,8 +208,8 @@ class ChooseNextRoom(State) :
     def choose_next_prioritized_room(self):
         '''
         Returns:
-            (string) : The reachable room with the highest priority.
-            (string) : The class name of the room.
+            (string, string) : A tuple containing the reachable room with the 
+            highest priority and its related class name.
         
         The rooms priorities are decided by user with the dedicated parameter.
         This method loops over all the priorities in order and checks if
@@ -269,15 +270,15 @@ class MoveToNextRoom(State) :
 
 class RobotSurveillance(object):
     '''
-    Params:
-        /urgency_threshold (int) : The urgency threshold time in seconds for the robot policy
-        /battery_require_recharge (int) : The battery level under which it is necessary to start recharging.
-        /battery_stop_recharge (int) : The battery level over which it is possible to stop recharging.
-        /recharge_rooms (list) : The list of rooms containing a recharge station.
-        /rooms_priority (list) : The list of room classes in order of priority.
-        /exploration_seconds (int) : The time in seconds the robot takes to explore a room.
+    Ros Parameters:
+        - /urgency_threshold (int) : The urgency threshold time in seconds for the robot policy.
+        - /battery_require_recharge (int) : The battery level under which it is necessary to start recharging.
+        - /battery_stop_recharge (int) : The battery level over which it is possible to stop recharging.
+        - /recharge_rooms (list) : The list of rooms containing a recharge station.
+        - /rooms_priority (list) : The list of room classes in order of priority.
+        - /exploration_seconds (int) : The time in seconds the robot takes to explore a room.
         
-    This class generating the robot behavior by creating a state machine.
+    This class generates the robot behavior by creating a state machine.
     '''
     def __init__(self):
         '''
