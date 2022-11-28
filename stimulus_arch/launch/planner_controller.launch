@@ -1,8 +1,0 @@
-<launch>
-	<!-- PLANNER CONTROLLER -->
-	<arg name="execution_mode" default="MANUAL" />
-	<param name="execution_mode" type="str" value="$(arg execution_mode)" />
-
-	<!-- LAUNCHING NODE -->
-    <node name="planner_controller" pkg="stimulus_arch" type="planner_controller.py" output="screen"/>
-</launch>

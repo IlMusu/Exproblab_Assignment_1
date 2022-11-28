@@ -1,8 +1,0 @@
-## A SERVICE for requesting the reference name used
-## to load the ontology into ARMOR
-
-## REQUEST
----
-## RESPONSE
-# The reference name used
-string name
