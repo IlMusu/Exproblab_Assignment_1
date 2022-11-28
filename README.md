@@ -57,7 +57,7 @@ The indoor environment considered in this assignment is the following one:
 - The LOCATION `E` is the one in which the robot is positioned.
 
 <p align="center">
-	<img src="https://i.imgur.com/SQZ4ySu.png" />
+<img src=https://github.com/IlMusu/Exproblab_Assignment_1/blob/documentation/images/environment.png?raw=true">
 </p>
 
 ### Surveillance Policy
