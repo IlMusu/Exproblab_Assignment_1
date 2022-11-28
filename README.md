@@ -150,7 +150,7 @@ In the <b>component diagram</b> are shown all the <b>blocks</b> and <b>interface
 - The `motion_controller` node controls the movement of the robot. It interacts with:  
   - The `robot_behaviour` node through the <b>/follow_path</b> message.  
 
-A more detailed explanation of the use of the interfaces is available <b>[here](#ros-messages,-services-and-actions)</b>.  
+A more detailed explanation of the use of the interfaces is available <b>[here](#ros-messages-services-and-actions)</b>.  
 
 ### States Diagram
 This <b>state diagram</b> shows the state machine representing the desired behavior of the robot. In particular, all the possible states and transitions are shown.
@@ -192,7 +192,7 @@ This <b>sequence diagram</b> shows a possible execution of the software containe
 One thing to immediately notice in this diagram is that every time something is retrieved from the armor_server node, the reasoner is updated so that the retrieved value is always updated. This should be shown in the diagram but, for simplicity of visualization, is omitted.
 The middle horizontal line shows that at the time of the "CHOOSE_ROOM_TASK" state, the robot is surely not in the E room where it has the capability of recharging (that is because it moved only once and initially it was in the E room). Therefore, the diagram would be identical to before. Instead, it is shown what would happen the next time the robot moves, hence, when the robot returns to the E room and the state machine starts the "RECHARGE_TASK" state.  
 
-### ROS Messages, Services And Actions
+### ROS Messages Services And Actions
 In order to develop the interfaces between the components:  
 - The <b>ontology_map_builder</b> node which:  
   - Provides the <b>`/ontology_map/reference_name`</b> service, of type `ReferenceName.srv`, to provide the reference name of the ontology that is loaded into ARMOR. This is done only once the ontology is fully created and loaded.  
