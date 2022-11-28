@@ -250,7 +250,7 @@ The <b>robot_behavior node</b> requests to the <b>ontology_map_building</b> node
 
 ### Moving In The Environment
 <p align="center">
-![](IlMusu/Exproblab_Assignment_1/blob/master/documentation/gifs/moving.gif)
+<img src="/IlMusu/Exproblab_Assignment_1/blob/master/documentation/gifs/moving.gif?raw=true" alt="moving.gif">
 </p>
 
 The gif show four running nodes:  
