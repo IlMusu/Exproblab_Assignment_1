@@ -5,7 +5,7 @@ import rospy
 
 class StimulusController(object):
     '''
-    Parameters:
+    ROS Parameters:
         - /execution_mode (string): The execution mode of this controller.
 
     |  This is an abstract to create a placeholder controller for developing and

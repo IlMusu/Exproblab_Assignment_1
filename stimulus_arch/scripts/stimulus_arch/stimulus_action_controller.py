@@ -15,7 +15,7 @@ class StimulusActionController(StimulusController):
     This class extends the StimulusController to create a placeholder for a 
     controller that requires an ActionServer.
     '''
-    
+
     def __init__(self):
         '''
         This is the constructor method for the StimulusActionController class.
@@ -57,12 +57,12 @@ class StimulusActionController(StimulusController):
         Args:
             goal (Goal) : The requested goal.
         
-        This is the callback template for the ActionServer:
-        1. If the execution mode is MANUAL, it waits for user input to set
+        |  This is the callback template for the ActionServer:
+        |  1. If the execution mode is MANUAL, it waits for user input to set
            the result of the requested goal. This is done via a Lock.
-        2. If the execution mode is AUTOMATIC, the result is automatically
+        |  2. If the execution mode is AUTOMATIC, the result is automatically
            computed by the controller.
-        The it sets the computed result to the ActionServer.
+        |  Then it sets the computed result to the ActionServer.
         '''
         # Storing the goal to be used later by the controller method
         self._goal = goal
