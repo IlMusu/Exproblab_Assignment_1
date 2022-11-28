@@ -21,16 +21,15 @@ CYELLOW = '\33[33m'
 CRESET  = '\033[0m'
 
 class Initialization(State) :
-    ''' 
+    '''
+    Args:
+        helper (RobotBehaviorHelper) : An instance of the RobotBehaviorHelper.
+
     This class is an instance of State used for the initialization
     of the parameters which define the behavior of the robot.
     Because of this functionality, it should be executed only once. 
     '''
     def __init__(self, helper):
-        '''
-        Args:
-            helper (RobotBehaviorHelper) : An instance of the RobotBehaviorHelper.
-        '''
         State.__init__(self, outcomes=['initialized'])
         # Storing th helper for possible usage
         self._helper = helper
@@ -58,16 +57,15 @@ class Initialization(State) :
 
 class ChooseTaskForCurrentRoom(State) :
     '''
+    Args:
+        helper (RobotBehaviorHelper) : An instance of the RobotBehaviorHelper.
+
     This class is an instance of State used for choosing the most 
     suitable task to be executed by the robot. In particular, the
     task is chosen consider some parameters of the robot and the
     capabilities of the room.
     '''
     def __init__(self, helper):
-        '''
-        Args:
-            helper (RobotBehaviorHelper) : An instance of the RobotBehaviorHelper.
-        '''
         State.__init__(self, outcomes=['recharge', 'explore'])
         # Storing the helper for possible usage
         self._helper = helper
@@ -97,14 +95,13 @@ class ChooseTaskForCurrentRoom(State) :
         
 class ExploreTask(State):
     '''
+    Args:
+        helper (RobotBehaviorHelper) : An instance of the RobotBehaviorHelper.
+
     This class is an instance of State which simulates the robot
     exploring the room it is currently in.
     '''
     def __init__(self, helper):
-        '''
-        Args:
-            helper (RobotBehaviorHelper) : An instance of the RobotBehaviorHelper.
-        '''
         State.__init__(self, outcomes=['explored'])
         # Storing the helper for possible usage
         self._helper = helper
@@ -128,14 +125,13 @@ class ExploreTask(State):
 
 class RechargeTask(State):
     '''
+    Args:
+        helper (RobotBehaviorHelper) : An instance of the RobotBehaviorHelper.
+        
     This class is an instance of State which simulates the robot
     recharging into the designated recharge room.
     '''
     def __init__(self, helper):
-        '''
-        Args:
-            helper (RobotBehaviorHelper) : An instance of the RobotBehaviorHelper.
-        '''
         State.__init__(self, outcomes=['recharged'])
         # Storing the helper for possible usage
         self._helper = helper
@@ -161,6 +157,9 @@ class RechargeTask(State):
 
 class ChooseNextRoom(State) :
     '''
+    Args:
+        helper (RobotBehaviorHelper) : An instance of the RobotBehaviorHelper.
+        
     This class is an instance of State which decides the next room
     the robot should visit based on the following policy: if the
     robot has not enough battery to reach another room, a room which
@@ -168,10 +167,6 @@ class ChooseNextRoom(State) :
     room with the highest priority is chosen.
     '''
     def __init__(self, helper):
-        '''
-        Args:
-            helper (RobotBehaviorHelper) : An instance of the RobotBehaviorHelper.
-        '''
         State.__init__(self, outcomes=['chosen'], output_keys=['next_room'])
         # Storing the helper for possible usage
         self._helper = helper
@@ -232,14 +227,13 @@ class ChooseNextRoom(State) :
 
 class MoveToNextRoom(State) :
     '''
+    Args:
+        helper (RobotBehaviorHelper) : An instance of the RobotBehaviorHelper.
+        
     This class is an instance of State which makes the robot move
     to the selected room.
     '''
     def __init__(self, helper):
-        '''
-        Args:
-            helper (RobotBehaviorHelper) : An instance of the RobotBehaviorHelper.
-        '''
         State.__init__(self, outcomes=['moved'], input_keys=['next_room'])
         # Storing the helper for possible usage
         self._helper = helper
@@ -281,11 +275,6 @@ class RobotSurveillance(object):
     This class generates the robot behavior by creating a state machine.
     '''
     def __init__(self):
-        '''
-        This is the constructor method of the RobotSurveillance class.
-        It initializes a ros node with name 'robot_behavior'.
-        It retrieves some parameters from rospy and initializes the RobotBehaviorHelper.
-        '''
         # Initializing a ROS node which represents the robot behavior
         rospy.init_node('robot_behavior', log_level=rospy.INFO)
         # Creating a instance of the helper
