@@ -1,17 +1,17 @@
-# EXPERIMENTAL ROBOTICS LABORATORY ASSIGNMENT 1
+# EXPROBLAB - ASSIGNMENT 1
 Author : Mattia Musumeci 4670261@studenti.unige.it  
   
 This is the first assignment developed for the <b>Experimental Robotics Laboratory</b> course of the University of Genoa.  
-At this <b>[link](http://documentaiton)</b> it is possible to find the documentation describing the software contained in this repository.  
+At this <b>[link](http://documentaiton)</b> it is possible to find the documentation for the software contained in this repository.  
 
 ## 1. INTRODUCTION
-The scenario involves a <b>robot</b> deployed in an indoor environment for <b>surveillacnce purposes</b> whose objective is basically to visit the different environement locations and explore them for a given amount of time. In this context, the robot in equipped with a rechargable battery that, when not charged enough, needs to be recharge in specific location.  
+The scenario involves a <b>robot</b> deployed in an indoor environment for <b>surveillance purposes</b> whose objective is to visit the different environment locations and explore them for a given amount of time. In this context, the robot in equipped with a rechargeable battery which needs to be recharged in a specific location when required.  
   
 The software contained in this repository has been developed for <b>[ROS Noetic 1.15.9](http://wiki.ros.org/noetic)</b>.  
 The <b>Robot Operating System (ROS)</b> is an open-source, meta-operating system for your robot. It provides the services you would expect from an operating system, including hardware abstraction, low-level device control, implementation of commonly-used functionality, message-passing between processes, and package management. It also provides tools and libraries for obtaining, building, writing, and running code across multiple computers.  
   
-The behaviour of the robot has been described with a finite state machine developed for <b>[SMACH](http://wiki.ros.org/smach)</b>.  
-The <b>SMACH</b> library which is a task level architecture for describing and executing complex behaviours. At its core, it is a ROS-independent python library to build hierarchical state machines and the interaction with the ROS environment is obtained by implementing dedicated states inside the finite state machine.  
+The behavior of the robot has been described with a finite state machine developed for <b>[SMACH](http://wiki.ros.org/smach)</b>.  
+The <b>SMACH</b> library is a task level architecture for describing and executing complex behaviors. At its core, it is a ROS-independent python library to build hierarchical state machines and the interaction with the ROS environment is obtained by implementing dedicated states inside the finite state machine.  
   
 The ontology concepts and reasoning have been implemented with <b>[ARMOR](https://github.com/EmaroLab/armor)</b>.  
 A <b>ROS Multi-Ontology Reference (ARMOR)</b> is a powerful and versatile management system for single and multi-ontology architectures under ROS. It allows to load, query and modify multiple ontologies and requires very little knowledge of OWL APIs and Java.  
@@ -61,7 +61,7 @@ The indoor environment considered in this assignment is the following one:
 </p>
 
 ### Surveillance Policy
-In order to explore the environement, the robot must follow a <b>surveillance policy</b> which is fully described by the following rules which are sorted for greater priority:
+In order to explore the environment, the robot must follow a <b>surveillance policy</b> which is fully described by the following rules ordered by decreasing priority:
 1. The robot should go to the E location when the battery is low.
 2. The robot should go into any reachable URGENT locations.
 3. The robot prefers to stay in CORRIDORS.
@@ -125,9 +125,9 @@ roslaunch robot_behaviour robot_behaviour.launch
 ## 3. LIMITATIONS, FEATURES AND FUTURE WORK
 ### Limitations
 The surveillance software has been developed under the following hypothesis:
-- The robot in an fixed two-dimensional environment that does not change in time.
+- The robot in a fixed two-dimensional environment that does not change in time.
 - The robot is always able to compute and follow a path to the goal position.
-- Even if the battery is complitely empty, the robot is still able to reach the recharge station.
+- Even if the battery is completely empty, the robot is still able to reach the recharge station.
 
 ### Features
 The developed software provides the following features:
@@ -158,14 +158,14 @@ In the <b>component diagram</b> are shown all the <b>blocks</b> and <b>interface
   - The `robot_behaviour` node through the <b>/battery_level</b> message.  
 - The `planner_controller` node constructs a path between two points. It interacts with:  
   - The `robot_behaviour` node through the <b>/compute_path</b> message.  
-- The `motion_controller` node controls the movement of the robot. It interact with:  
+- The `motion_controller` node controls the movement of the robot. It interacts with:  
   - The `robot_behaviour` node through the <b>/follow_path</b> message.  
 
-A more detailed explaination of the use of the interfaces is available <b>[here](#ros-messages,-services-and-actions)</b>.  
-A more detailed explaination of the controllers is available <b>[here](#ros-messages,-services-and-actions)</b>.  
+A more detailed explanation of the use of the interfaces is available <b>[here](#ros-messages,-services-and-actions)</b>.  
+A more detailed explanation of the controllers is available <b>[here](#ros-messages,-services-and-actions)</b>. 
 
 ### States Diagram
-This <b>state diagram</b> shows the state machine representing the desired behaviour of the robot. In particular, all the possible states and transitions are shown.
+This <b>state diagram</b> shows the state machine representing the desired behavior of the robot. In particular, all the possible states and transitions are shown.
 
 <p align="center">
 	<img src="https://i.imgur.com/nynYen4.png" />
@@ -201,7 +201,7 @@ This <b>sequence diagram</b> shows a possible execution of the software containe
 	<img src="https://i.imgur.com/bgzpput.png" />
 </p>
 
-One thing to immediately notice in this diagram is that every time something is retrieved from the armor_server node, the reasoner is updated so that the retrieved value is always updated. This should be shown in the diagram but it is not shown for simplicity.  
+One thing to immediately notice in this diagram is that every time something is retrieved from the armor_server node, the reasoner is updated so that the retrieved value is always updated. This should be shown in the diagram but, for simplicity of visualization, is omitted.
 The middle horizontal line shows that at the time of the "CHOOSE_ROOM_TASK" state, the robot is surely not in the E room where it has the capability of recharging (that is because it moved only once and initially it was in the E room). Therefore, the diagram would be identical to before. Instead, it is shown what would happen the next time the robot moves, hence, when the robot returns to the E room and the state machine starts the "RECHARGE_TASK" state.  
 
 ### ROS Messages, Services And Actions
@@ -215,7 +215,7 @@ In order to develop the interfaces between the components:
   - Uses the <b>`/armor_interface_srv`</b> service, of type `ArmorDirective.srv`, to interact with the ARMOR in order to modify the ontology and retrieve knowledge.  
   - Subscribes to the <b>`/battery_level`</b> topic, of type `UInt8.msg`, to retrieve the updated battery level.  
   - Creates a client for the <b>`/compute_path`</b> action server, of type  ` ComputePath.action`, in order to compute the path between the current position of the robot and a goal position.  
-  - Creates a client for the <b>`/follow_path`</b> action server, of type  ` FollowPath.action`, in order to make the robot follow the previosly computed path until the last position of the path is reached.  
+  - Creates a client for the <b>`/follow_path`</b> action server, of type  ` FollowPath.action`, in order to make the robot follow the previously computed path until the last position of the path is reached.  
 - The <b>battery_controller</b> node which:  
    - Publishes to the <b>`/battery_level`</b> topic, of type `UInt8.msg`, the updated value of the battery level.  
 - The <b>planner_controller</b> node which:  
@@ -242,12 +242,12 @@ The <b>robot_behaviour</b> node uses the following parameters:
 - `/rooms_priority (list)` : The list of room classes in order of priority.
 - `/exploration_seconds (int)` : The time in seconds the robot takes to explore a room.
 
-The <b>battery_controller</b> node uses the following paramters:
+The <b>battery_controller</b> node uses the following parameters:
 - `/battery_initial_value (int)` : The initial value for the battery level.
 - `/execution_mode (string)` : The execution mode of this controller (MANUAL or RANDOM).
 
 The <b>planner_controller</b> node uses the following parameters:
-- `/execution_mode (string)` : The execution mode of this controller (MANUAL or RANDOM)..
+- `/execution_mode (string)` : The execution mode of this controller (MANUAL or RANDOM).
 
 The <b>motion_controller</b> node uses the following parameters:
-- `/execution_mode (string)` : The execution mode of this controller (MANUAL or RANDOM)..
+- `/execution_mode (string)` : The execution mode of this controller (MANUAL or RANDOM).
