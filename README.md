@@ -107,9 +107,13 @@ rosrun armor execute it.emarolab.armor.ARMORMainService
 Then, it is necessary to load the ontology into ARMOR and create the map.
 Open a new console  (or split the previous one)  and run the following command:
 ```bash
-roslaunch robot_behaviour ontology_map_builder.launch
+roslaunch robot_behaviour ontology_map_builder.launch ontology_path:=[default_onto]
 ```
-
+It is necessary to specify the path of the default ontology.  
+A default ontology for [default_onto] is located at the following path:  
+```bash
+[workspace_folder]/src/robot_behavior/maps/topological_map.owl
+```
 
 Then, open a new console and run the controller nodes.  
 It is recommended to use the Terminator terminal so that it is possible to vertically split it into three terminals, one for each controller. Notice that it is possible to run all the controllers in 'MANUAL' or 'RANDOM' mode:
