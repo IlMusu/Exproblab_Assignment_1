@@ -104,6 +104,7 @@
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="c1"># Getting the map parameters from the Parameter Server</span>
         <span class="n">onto_path</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">get_param</span><span class="p">(</span><span class="s1">&#39;/ontology_path&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">onto_path</span><span class="p">)</span>
         <span class="n">onto_uri</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">get_param</span><span class="p">(</span><span class="s1">&#39;/ontology_uri&#39;</span><span class="p">)</span>
         <span class="n">encoded_map</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">literal_eval</span><span class="p">(</span><span class="n">rospy</span><span class="o">.</span><span class="n">get_param</span><span class="p">(</span><span class="s1">&#39;/map&#39;</span><span class="p">))</span>
         <span class="n">rooms_positions</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">literal_eval</span><span class="p">(</span><span class="n">rospy</span><span class="o">.</span><span class="n">get_param</span><span class="p">(</span><span class="s1">&#39;/room_positions&#39;</span><span class="p">))</span>

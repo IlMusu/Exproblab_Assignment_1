@@ -1,42 +1,231 @@
-
 <!DOCTYPE html>
-
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Welcome to exprob_assignment_1’s documentation! &#8212; exprob_assignment_1  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
-    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to exprob_assignment_1’s documentation! &mdash; exprob_assignment_1  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-   
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
 
-  </head><body>
-  
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="#" class="icon icon-home"> exprob_assignment_1
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Welcome to exprob_assignment_1’s documentation!</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+<li><a class="reference internal" href="#module-robot_behavior.scripts.robot_surveillance">Robot Behaviour Module</a><ul>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_surveillance.ChooseNextRoom"><code class="docutils literal notranslate"><span class="pre">ChooseNextRoom</span></code></a><ul>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_surveillance.ChooseNextRoom.__init__"><code class="docutils literal notranslate"><span class="pre">ChooseNextRoom.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_surveillance.ChooseNextRoom.choose_next_prioritized_room"><code class="docutils literal notranslate"><span class="pre">ChooseNextRoom.choose_next_prioritized_room()</span></code></a></li>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_surveillance.ChooseNextRoom.execute"><code class="docutils literal notranslate"><span class="pre">ChooseNextRoom.execute()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_surveillance.ChooseTaskForCurrentRoom"><code class="docutils literal notranslate"><span class="pre">ChooseTaskForCurrentRoom</span></code></a><ul>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_surveillance.ChooseTaskForCurrentRoom.__init__"><code class="docutils literal notranslate"><span class="pre">ChooseTaskForCurrentRoom.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_surveillance.ChooseTaskForCurrentRoom.execute"><code class="docutils literal notranslate"><span class="pre">ChooseTaskForCurrentRoom.execute()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_surveillance.ExploreTask"><code class="docutils literal notranslate"><span class="pre">ExploreTask</span></code></a><ul>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_surveillance.ExploreTask.__init__"><code class="docutils literal notranslate"><span class="pre">ExploreTask.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_surveillance.ExploreTask.execute"><code class="docutils literal notranslate"><span class="pre">ExploreTask.execute()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_surveillance.Initialization"><code class="docutils literal notranslate"><span class="pre">Initialization</span></code></a><ul>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_surveillance.Initialization.__init__"><code class="docutils literal notranslate"><span class="pre">Initialization.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_surveillance.Initialization.execute"><code class="docutils literal notranslate"><span class="pre">Initialization.execute()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_surveillance.MoveToNextRoom"><code class="docutils literal notranslate"><span class="pre">MoveToNextRoom</span></code></a><ul>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_surveillance.MoveToNextRoom.__init__"><code class="docutils literal notranslate"><span class="pre">MoveToNextRoom.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_surveillance.MoveToNextRoom.execute"><code class="docutils literal notranslate"><span class="pre">MoveToNextRoom.execute()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_surveillance.RechargeTask"><code class="docutils literal notranslate"><span class="pre">RechargeTask</span></code></a><ul>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_surveillance.RechargeTask.__init__"><code class="docutils literal notranslate"><span class="pre">RechargeTask.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_surveillance.RechargeTask.execute"><code class="docutils literal notranslate"><span class="pre">RechargeTask.execute()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_surveillance.RobotSurveillance"><code class="docutils literal notranslate"><span class="pre">RobotSurveillance</span></code></a><ul>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_surveillance.RobotSurveillance.__init__"><code class="docutils literal notranslate"><span class="pre">RobotSurveillance.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_surveillance.RobotSurveillance.__weakref__"><code class="docutils literal notranslate"><span class="pre">RobotSurveillance.__weakref__</span></code></a></li>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_surveillance.RobotSurveillance.generate_behavior"><code class="docutils literal notranslate"><span class="pre">RobotSurveillance.generate_behavior()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_surveillance._rand_in_list"><code class="docutils literal notranslate"><span class="pre">_rand_in_list()</span></code></a></li>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_surveillance._should_robot_recharge"><code class="docutils literal notranslate"><span class="pre">_should_robot_recharge()</span></code></a></li>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_surveillance._should_robot_stop_recharge"><code class="docutils literal notranslate"><span class="pre">_should_robot_stop_recharge()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-robot_behavior.scripts.robot_behavior.robot_behavior_helper">Robot Behaviour Helper Module</a><ul>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper"><code class="docutils literal notranslate"><span class="pre">RobotBehaviorHelper</span></code></a><ul>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.__init__"><code class="docutils literal notranslate"><span class="pre">RobotBehaviorHelper.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.__weakref__"><code class="docutils literal notranslate"><span class="pre">RobotBehaviorHelper.__weakref__</span></code></a></li>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper._battery_level_callback"><code class="docutils literal notranslate"><span class="pre">RobotBehaviorHelper._battery_level_callback()</span></code></a></li>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper._data_from_id"><code class="docutils literal notranslate"><span class="pre">RobotBehaviorHelper._data_from_id()</span></code></a></li>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.compute_path_to_room"><code class="docutils literal notranslate"><span class="pre">RobotBehaviorHelper.compute_path_to_room()</span></code></a></li>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.follow_path_for_room"><code class="docutils literal notranslate"><span class="pre">RobotBehaviorHelper.follow_path_for_room()</span></code></a></li>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.get_battery_level"><code class="docutils literal notranslate"><span class="pre">RobotBehaviorHelper.get_battery_level()</span></code></a></li>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.retrieve_current_room"><code class="docutils literal notranslate"><span class="pre">RobotBehaviorHelper.retrieve_current_room()</span></code></a></li>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.retrieve_last_visited_time"><code class="docutils literal notranslate"><span class="pre">RobotBehaviorHelper.retrieve_last_visited_time()</span></code></a></li>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.retrieve_reachable_rooms"><code class="docutils literal notranslate"><span class="pre">RobotBehaviorHelper.retrieve_reachable_rooms()</span></code></a></li>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.retrieve_robot_time"><code class="docutils literal notranslate"><span class="pre">RobotBehaviorHelper.retrieve_robot_time()</span></code></a></li>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.retrieve_rooms_of_class"><code class="docutils literal notranslate"><span class="pre">RobotBehaviorHelper.retrieve_rooms_of_class()</span></code></a></li>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.update_robot_time"><code class="docutils literal notranslate"><span class="pre">RobotBehaviorHelper.update_robot_time()</span></code></a></li>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.update_robot_urgency_threshold"><code class="docutils literal notranslate"><span class="pre">RobotBehaviorHelper.update_robot_urgency_threshold()</span></code></a></li>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.update_room_visited_time_before_exiting"><code class="docutils literal notranslate"><span class="pre">RobotBehaviorHelper.update_room_visited_time_before_exiting()</span></code></a></li>
+<li><a class="reference internal" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.wait_for_ontology"><code class="docutils literal notranslate"><span class="pre">RobotBehaviorHelper.wait_for_ontology()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-robot_behavior.scripts.ontology_map_builder">Ontology Map Builder Module</a><ul>
+<li><a class="reference internal" href="#robot_behavior.scripts.ontology_map_builder.OntologyMapBuilder"><code class="docutils literal notranslate"><span class="pre">OntologyMapBuilder</span></code></a><ul>
+<li><a class="reference internal" href="#robot_behavior.scripts.ontology_map_builder.OntologyMapBuilder.__init__"><code class="docutils literal notranslate"><span class="pre">OntologyMapBuilder.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#robot_behavior.scripts.ontology_map_builder.OntologyMapBuilder.__weakref__"><code class="docutils literal notranslate"><span class="pre">OntologyMapBuilder.__weakref__</span></code></a></li>
+<li><a class="reference internal" href="#robot_behavior.scripts.ontology_map_builder.OntologyMapBuilder._build_ontology_map"><code class="docutils literal notranslate"><span class="pre">OntologyMapBuilder._build_ontology_map()</span></code></a></li>
+<li><a class="reference internal" href="#robot_behavior.scripts.ontology_map_builder.OntologyMapBuilder._onto_reference_service"><code class="docutils literal notranslate"><span class="pre">OntologyMapBuilder._onto_reference_service()</span></code></a></li>
+<li><a class="reference internal" href="#robot_behavior.scripts.ontology_map_builder.OntologyMapBuilder._organize_rooms_positions"><code class="docutils literal notranslate"><span class="pre">OntologyMapBuilder._organize_rooms_positions()</span></code></a></li>
+<li><a class="reference internal" href="#robot_behavior.scripts.ontology_map_builder.OntologyMapBuilder._room_position_service"><code class="docutils literal notranslate"><span class="pre">OntologyMapBuilder._room_position_service()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-stimulus_arch.scripts.stimulus_arch.command_helper">Command Helper Module</a><ul>
+<li><a class="reference internal" href="#stimulus_arch.scripts.stimulus_arch.command_helper.CommandHelper"><code class="docutils literal notranslate"><span class="pre">CommandHelper</span></code></a><ul>
+<li><a class="reference internal" href="#stimulus_arch.scripts.stimulus_arch.command_helper.CommandHelper.__init__"><code class="docutils literal notranslate"><span class="pre">CommandHelper.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#stimulus_arch.scripts.stimulus_arch.command_helper.CommandHelper.__weakref__"><code class="docutils literal notranslate"><span class="pre">CommandHelper.__weakref__</span></code></a></li>
+<li><a class="reference internal" href="#stimulus_arch.scripts.stimulus_arch.command_helper.CommandHelper.listen_for_user_commands"><code class="docutils literal notranslate"><span class="pre">CommandHelper.listen_for_user_commands()</span></code></a></li>
+<li><a class="reference internal" href="#stimulus_arch.scripts.stimulus_arch.command_helper.CommandHelper.parse_command"><code class="docutils literal notranslate"><span class="pre">CommandHelper.parse_command()</span></code></a></li>
+<li><a class="reference internal" href="#stimulus_arch.scripts.stimulus_arch.command_helper.CommandHelper.register_command"><code class="docutils literal notranslate"><span class="pre">CommandHelper.register_command()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-stimulus_arch.scripts.stimulus_arch.stimulus_controller">Stimulus Controller Module</a><ul>
+<li><a class="reference internal" href="#stimulus_arch.scripts.stimulus_arch.stimulus_controller.StimulusController"><code class="docutils literal notranslate"><span class="pre">StimulusController</span></code></a><ul>
+<li><a class="reference internal" href="#stimulus_arch.scripts.stimulus_arch.stimulus_controller.StimulusController.__init__"><code class="docutils literal notranslate"><span class="pre">StimulusController.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#stimulus_arch.scripts.stimulus_arch.stimulus_controller.StimulusController.__weakref__"><code class="docutils literal notranslate"><span class="pre">StimulusController.__weakref__</span></code></a></li>
+<li><a class="reference internal" href="#stimulus_arch.scripts.stimulus_arch.stimulus_controller.StimulusController._explain_commands"><code class="docutils literal notranslate"><span class="pre">StimulusController._explain_commands()</span></code></a></li>
+<li><a class="reference internal" href="#stimulus_arch.scripts.stimulus_arch.stimulus_controller.StimulusController._get_controller_method"><code class="docutils literal notranslate"><span class="pre">StimulusController._get_controller_method()</span></code></a></li>
+<li><a class="reference internal" href="#stimulus_arch.scripts.stimulus_arch.stimulus_controller.StimulusController._manual_controller"><code class="docutils literal notranslate"><span class="pre">StimulusController._manual_controller()</span></code></a></li>
+<li><a class="reference internal" href="#stimulus_arch.scripts.stimulus_arch.stimulus_controller.StimulusController._random_controller"><code class="docutils literal notranslate"><span class="pre">StimulusController._random_controller()</span></code></a></li>
+<li><a class="reference internal" href="#stimulus_arch.scripts.stimulus_arch.stimulus_controller.StimulusController.start"><code class="docutils literal notranslate"><span class="pre">StimulusController.start()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-stimulus_arch.scripts.stimulus_arch.stimulus_action_controller">Stimulus Action Controller Module</a><ul>
+<li><a class="reference internal" href="#stimulus_arch.scripts.stimulus_arch.stimulus_action_controller.StimulusActionController"><code class="docutils literal notranslate"><span class="pre">StimulusActionController</span></code></a><ul>
+<li><a class="reference internal" href="#stimulus_arch.scripts.stimulus_arch.stimulus_action_controller.StimulusActionController.__init__"><code class="docutils literal notranslate"><span class="pre">StimulusActionController.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#stimulus_arch.scripts.stimulus_arch.stimulus_action_controller.StimulusActionController._action_callback"><code class="docutils literal notranslate"><span class="pre">StimulusActionController._action_callback()</span></code></a></li>
+<li><a class="reference internal" href="#stimulus_arch.scripts.stimulus_arch.stimulus_action_controller.StimulusActionController._get_controller_method"><code class="docutils literal notranslate"><span class="pre">StimulusActionController._get_controller_method()</span></code></a></li>
+<li><a class="reference internal" href="#stimulus_arch.scripts.stimulus_arch.stimulus_action_controller.StimulusActionController._set_action_result"><code class="docutils literal notranslate"><span class="pre">StimulusActionController._set_action_result()</span></code></a></li>
+<li><a class="reference internal" href="#stimulus_arch.scripts.stimulus_arch.stimulus_action_controller.StimulusActionController._start_action_server"><code class="docutils literal notranslate"><span class="pre">StimulusActionController._start_action_server()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-stimulus_arch.scripts.battery_controller">Battery Controller Module</a><ul>
+<li><a class="reference internal" href="#stimulus_arch.scripts.battery_controller.BatteryController"><code class="docutils literal notranslate"><span class="pre">BatteryController</span></code></a><ul>
+<li><a class="reference internal" href="#stimulus_arch.scripts.battery_controller.BatteryController.__init__"><code class="docutils literal notranslate"><span class="pre">BatteryController.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#stimulus_arch.scripts.battery_controller.BatteryController._explain_commands"><code class="docutils literal notranslate"><span class="pre">BatteryController._explain_commands()</span></code></a></li>
+<li><a class="reference internal" href="#stimulus_arch.scripts.battery_controller.BatteryController._manual_controller"><code class="docutils literal notranslate"><span class="pre">BatteryController._manual_controller()</span></code></a></li>
+<li><a class="reference internal" href="#stimulus_arch.scripts.battery_controller.BatteryController._offset_battery_level"><code class="docutils literal notranslate"><span class="pre">BatteryController._offset_battery_level()</span></code></a></li>
+<li><a class="reference internal" href="#stimulus_arch.scripts.battery_controller.BatteryController._offset_command"><code class="docutils literal notranslate"><span class="pre">BatteryController._offset_command()</span></code></a></li>
+<li><a class="reference internal" href="#stimulus_arch.scripts.battery_controller.BatteryController._random_controller"><code class="docutils literal notranslate"><span class="pre">BatteryController._random_controller()</span></code></a></li>
+<li><a class="reference internal" href="#stimulus_arch.scripts.battery_controller.BatteryController._set_command"><code class="docutils literal notranslate"><span class="pre">BatteryController._set_command()</span></code></a></li>
+<li><a class="reference internal" href="#stimulus_arch.scripts.battery_controller.BatteryController.start"><code class="docutils literal notranslate"><span class="pre">BatteryController.start()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-stimulus_arch.scripts.motion_controller">Motion Controller Module</a><ul>
+<li><a class="reference internal" href="#stimulus_arch.scripts.motion_controller.MotionController"><code class="docutils literal notranslate"><span class="pre">MotionController</span></code></a><ul>
+<li><a class="reference internal" href="#stimulus_arch.scripts.motion_controller.MotionController.__init__"><code class="docutils literal notranslate"><span class="pre">MotionController.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#stimulus_arch.scripts.motion_controller.MotionController._explain_commands"><code class="docutils literal notranslate"><span class="pre">MotionController._explain_commands()</span></code></a></li>
+<li><a class="reference internal" href="#stimulus_arch.scripts.motion_controller.MotionController._manual_controller"><code class="docutils literal notranslate"><span class="pre">MotionController._manual_controller()</span></code></a></li>
+<li><a class="reference internal" href="#stimulus_arch.scripts.motion_controller.MotionController._move_command"><code class="docutils literal notranslate"><span class="pre">MotionController._move_command()</span></code></a></li>
+<li><a class="reference internal" href="#stimulus_arch.scripts.motion_controller.MotionController._move_robot"><code class="docutils literal notranslate"><span class="pre">MotionController._move_robot()</span></code></a></li>
+<li><a class="reference internal" href="#stimulus_arch.scripts.motion_controller.MotionController._random_controller"><code class="docutils literal notranslate"><span class="pre">MotionController._random_controller()</span></code></a></li>
+<li><a class="reference internal" href="#stimulus_arch.scripts.motion_controller.MotionController.start"><code class="docutils literal notranslate"><span class="pre">MotionController.start()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-stimulus_arch.scripts.planner_controller">Planner Controller Module</a><ul>
+<li><a class="reference internal" href="#stimulus_arch.scripts.planner_controller.PlannerController"><code class="docutils literal notranslate"><span class="pre">PlannerController</span></code></a><ul>
+<li><a class="reference internal" href="#stimulus_arch.scripts.planner_controller.PlannerController.__init__"><code class="docutils literal notranslate"><span class="pre">PlannerController.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#stimulus_arch.scripts.planner_controller.PlannerController._explain_commands"><code class="docutils literal notranslate"><span class="pre">PlannerController._explain_commands()</span></code></a></li>
+<li><a class="reference internal" href="#stimulus_arch.scripts.planner_controller.PlannerController._manual_controller"><code class="docutils literal notranslate"><span class="pre">PlannerController._manual_controller()</span></code></a></li>
+<li><a class="reference internal" href="#stimulus_arch.scripts.planner_controller.PlannerController._plan_command"><code class="docutils literal notranslate"><span class="pre">PlannerController._plan_command()</span></code></a></li>
+<li><a class="reference internal" href="#stimulus_arch.scripts.planner_controller.PlannerController._random_controller"><code class="docutils literal notranslate"><span class="pre">PlannerController._random_controller()</span></code></a></li>
+<li><a class="reference internal" href="#stimulus_arch.scripts.planner_controller.PlannerController._set_result_path"><code class="docutils literal notranslate"><span class="pre">PlannerController._set_result_path()</span></code></a></li>
+<li><a class="reference internal" href="#stimulus_arch.scripts.planner_controller.PlannerController.start"><code class="docutils literal notranslate"><span class="pre">PlannerController.start()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
-            
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">exprob_assignment_1</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Welcome to exprob_assignment_1’s documentation!</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
   <div class="section" id="welcome-to-exprob-assignment-1-s-documentation">
-<h1>Welcome to exprob_assignment_1’s documentation!<a class="headerlink" href="#welcome-to-exprob-assignment-1-s-documentation" title="Permalink to this heading">¶</a></h1>
+<h1>Welcome to exprob_assignment_1’s documentation!<a class="headerlink" href="#welcome-to-exprob-assignment-1-s-documentation" title="Permalink to this heading"></a></h1>
 <div class="toctree-wrapper compound">
 </div>
 </div>
 <div class="section" id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading">¶</a></h1>
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading"></a></h1>
 <ul class="simple">
 <li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
 <li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
@@ -44,10 +233,10 @@
 </ul>
 </div>
 <div class="section" id="module-robot_behavior.scripts.robot_surveillance">
-<span id="robot-behaviour-module"></span><h1>Robot Behaviour Module<a class="headerlink" href="#module-robot_behavior.scripts.robot_surveillance" title="Permalink to this heading">¶</a></h1>
+<span id="robot-behaviour-module"></span><h1>Robot Behaviour Module<a class="headerlink" href="#module-robot_behavior.scripts.robot_surveillance" title="Permalink to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_surveillance.ChooseNextRoom">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_behavior.scripts.robot_surveillance.</span></span><span class="sig-name descname"><span class="pre">ChooseNextRoom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helper</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#ChooseNextRoom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.ChooseNextRoom" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_behavior.scripts.robot_surveillance.</span></span><span class="sig-name descname"><span class="pre">ChooseNextRoom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helper</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#ChooseNextRoom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.ChooseNextRoom" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>helper</strong> (<a class="reference internal" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper" title="robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper"><em>RobotBehaviorHelper</em></a>) – An instance of the RobotBehaviorHelper.</p>
@@ -60,7 +249,7 @@ contains a recharge station is chosen. Otherwise, the reachable
 room with the highest priority is chosen.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_surveillance.ChooseNextRoom.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helper</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#ChooseNextRoom.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.ChooseNextRoom.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helper</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#ChooseNextRoom.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.ChooseNextRoom.__init__" title="Permalink to this definition"></a></dt>
 <dd><p>State constructor
 &#64;type outcomes: list of str
 &#64;param outcomes: Custom outcomes for this state.</p>
@@ -77,7 +266,7 @@ from which it might read at runtime.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_surveillance.ChooseNextRoom.choose_next_prioritized_room">
-<span class="sig-name descname"><span class="pre">choose_next_prioritized_room</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#ChooseNextRoom.choose_next_prioritized_room"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.ChooseNextRoom.choose_next_prioritized_room" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">choose_next_prioritized_room</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#ChooseNextRoom.choose_next_prioritized_room"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.ChooseNextRoom.choose_next_prioritized_room" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A tuple containing the reachable room with the
@@ -95,7 +284,7 @@ If no room is found, returns any reachable room.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_surveillance.ChooseNextRoom.execute">
-<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">userdata</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#ChooseNextRoom.execute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.ChooseNextRoom.execute" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">userdata</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#ChooseNextRoom.execute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.ChooseNextRoom.execute" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>userdata</strong> (<em>object</em>) – The data of this State.</p>
@@ -117,7 +306,7 @@ the rooms priorities.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_surveillance.ChooseTaskForCurrentRoom">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_behavior.scripts.robot_surveillance.</span></span><span class="sig-name descname"><span class="pre">ChooseTaskForCurrentRoom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helper</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#ChooseTaskForCurrentRoom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.ChooseTaskForCurrentRoom" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_behavior.scripts.robot_surveillance.</span></span><span class="sig-name descname"><span class="pre">ChooseTaskForCurrentRoom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helper</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#ChooseTaskForCurrentRoom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.ChooseTaskForCurrentRoom" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>helper</strong> (<a class="reference internal" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper" title="robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper"><em>RobotBehaviorHelper</em></a>) – An instance of the RobotBehaviorHelper.</p>
@@ -129,7 +318,7 @@ task is chosen consider some parameters of the robot and the
 capabilities of the room.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_surveillance.ChooseTaskForCurrentRoom.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helper</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#ChooseTaskForCurrentRoom.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.ChooseTaskForCurrentRoom.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helper</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#ChooseTaskForCurrentRoom.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.ChooseTaskForCurrentRoom.__init__" title="Permalink to this definition"></a></dt>
 <dd><p>State constructor
 &#64;type outcomes: list of str
 &#64;param outcomes: Custom outcomes for this state.</p>
@@ -146,7 +335,7 @@ from which it might read at runtime.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_surveillance.ChooseTaskForCurrentRoom.execute">
-<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">userdata</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#ChooseTaskForCurrentRoom.execute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.ChooseTaskForCurrentRoom.execute" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">userdata</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#ChooseTaskForCurrentRoom.execute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.ChooseTaskForCurrentRoom.execute" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>userdata</strong> (<em>object</em>) – The data of this State.</p>
@@ -174,7 +363,7 @@ room, then the robot must recharge.</div>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_surveillance.ExploreTask">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_behavior.scripts.robot_surveillance.</span></span><span class="sig-name descname"><span class="pre">ExploreTask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helper</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#ExploreTask"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.ExploreTask" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_behavior.scripts.robot_surveillance.</span></span><span class="sig-name descname"><span class="pre">ExploreTask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helper</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#ExploreTask"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.ExploreTask" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>helper</strong> (<a class="reference internal" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper" title="robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper"><em>RobotBehaviorHelper</em></a>) – An instance of the RobotBehaviorHelper.</p>
@@ -184,7 +373,7 @@ room, then the robot must recharge.</div>
 exploring the room it is currently in.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_surveillance.ExploreTask.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helper</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#ExploreTask.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.ExploreTask.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helper</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#ExploreTask.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.ExploreTask.__init__" title="Permalink to this definition"></a></dt>
 <dd><p>State constructor
 &#64;type outcomes: list of str
 &#64;param outcomes: Custom outcomes for this state.</p>
@@ -201,7 +390,7 @@ from which it might read at runtime.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_surveillance.ExploreTask.execute">
-<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">userdata</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#ExploreTask.execute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.ExploreTask.execute" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">userdata</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#ExploreTask.execute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.ExploreTask.execute" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>userdata</strong> (<em>object</em>) – The data of this State.</p>
@@ -221,7 +410,7 @@ the user specified in the launch file.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_surveillance.Initialization">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_behavior.scripts.robot_surveillance.</span></span><span class="sig-name descname"><span class="pre">Initialization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helper</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#Initialization"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.Initialization" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_behavior.scripts.robot_surveillance.</span></span><span class="sig-name descname"><span class="pre">Initialization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helper</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#Initialization"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.Initialization" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>helper</strong> (<a class="reference internal" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper" title="robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper"><em>RobotBehaviorHelper</em></a>) – An instance of the RobotBehaviorHelper.</p>
@@ -232,7 +421,7 @@ of the parameters which define the behavior of the robot.
 Because of this functionality, it should be executed only once.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_surveillance.Initialization.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helper</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#Initialization.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.Initialization.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helper</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#Initialization.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.Initialization.__init__" title="Permalink to this definition"></a></dt>
 <dd><p>State constructor
 &#64;type outcomes: list of str
 &#64;param outcomes: Custom outcomes for this state.</p>
@@ -249,7 +438,7 @@ from which it might read at runtime.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_surveillance.Initialization.execute">
-<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">userdata</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#Initialization.execute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.Initialization.execute" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">userdata</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#Initialization.execute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.Initialization.execute" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>userdata</strong> (<em>object</em>) – The data of this State.</p>
@@ -271,7 +460,7 @@ from which it might read at runtime.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_surveillance.MoveToNextRoom">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_behavior.scripts.robot_surveillance.</span></span><span class="sig-name descname"><span class="pre">MoveToNextRoom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helper</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#MoveToNextRoom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.MoveToNextRoom" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_behavior.scripts.robot_surveillance.</span></span><span class="sig-name descname"><span class="pre">MoveToNextRoom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helper</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#MoveToNextRoom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.MoveToNextRoom" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>helper</strong> (<a class="reference internal" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper" title="robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper"><em>RobotBehaviorHelper</em></a>) – An instance of the RobotBehaviorHelper.</p>
@@ -281,7 +470,7 @@ from which it might read at runtime.</p>
 to the selected room.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_surveillance.MoveToNextRoom.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helper</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#MoveToNextRoom.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.MoveToNextRoom.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helper</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#MoveToNextRoom.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.MoveToNextRoom.__init__" title="Permalink to this definition"></a></dt>
 <dd><p>State constructor
 &#64;type outcomes: list of str
 &#64;param outcomes: Custom outcomes for this state.</p>
@@ -298,7 +487,7 @@ from which it might read at runtime.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_surveillance.MoveToNextRoom.execute">
-<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">userdata</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#MoveToNextRoom.execute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.MoveToNextRoom.execute" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">userdata</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#MoveToNextRoom.execute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.MoveToNextRoom.execute" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>userdata</strong> (<em>object</em>) – The data of this State.</p>
@@ -317,7 +506,7 @@ from which it might read at runtime.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_surveillance.RechargeTask">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_behavior.scripts.robot_surveillance.</span></span><span class="sig-name descname"><span class="pre">RechargeTask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helper</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#RechargeTask"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.RechargeTask" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_behavior.scripts.robot_surveillance.</span></span><span class="sig-name descname"><span class="pre">RechargeTask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helper</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#RechargeTask"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.RechargeTask" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>helper</strong> (<a class="reference internal" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper" title="robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper"><em>RobotBehaviorHelper</em></a>) – An instance of the RobotBehaviorHelper.</p>
@@ -327,7 +516,7 @@ from which it might read at runtime.</p>
 recharging into the designated recharge room.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_surveillance.RechargeTask.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helper</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#RechargeTask.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.RechargeTask.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helper</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#RechargeTask.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.RechargeTask.__init__" title="Permalink to this definition"></a></dt>
 <dd><p>State constructor
 &#64;type outcomes: list of str
 &#64;param outcomes: Custom outcomes for this state.</p>
@@ -344,7 +533,7 @@ from which it might read at runtime.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_surveillance.RechargeTask.execute">
-<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">userdata</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#RechargeTask.execute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.RechargeTask.execute" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">userdata</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#RechargeTask.execute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.RechargeTask.execute" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>userdata</strong> (<em>object</em>) – The data of this State.</p>
@@ -364,7 +553,7 @@ enough. The threshold is parameter defined by the user.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_surveillance.RobotSurveillance">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_behavior.scripts.robot_surveillance.</span></span><span class="sig-name descname"><span class="pre">RobotSurveillance</span></span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#RobotSurveillance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.RobotSurveillance" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_behavior.scripts.robot_surveillance.</span></span><span class="sig-name descname"><span class="pre">RobotSurveillance</span></span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#RobotSurveillance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.RobotSurveillance" title="Permalink to this definition"></a></dt>
 <dd><dl class="simple">
 <dt>ROS Parameters:</dt><dd><ul class="simple">
 <li><p>/urgency_threshold (int) : The urgency threshold time in seconds for the robot policy.</p></li>
@@ -379,7 +568,7 @@ enough. The threshold is parameter defined by the user.</p>
 <p>This class generates the robot behavior by creating a state machine.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_surveillance.RobotSurveillance.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#RobotSurveillance.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.RobotSurveillance.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#RobotSurveillance.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.RobotSurveillance.__init__" title="Permalink to this definition"></a></dt>
 <dd><p>This is the constructor method of the RobotSurveillance class.
 It initializes a ros node with name ‘robot_behavior’.
 It retrieves some parameters from rospy and initializes the RobotBehaviorHelper.</p>
@@ -387,13 +576,13 @@ It retrieves some parameters from rospy and initializes the RobotBehaviorHelper.
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_surveillance.RobotSurveillance.__weakref__">
-<span class="sig-name descname"><span class="pre">__weakref__</span></span><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.RobotSurveillance.__weakref__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__weakref__</span></span><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.RobotSurveillance.__weakref__" title="Permalink to this definition"></a></dt>
 <dd><p>list of weak references to the object (if defined)</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_surveillance.RobotSurveillance.generate_behavior">
-<span class="sig-name descname"><span class="pre">generate_behavior</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#RobotSurveillance.generate_behavior"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.RobotSurveillance.generate_behavior" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">generate_behavior</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#RobotSurveillance.generate_behavior"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance.RobotSurveillance.generate_behavior" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The state machine representing the behavior.</p>
@@ -414,7 +603,7 @@ level is enough to start moving again.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_surveillance._rand_in_list">
-<span class="sig-prename descclassname"><span class="pre">robot_behavior.scripts.robot_surveillance.</span></span><span class="sig-name descname"><span class="pre">_rand_in_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lst</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#_rand_in_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance._rand_in_list" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">robot_behavior.scripts.robot_surveillance.</span></span><span class="sig-name descname"><span class="pre">_rand_in_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lst</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#_rand_in_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance._rand_in_list" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>lst</strong> (<em>list</em>) – A list of objects.</p>
@@ -430,7 +619,7 @@ level is enough to start moving again.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_surveillance._should_robot_recharge">
-<span class="sig-prename descclassname"><span class="pre">robot_behavior.scripts.robot_surveillance.</span></span><span class="sig-name descname"><span class="pre">_should_robot_recharge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helper</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#_should_robot_recharge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance._should_robot_recharge" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">robot_behavior.scripts.robot_surveillance.</span></span><span class="sig-name descname"><span class="pre">_should_robot_recharge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helper</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#_should_robot_recharge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance._should_robot_recharge" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>If the robot should recharge.</p>
@@ -443,7 +632,7 @@ level is enough to start moving again.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_surveillance._should_robot_stop_recharge">
-<span class="sig-prename descclassname"><span class="pre">robot_behavior.scripts.robot_surveillance.</span></span><span class="sig-name descname"><span class="pre">_should_robot_stop_recharge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helper</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#_should_robot_stop_recharge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance._should_robot_stop_recharge" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">robot_behavior.scripts.robot_surveillance.</span></span><span class="sig-name descname"><span class="pre">_should_robot_stop_recharge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">helper</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_surveillance.html#_should_robot_stop_recharge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_surveillance._should_robot_stop_recharge" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>If the robot should stop recharging.</p>
@@ -456,10 +645,10 @@ level is enough to start moving again.</p>
 
 </div>
 <div class="section" id="module-robot_behavior.scripts.robot_behavior.robot_behavior_helper">
-<span id="robot-behaviour-helper-module"></span><h1>Robot Behaviour Helper Module<a class="headerlink" href="#module-robot_behavior.scripts.robot_behavior.robot_behavior_helper" title="Permalink to this heading">¶</a></h1>
+<span id="robot-behaviour-helper-module"></span><h1>Robot Behaviour Helper Module<a class="headerlink" href="#module-robot_behavior.scripts.robot_behavior.robot_behavior_helper" title="Permalink to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_behavior.scripts.robot_behavior.robot_behavior_helper.</span></span><span class="sig-name descname"><span class="pre">RobotBehaviorHelper</span></span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_behavior/robot_behavior_helper.html#RobotBehaviorHelper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_behavior.scripts.robot_behavior.robot_behavior_helper.</span></span><span class="sig-name descname"><span class="pre">RobotBehaviorHelper</span></span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_behavior/robot_behavior_helper.html#RobotBehaviorHelper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper" title="Permalink to this definition"></a></dt>
 <dd><dl class="simple">
 <dt>Subscribes to:</dt><dd><ul class="simple">
 <li><p>/battery_level (UInt8)</p></li>
@@ -480,7 +669,7 @@ behavior. In order to provide this functionality, this class is heavily related
 to the armor_api library.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_behavior/robot_behavior_helper.html#RobotBehaviorHelper.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_behavior/robot_behavior_helper.html#RobotBehaviorHelper.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.__init__" title="Permalink to this definition"></a></dt>
 <dd><div class="line-block">
 <div class="line">This is the constructor method for the RobotBehaviorHelper class.</div>
 <div class="line">1. Initializes some internal variables.</div>
@@ -491,13 +680,13 @@ to the armor_api library.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.__weakref__">
-<span class="sig-name descname"><span class="pre">__weakref__</span></span><a class="headerlink" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.__weakref__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__weakref__</span></span><a class="headerlink" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.__weakref__" title="Permalink to this definition"></a></dt>
 <dd><p>list of weak references to the object (if defined)</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper._battery_level_callback">
-<span class="sig-name descname"><span class="pre">_battery_level_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_behavior/robot_behavior_helper.html#RobotBehaviorHelper._battery_level_callback"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper._battery_level_callback" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_battery_level_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_behavior/robot_behavior_helper.html#RobotBehaviorHelper._battery_level_callback"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper._battery_level_callback" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>msg</strong> (<em>UInt8</em>) – The message relative to /battery_level topic.</p>
@@ -509,7 +698,7 @@ the updated value of the battery level when it changes.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper._data_from_id">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_data_from_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resource_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_behavior/robot_behavior_helper.html#RobotBehaviorHelper._data_from_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper._data_from_id" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_data_from_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resource_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_behavior/robot_behavior_helper.html#RobotBehaviorHelper._data_from_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper._data_from_id" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The actual value of the resource.</p>
@@ -524,7 +713,7 @@ from ARMOR from a id to a more human-readable name.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.compute_path_to_room">
-<span class="sig-name descname"><span class="pre">compute_path_to_room</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">next_room</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_behavior/robot_behavior_helper.html#RobotBehaviorHelper.compute_path_to_room"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.compute_path_to_room" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">compute_path_to_room</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">next_room</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_behavior/robot_behavior_helper.html#RobotBehaviorHelper.compute_path_to_room"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.compute_path_to_room" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>next_room</strong> (<em>string</em>) – The next room the ‘Robot1’ needs to move into.</p>
@@ -548,7 +737,7 @@ the current position of the robot to the poisition of the room.</div>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.follow_path_for_room">
-<span class="sig-name descname"><span class="pre">follow_path_for_room</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">next_room</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_behavior/robot_behavior_helper.html#RobotBehaviorHelper.follow_path_for_room"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.follow_path_for_room" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">follow_path_for_room</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">next_room</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_behavior/robot_behavior_helper.html#RobotBehaviorHelper.follow_path_for_room"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.follow_path_for_room" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -567,7 +756,7 @@ the current position of the robot to the poisition of the room.</div>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.get_battery_level">
-<span class="sig-name descname"><span class="pre">get_battery_level</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_behavior/robot_behavior_helper.html#RobotBehaviorHelper.get_battery_level"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.get_battery_level" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_battery_level</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_behavior/robot_behavior_helper.html#RobotBehaviorHelper.get_battery_level"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.get_battery_level" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The current percentage of the battery</p>
@@ -580,7 +769,7 @@ the current position of the robot to the poisition of the room.</div>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.retrieve_current_room">
-<span class="sig-name descname"><span class="pre">retrieve_current_room</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_behavior/robot_behavior_helper.html#RobotBehaviorHelper.retrieve_current_room"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.retrieve_current_room" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">retrieve_current_room</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_behavior/robot_behavior_helper.html#RobotBehaviorHelper.retrieve_current_room"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.retrieve_current_room" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The name of the room in which ‘Robot1’ is currently in.</p>
@@ -599,7 +788,7 @@ the current position of the robot to the poisition of the room.</div>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.retrieve_last_visited_time">
-<span class="sig-name descname"><span class="pre">retrieve_last_visited_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">room</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_behavior/robot_behavior_helper.html#RobotBehaviorHelper.retrieve_last_visited_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.retrieve_last_visited_time" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">retrieve_last_visited_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">room</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_behavior/robot_behavior_helper.html#RobotBehaviorHelper.retrieve_last_visited_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.retrieve_last_visited_time" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>room</strong> (<em>string</em>) – The room from which to retrieve the time.</p>
@@ -621,7 +810,7 @@ the current position of the robot to the poisition of the room.</div>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.retrieve_reachable_rooms">
-<span class="sig-name descname"><span class="pre">retrieve_reachable_rooms</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_behavior/robot_behavior_helper.html#RobotBehaviorHelper.retrieve_reachable_rooms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.retrieve_reachable_rooms" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">retrieve_reachable_rooms</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_behavior/robot_behavior_helper.html#RobotBehaviorHelper.retrieve_reachable_rooms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.retrieve_reachable_rooms" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The list of names of currently reachable rooms by ‘Robot1’.</p>
@@ -640,7 +829,7 @@ the current position of the robot to the poisition of the room.</div>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.retrieve_robot_time">
-<span class="sig-name descname"><span class="pre">retrieve_robot_time</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_behavior/robot_behavior_helper.html#RobotBehaviorHelper.retrieve_robot_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.retrieve_robot_time" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">retrieve_robot_time</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_behavior/robot_behavior_helper.html#RobotBehaviorHelper.retrieve_robot_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.retrieve_robot_time" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The time in seconds of ‘Robot1’ representing the current time.</p>
@@ -659,7 +848,7 @@ the current position of the robot to the poisition of the room.</div>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.retrieve_rooms_of_class">
-<span class="sig-name descname"><span class="pre">retrieve_rooms_of_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">clss</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_behavior/robot_behavior_helper.html#RobotBehaviorHelper.retrieve_rooms_of_class"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.retrieve_rooms_of_class" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">retrieve_rooms_of_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">clss</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_behavior/robot_behavior_helper.html#RobotBehaviorHelper.retrieve_rooms_of_class"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.retrieve_rooms_of_class" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>clss</strong> (<em>string</em>) – The class name of the rooms to retrieve.</p>
@@ -681,7 +870,7 @@ the current position of the robot to the poisition of the room.</div>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.update_robot_time">
-<span class="sig-name descname"><span class="pre">update_robot_time</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_behavior/robot_behavior_helper.html#RobotBehaviorHelper.update_robot_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.update_robot_time" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">update_robot_time</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_behavior/robot_behavior_helper.html#RobotBehaviorHelper.update_robot_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.update_robot_time" title="Permalink to this definition"></a></dt>
 <dd><div class="line-block">
 <div class="line">Requests ARMOR to update the time value of ‘Robot1’:</div>
 <div class="line">1. Obtains the old time of the ‘Robot1’.</div>
@@ -692,7 +881,7 @@ the current position of the robot to the poisition of the room.</div>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.update_robot_urgency_threshold">
-<span class="sig-name descname"><span class="pre">update_robot_urgency_threshold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_behavior/robot_behavior_helper.html#RobotBehaviorHelper.update_robot_urgency_threshold"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.update_robot_urgency_threshold" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">update_robot_urgency_threshold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_behavior/robot_behavior_helper.html#RobotBehaviorHelper.update_robot_urgency_threshold"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.update_robot_urgency_threshold" title="Permalink to this definition"></a></dt>
 <dd><div class="line-block">
 <div class="line">Requests ARMOR to update the urgencyThreshold value of ‘Robot1’:</div>
 <div class="line">1. Obtains the old value of the urgencyThreshold.</div>
@@ -702,7 +891,7 @@ the current position of the robot to the poisition of the room.</div>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.update_room_visited_time_before_exiting">
-<span class="sig-name descname"><span class="pre">update_room_visited_time_before_exiting</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_behavior/robot_behavior_helper.html#RobotBehaviorHelper.update_room_visited_time_before_exiting"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.update_room_visited_time_before_exiting" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">update_room_visited_time_before_exiting</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_behavior/robot_behavior_helper.html#RobotBehaviorHelper.update_room_visited_time_before_exiting"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.update_room_visited_time_before_exiting" title="Permalink to this definition"></a></dt>
 <dd><div class="line-block">
 <div class="line">Requests ARMOR to update the time at which ‘Robot1’ visited the
 room it is currently in with the value of the current time:</div>
@@ -715,7 +904,7 @@ room it is currently in with the value of the current time:</div>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.wait_for_ontology">
-<span class="sig-name descname"><span class="pre">wait_for_ontology</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_behavior/robot_behavior_helper.html#RobotBehaviorHelper.wait_for_ontology"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.wait_for_ontology" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">wait_for_ontology</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/robot_behavior/robot_behavior_helper.html#RobotBehaviorHelper.wait_for_ontology"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.robot_behavior.robot_behavior_helper.RobotBehaviorHelper.wait_for_ontology" title="Permalink to this definition"></a></dt>
 <dd><p>This method makes the called wait until the ontology is fully loaded and
 then initializes the objects to communicate with ARMOR.
 This behavior is obtained by calling the ‘/ontology_map/reference_name’
@@ -726,10 +915,10 @@ service which responds only when the ontology is loaded.</p>
 
 </div>
 <div class="section" id="module-robot_behavior.scripts.ontology_map_builder">
-<span id="ontology-map-builder-module"></span><h1>Ontology Map Builder Module<a class="headerlink" href="#module-robot_behavior.scripts.ontology_map_builder" title="Permalink to this heading">¶</a></h1>
+<span id="ontology-map-builder-module"></span><h1>Ontology Map Builder Module<a class="headerlink" href="#module-robot_behavior.scripts.ontology_map_builder" title="Permalink to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="robot_behavior.scripts.ontology_map_builder.OntologyMapBuilder">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_behavior.scripts.ontology_map_builder.</span></span><span class="sig-name descname"><span class="pre">OntologyMapBuilder</span></span><a class="reference internal" href="_modules/robot_behavior/scripts/ontology_map_builder.html#OntologyMapBuilder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.ontology_map_builder.OntologyMapBuilder" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_behavior.scripts.ontology_map_builder.</span></span><span class="sig-name descname"><span class="pre">OntologyMapBuilder</span></span><a class="reference internal" href="_modules/robot_behavior/scripts/ontology_map_builder.html#OntologyMapBuilder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.ontology_map_builder.OntologyMapBuilder" title="Permalink to this definition"></a></dt>
 <dd><dl class="simple">
 <dt>Provides services on :</dt><dd><ul class="simple">
 <li><p>/ontology_map/reference_name (ReferenceName)</p></li>
@@ -752,7 +941,7 @@ parameters which are automatically decoded. Once the map if fully created,
 this node provides a service for providing the position of room given the name.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="robot_behavior.scripts.ontology_map_builder.OntologyMapBuilder.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/ontology_map_builder.html#OntologyMapBuilder.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.ontology_map_builder.OntologyMapBuilder.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/ontology_map_builder.html#OntologyMapBuilder.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.ontology_map_builder.OntologyMapBuilder.__init__" title="Permalink to this definition"></a></dt>
 <dd><div class="line-block">
 <div class="line">In the constructor method, this class:</div>
 <div class="line">1. Creates a service for the “ontology_map/reference_name” service.</div>
@@ -764,13 +953,13 @@ this node provides a service for providing the position of room given the name.<
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="robot_behavior.scripts.ontology_map_builder.OntologyMapBuilder.__weakref__">
-<span class="sig-name descname"><span class="pre">__weakref__</span></span><a class="headerlink" href="#robot_behavior.scripts.ontology_map_builder.OntologyMapBuilder.__weakref__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__weakref__</span></span><a class="headerlink" href="#robot_behavior.scripts.ontology_map_builder.OntologyMapBuilder.__weakref__" title="Permalink to this definition"></a></dt>
 <dd><p>list of weak references to the object (if defined)</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robot_behavior.scripts.ontology_map_builder.OntologyMapBuilder._build_ontology_map">
-<span class="sig-name descname"><span class="pre">_build_ontology_map</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/ontology_map_builder.html#OntologyMapBuilder._build_ontology_map"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.ontology_map_builder.OntologyMapBuilder._build_ontology_map" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_build_ontology_map</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/ontology_map_builder.html#OntologyMapBuilder._build_ontology_map"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.ontology_map_builder.OntologyMapBuilder._build_ontology_map" title="Permalink to this definition"></a></dt>
 <dd><div class="line-block">
 <div class="line">This method creates the map specified by the user:</div>
 <div class="line">1. Loads the default ontology into the ARMOR server.</div>
@@ -782,7 +971,7 @@ this node provides a service for providing the position of room given the name.<
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robot_behavior.scripts.ontology_map_builder.OntologyMapBuilder._onto_reference_service">
-<span class="sig-name descname"><span class="pre">_onto_reference_service</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/ontology_map_builder.html#OntologyMapBuilder._onto_reference_service"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.ontology_map_builder.OntologyMapBuilder._onto_reference_service" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_onto_reference_service</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/ontology_map_builder.html#OntologyMapBuilder._onto_reference_service"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.ontology_map_builder.OntologyMapBuilder._onto_reference_service" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>request</strong> (<em>ReferenceNameRequest</em>) – The request from the client.</p>
@@ -801,7 +990,7 @@ with the reference name of the ontology.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robot_behavior.scripts.ontology_map_builder.OntologyMapBuilder._organize_rooms_positions">
-<span class="sig-name descname"><span class="pre">_organize_rooms_positions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">room_positions</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/ontology_map_builder.html#OntologyMapBuilder._organize_rooms_positions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.ontology_map_builder.OntologyMapBuilder._organize_rooms_positions" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_organize_rooms_positions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">room_positions</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/ontology_map_builder.html#OntologyMapBuilder._organize_rooms_positions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.ontology_map_builder.OntologyMapBuilder._organize_rooms_positions" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>room_positions</strong> (<em>list</em>) – The parsed list of pairs (rooms, position).</p>
@@ -813,7 +1002,7 @@ This makes the retrieval of positions easier.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="robot_behavior.scripts.ontology_map_builder.OntologyMapBuilder._room_position_service">
-<span class="sig-name descname"><span class="pre">_room_position_service</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/ontology_map_builder.html#OntologyMapBuilder._room_position_service"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.ontology_map_builder.OntologyMapBuilder._room_position_service" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_room_position_service</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/robot_behavior/scripts/ontology_map_builder.html#OntologyMapBuilder._room_position_service"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_behavior.scripts.ontology_map_builder.OntologyMapBuilder._room_position_service" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>request</strong> (<em>RoomPositionRequest</em>) – The request from the client.</p>
@@ -834,15 +1023,15 @@ response with the position for the requested room.</p>
 
 </div>
 <div class="section" id="module-stimulus_arch.scripts.stimulus_arch.command_helper">
-<span id="command-helper-module"></span><h1>Command Helper Module<a class="headerlink" href="#module-stimulus_arch.scripts.stimulus_arch.command_helper" title="Permalink to this heading">¶</a></h1>
+<span id="command-helper-module"></span><h1>Command Helper Module<a class="headerlink" href="#module-stimulus_arch.scripts.stimulus_arch.command_helper" title="Permalink to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.stimulus_arch.command_helper.CommandHelper">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">stimulus_arch.scripts.stimulus_arch.command_helper.</span></span><span class="sig-name descname"><span class="pre">CommandHelper</span></span><a class="reference internal" href="_modules/stimulus_arch/scripts/stimulus_arch/command_helper.html#CommandHelper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.stimulus_arch.command_helper.CommandHelper" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">stimulus_arch.scripts.stimulus_arch.command_helper.</span></span><span class="sig-name descname"><span class="pre">CommandHelper</span></span><a class="reference internal" href="_modules/stimulus_arch/scripts/stimulus_arch/command_helper.html#CommandHelper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.stimulus_arch.command_helper.CommandHelper" title="Permalink to this definition"></a></dt>
 <dd><p>This class is a helper for memorizing commands and then parse them
 from strings.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.stimulus_arch.command_helper.CommandHelper.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/stimulus_arch/command_helper.html#CommandHelper.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.stimulus_arch.command_helper.CommandHelper.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/stimulus_arch/command_helper.html#CommandHelper.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.stimulus_arch.command_helper.CommandHelper.__init__" title="Permalink to this definition"></a></dt>
 <dd><p>This is the constructor method for the CommandHelper class.
 It initialized the registered_commands to empty map and sets the
 default exit command to ‘exit’.</p>
@@ -850,13 +1039,13 @@ default exit command to ‘exit’.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.stimulus_arch.command_helper.CommandHelper.__weakref__">
-<span class="sig-name descname"><span class="pre">__weakref__</span></span><a class="headerlink" href="#stimulus_arch.scripts.stimulus_arch.command_helper.CommandHelper.__weakref__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__weakref__</span></span><a class="headerlink" href="#stimulus_arch.scripts.stimulus_arch.command_helper.CommandHelper.__weakref__" title="Permalink to this definition"></a></dt>
 <dd><p>list of weak references to the object (if defined)</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.stimulus_arch.command_helper.CommandHelper.listen_for_user_commands">
-<span class="sig-name descname"><span class="pre">listen_for_user_commands</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exit_command</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/stimulus_arch/command_helper.html#CommandHelper.listen_for_user_commands"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.stimulus_arch.command_helper.CommandHelper.listen_for_user_commands" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">listen_for_user_commands</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exit_command</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/stimulus_arch/command_helper.html#CommandHelper.listen_for_user_commands"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.stimulus_arch.command_helper.CommandHelper.listen_for_user_commands" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>exit_command</strong> (<em>string</em>) – The exit command for stop listening.</p>
@@ -868,7 +1057,7 @@ until the exit_command is received.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.stimulus_arch.command_helper.CommandHelper.parse_command">
-<span class="sig-name descname"><span class="pre">parse_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command_str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/stimulus_arch/command_helper.html#CommandHelper.parse_command"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.stimulus_arch.command_helper.CommandHelper.parse_command" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">parse_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command_str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/stimulus_arch/command_helper.html#CommandHelper.parse_command"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.stimulus_arch.command_helper.CommandHelper.parse_command" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>command</strong> (<em>string</em>) – The command that needs to be parsed.</p>
@@ -888,7 +1077,7 @@ If the command is not valid, the user is informed.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.stimulus_arch.command_helper.CommandHelper.register_command">
-<span class="sig-name descname"><span class="pre">register_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/stimulus_arch/command_helper.html#CommandHelper.register_command"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.stimulus_arch.command_helper.CommandHelper.register_command" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">register_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/stimulus_arch/command_helper.html#CommandHelper.register_command"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.stimulus_arch.command_helper.CommandHelper.register_command" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -906,10 +1095,10 @@ structure with the related callbacks.</p>
 
 </div>
 <div class="section" id="module-stimulus_arch.scripts.stimulus_arch.stimulus_controller">
-<span id="stimulus-controller-module"></span><h1>Stimulus Controller Module<a class="headerlink" href="#module-stimulus_arch.scripts.stimulus_arch.stimulus_controller" title="Permalink to this heading">¶</a></h1>
+<span id="stimulus-controller-module"></span><h1>Stimulus Controller Module<a class="headerlink" href="#module-stimulus_arch.scripts.stimulus_arch.stimulus_controller" title="Permalink to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.stimulus_arch.stimulus_controller.StimulusController">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">stimulus_arch.scripts.stimulus_arch.stimulus_controller.</span></span><span class="sig-name descname"><span class="pre">StimulusController</span></span><a class="reference internal" href="_modules/stimulus_arch/scripts/stimulus_arch/stimulus_controller.html#StimulusController"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.stimulus_arch.stimulus_controller.StimulusController" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">stimulus_arch.scripts.stimulus_arch.stimulus_controller.</span></span><span class="sig-name descname"><span class="pre">StimulusController</span></span><a class="reference internal" href="_modules/stimulus_arch/scripts/stimulus_arch/stimulus_controller.html#StimulusController"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.stimulus_arch.stimulus_controller.StimulusController" title="Permalink to this definition"></a></dt>
 <dd><dl class="simple">
 <dt>ROS Parameters:</dt><dd><ul class="simple">
 <li><p>/execution_mode (string): The execution mode of this controller.</p></li>
@@ -924,27 +1113,27 @@ testing a ROS architecture. It provides two execution modes:</div>
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.stimulus_arch.stimulus_controller.StimulusController.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/stimulus_arch/stimulus_controller.html#StimulusController.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.stimulus_arch.stimulus_controller.StimulusController.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/stimulus_arch/stimulus_controller.html#StimulusController.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.stimulus_arch.stimulus_controller.StimulusController.__init__" title="Permalink to this definition"></a></dt>
 <dd><p>This is the constructor method for the StimulusController class.
 Gets the current execution mode from the ROS Parameter Server.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.stimulus_arch.stimulus_controller.StimulusController.__weakref__">
-<span class="sig-name descname"><span class="pre">__weakref__</span></span><a class="headerlink" href="#stimulus_arch.scripts.stimulus_arch.stimulus_controller.StimulusController.__weakref__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__weakref__</span></span><a class="headerlink" href="#stimulus_arch.scripts.stimulus_arch.stimulus_controller.StimulusController.__weakref__" title="Permalink to this definition"></a></dt>
 <dd><p>list of weak references to the object (if defined)</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.stimulus_arch.stimulus_controller.StimulusController._explain_commands">
-<span class="sig-name descname"><span class="pre">_explain_commands</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/stimulus_arch/stimulus_controller.html#StimulusController._explain_commands"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.stimulus_arch.stimulus_controller.StimulusController._explain_commands" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_explain_commands</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/stimulus_arch/stimulus_controller.html#StimulusController._explain_commands"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.stimulus_arch.stimulus_controller.StimulusController._explain_commands" title="Permalink to this definition"></a></dt>
 <dd><p>This methods writes all the commands that the user can utilize for
 interacting with this controller.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.stimulus_arch.stimulus_controller.StimulusController._get_controller_method">
-<span class="sig-name descname"><span class="pre">_get_controller_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/stimulus_arch/stimulus_controller.html#StimulusController._get_controller_method"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.stimulus_arch.stimulus_controller.StimulusController._get_controller_method" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_get_controller_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/stimulus_arch/stimulus_controller.html#StimulusController._get_controller_method"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.stimulus_arch.stimulus_controller.StimulusController._get_controller_method" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The method representing the execution mode.</p>
@@ -957,19 +1146,19 @@ interacting with this controller.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.stimulus_arch.stimulus_controller.StimulusController._manual_controller">
-<span class="sig-name descname"><span class="pre">_manual_controller</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/stimulus_arch/stimulus_controller.html#StimulusController._manual_controller"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.stimulus_arch.stimulus_controller.StimulusController._manual_controller" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_manual_controller</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/stimulus_arch/stimulus_controller.html#StimulusController._manual_controller"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.stimulus_arch.stimulus_controller.StimulusController._manual_controller" title="Permalink to this definition"></a></dt>
 <dd><p>This method executes the MANUAL execution mode.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.stimulus_arch.stimulus_controller.StimulusController._random_controller">
-<span class="sig-name descname"><span class="pre">_random_controller</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/stimulus_arch/stimulus_controller.html#StimulusController._random_controller"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.stimulus_arch.stimulus_controller.StimulusController._random_controller" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_random_controller</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/stimulus_arch/stimulus_controller.html#StimulusController._random_controller"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.stimulus_arch.stimulus_controller.StimulusController._random_controller" title="Permalink to this definition"></a></dt>
 <dd><p>This method executes the RANDOM execution mode.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.stimulus_arch.stimulus_controller.StimulusController.start">
-<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/stimulus_arch/stimulus_controller.html#StimulusController.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.stimulus_arch.stimulus_controller.StimulusController.start" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/stimulus_arch/stimulus_controller.html#StimulusController.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.stimulus_arch.stimulus_controller.StimulusController.start" title="Permalink to this definition"></a></dt>
 <dd><p>This method starts the StimulusController in the defined execution mode.
 Before starting, writes in console all the commands that the user can
 utilize for interacting with this controller.</p>
@@ -979,22 +1168,22 @@ utilize for interacting with this controller.</p>
 
 </div>
 <div class="section" id="module-stimulus_arch.scripts.stimulus_arch.stimulus_action_controller">
-<span id="stimulus-action-controller-module"></span><h1>Stimulus Action Controller Module<a class="headerlink" href="#module-stimulus_arch.scripts.stimulus_arch.stimulus_action_controller" title="Permalink to this heading">¶</a></h1>
+<span id="stimulus-action-controller-module"></span><h1>Stimulus Action Controller Module<a class="headerlink" href="#module-stimulus_arch.scripts.stimulus_arch.stimulus_action_controller" title="Permalink to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.stimulus_arch.stimulus_action_controller.StimulusActionController">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">stimulus_arch.scripts.stimulus_arch.stimulus_action_controller.</span></span><span class="sig-name descname"><span class="pre">StimulusActionController</span></span><a class="reference internal" href="_modules/stimulus_arch/scripts/stimulus_arch/stimulus_action_controller.html#StimulusActionController"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.stimulus_arch.stimulus_action_controller.StimulusActionController" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">stimulus_arch.scripts.stimulus_arch.stimulus_action_controller.</span></span><span class="sig-name descname"><span class="pre">StimulusActionController</span></span><a class="reference internal" href="_modules/stimulus_arch/scripts/stimulus_arch/stimulus_action_controller.html#StimulusActionController"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.stimulus_arch.stimulus_action_controller.StimulusActionController" title="Permalink to this definition"></a></dt>
 <dd><p>This class extends the StimulusController to create a placeholder for a
 controller that requires an ActionServer.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.stimulus_arch.stimulus_action_controller.StimulusActionController.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/stimulus_arch/stimulus_action_controller.html#StimulusActionController.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.stimulus_arch.stimulus_action_controller.StimulusActionController.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/stimulus_arch/stimulus_action_controller.html#StimulusActionController.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.stimulus_arch.stimulus_action_controller.StimulusActionController.__init__" title="Permalink to this definition"></a></dt>
 <dd><p>This is the constructor method for the StimulusActionController class.
 Initializes some variables for handling the ActionServer.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.stimulus_arch.stimulus_action_controller.StimulusActionController._action_callback">
-<span class="sig-name descname"><span class="pre">_action_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">goal</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/stimulus_arch/stimulus_action_controller.html#StimulusActionController._action_callback"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.stimulus_arch.stimulus_action_controller.StimulusActionController._action_callback" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_action_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">goal</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/stimulus_arch/stimulus_action_controller.html#StimulusActionController._action_callback"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.stimulus_arch.stimulus_action_controller.StimulusActionController._action_callback" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>goal</strong> (<em>Goal</em>) – The requested goal.</p>
@@ -1012,7 +1201,7 @@ computed by the controller.</div>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.stimulus_arch.stimulus_action_controller.StimulusActionController._get_controller_method">
-<span class="sig-name descname"><span class="pre">_get_controller_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/stimulus_arch/stimulus_action_controller.html#StimulusActionController._get_controller_method"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.stimulus_arch.stimulus_action_controller.StimulusActionController._get_controller_method" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_get_controller_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/stimulus_arch/stimulus_action_controller.html#StimulusActionController._get_controller_method"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.stimulus_arch.stimulus_action_controller.StimulusActionController._get_controller_method" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The method representing the execution mode.</p>
@@ -1025,7 +1214,7 @@ computed by the controller.</div>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.stimulus_arch.stimulus_action_controller.StimulusActionController._set_action_result">
-<span class="sig-name descname"><span class="pre">_set_action_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/stimulus_arch/stimulus_action_controller.html#StimulusActionController._set_action_result"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.stimulus_arch.stimulus_action_controller.StimulusActionController._set_action_result" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_set_action_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/stimulus_arch/stimulus_action_controller.html#StimulusActionController._set_action_result"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.stimulus_arch.stimulus_action_controller.StimulusActionController._set_action_result" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>result</strong> (<em>ActionResult</em>) – The result that is computed for a request.</p>
@@ -1037,7 +1226,7 @@ resumed now that the result is fully computed.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.stimulus_arch.stimulus_action_controller.StimulusActionController._start_action_server">
-<span class="sig-name descname"><span class="pre">_start_action_server</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">server</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/stimulus_arch/stimulus_action_controller.html#StimulusActionController._start_action_server"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.stimulus_arch.stimulus_action_controller.StimulusActionController._start_action_server" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_start_action_server</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">server</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/stimulus_arch/stimulus_action_controller.html#StimulusActionController._start_action_server"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.stimulus_arch.stimulus_action_controller.StimulusActionController._start_action_server" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>server</strong> (<em>ActionServer</em>) – The ActionServer related to this controller.</p>
@@ -1051,10 +1240,10 @@ variable so that it can be accessed by other methods.</p>
 
 </div>
 <div class="section" id="module-stimulus_arch.scripts.battery_controller">
-<span id="battery-controller-module"></span><h1>Battery Controller Module<a class="headerlink" href="#module-stimulus_arch.scripts.battery_controller" title="Permalink to this heading">¶</a></h1>
+<span id="battery-controller-module"></span><h1>Battery Controller Module<a class="headerlink" href="#module-stimulus_arch.scripts.battery_controller" title="Permalink to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.battery_controller.BatteryController">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">stimulus_arch.scripts.battery_controller.</span></span><span class="sig-name descname"><span class="pre">BatteryController</span></span><a class="reference internal" href="_modules/stimulus_arch/scripts/battery_controller.html#BatteryController"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.battery_controller.BatteryController" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">stimulus_arch.scripts.battery_controller.</span></span><span class="sig-name descname"><span class="pre">BatteryController</span></span><a class="reference internal" href="_modules/stimulus_arch/scripts/battery_controller.html#BatteryController"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.battery_controller.BatteryController" title="Permalink to this definition"></a></dt>
 <dd><dl class="simple">
 <dt>Publishes to:</dt><dd><ul class="simple">
 <li><p>/battery_level (UInt8)</p></li>
@@ -1068,7 +1257,7 @@ variable so that it can be accessed by other methods.</p>
 <p>This class is a controller that handles the battery level of the robot.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.battery_controller.BatteryController.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/battery_controller.html#BatteryController.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.battery_controller.BatteryController.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/battery_controller.html#BatteryController.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.battery_controller.BatteryController.__init__" title="Permalink to this definition"></a></dt>
 <dd><div class="line-block">
 <div class="line">This is the constructor method for the BatteryController class.</div>
 <div class="line">1. Initializes the /battery_controller node.</div>
@@ -1078,7 +1267,7 @@ variable so that it can be accessed by other methods.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.battery_controller.BatteryController._explain_commands">
-<span class="sig-name descname"><span class="pre">_explain_commands</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/battery_controller.html#BatteryController._explain_commands"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.battery_controller.BatteryController._explain_commands" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_explain_commands</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/battery_controller.html#BatteryController._explain_commands"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.battery_controller.BatteryController._explain_commands" title="Permalink to this definition"></a></dt>
 <dd><p>This method is used to print in console the available commands in console.
 Actually, the commands are shown to the user only if the controller is set
 in MANUAL execution mode, because in RANDOM mode the commands are not used.</p>
@@ -1086,7 +1275,7 @@ in MANUAL execution mode, because in RANDOM mode the commands are not used.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.battery_controller.BatteryController._manual_controller">
-<span class="sig-name descname"><span class="pre">_manual_controller</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/battery_controller.html#BatteryController._manual_controller"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.battery_controller.BatteryController._manual_controller" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_manual_controller</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/battery_controller.html#BatteryController._manual_controller"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.battery_controller.BatteryController._manual_controller" title="Permalink to this definition"></a></dt>
 <dd><p>This method is executed only if the controller is executed in MANUAL mode.
 It is used to register the commands that are necessary to for the communication
 between the user and this controller.</p>
@@ -1094,7 +1283,7 @@ between the user and this controller.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.battery_controller.BatteryController._offset_battery_level">
-<span class="sig-name descname"><span class="pre">_offset_battery_level</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offset</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/battery_controller.html#BatteryController._offset_battery_level"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.battery_controller.BatteryController._offset_battery_level" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_offset_battery_level</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offset</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/battery_controller.html#BatteryController._offset_battery_level"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.battery_controller.BatteryController._offset_battery_level" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>offset</strong> (<em>int</em>) – The offset to add to the current battery level.</p>
@@ -1107,7 +1296,7 @@ Then publishes the new value of the battery level in the topic.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.battery_controller.BatteryController._offset_command">
-<span class="sig-name descname"><span class="pre">_offset_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/battery_controller.html#BatteryController._offset_command"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.battery_controller.BatteryController._offset_command" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_offset_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/battery_controller.html#BatteryController._offset_command"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.battery_controller.BatteryController._offset_command" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>args</strong> (<em>list</em>) – The list of arguments for the command.</p>
@@ -1119,7 +1308,7 @@ the battery level value with the specified offset.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.battery_controller.BatteryController._random_controller">
-<span class="sig-name descname"><span class="pre">_random_controller</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/battery_controller.html#BatteryController._random_controller"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.battery_controller.BatteryController._random_controller" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_random_controller</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/battery_controller.html#BatteryController._random_controller"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.battery_controller.BatteryController._random_controller" title="Permalink to this definition"></a></dt>
 <dd><p>This method is executed only if the controller is executed in RANDOM mode.
 This method controls the battery level randomly: in a loop, waits some time
 and then the level is switched between 0 and 100.</p>
@@ -1127,7 +1316,7 @@ and then the level is switched between 0 and 100.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.battery_controller.BatteryController._set_command">
-<span class="sig-name descname"><span class="pre">_set_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/battery_controller.html#BatteryController._set_command"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.battery_controller.BatteryController._set_command" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_set_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/battery_controller.html#BatteryController._set_command"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.battery_controller.BatteryController._set_command" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>args</strong> (<em>list</em>) – The list of arguments for the command.</p>
@@ -1139,7 +1328,7 @@ battery level value with the specified value.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.battery_controller.BatteryController.start">
-<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/battery_controller.html#BatteryController.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.battery_controller.BatteryController.start" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/battery_controller.html#BatteryController.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.battery_controller.BatteryController.start" title="Permalink to this definition"></a></dt>
 <dd><p>This method creates a Publisher for the /battery_level topic.
 And then starts the StimulusController.</p>
 </dd></dl>
@@ -1148,10 +1337,10 @@ And then starts the StimulusController.</p>
 
 </div>
 <div class="section" id="module-stimulus_arch.scripts.motion_controller">
-<span id="motion-controller-module"></span><h1>Motion Controller Module<a class="headerlink" href="#module-stimulus_arch.scripts.motion_controller" title="Permalink to this heading">¶</a></h1>
+<span id="motion-controller-module"></span><h1>Motion Controller Module<a class="headerlink" href="#module-stimulus_arch.scripts.motion_controller" title="Permalink to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.motion_controller.MotionController">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">stimulus_arch.scripts.motion_controller.</span></span><span class="sig-name descname"><span class="pre">MotionController</span></span><a class="reference internal" href="_modules/stimulus_arch/scripts/motion_controller.html#MotionController"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.motion_controller.MotionController" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">stimulus_arch.scripts.motion_controller.</span></span><span class="sig-name descname"><span class="pre">MotionController</span></span><a class="reference internal" href="_modules/stimulus_arch/scripts/motion_controller.html#MotionController"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.motion_controller.MotionController" title="Permalink to this definition"></a></dt>
 <dd><dl class="simple">
 <dt>Creates an action server for:</dt><dd><ul class="simple">
 <li><p>/follow_path (FollowPath)</p></li>
@@ -1162,14 +1351,14 @@ And then starts the StimulusController.</p>
 In particular, it makes the robot follow a predefined path.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.motion_controller.MotionController.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/motion_controller.html#MotionController.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.motion_controller.MotionController.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/motion_controller.html#MotionController.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.motion_controller.MotionController.__init__" title="Permalink to this definition"></a></dt>
 <dd><p>This is the constructor method for the MotionController class.
 It initializes the /motion_controller node.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.motion_controller.MotionController._explain_commands">
-<span class="sig-name descname"><span class="pre">_explain_commands</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/motion_controller.html#MotionController._explain_commands"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.motion_controller.MotionController._explain_commands" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_explain_commands</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/motion_controller.html#MotionController._explain_commands"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.motion_controller.MotionController._explain_commands" title="Permalink to this definition"></a></dt>
 <dd><p>This method is used to print in console the available commands in console.
 Actually, the commands are shown to the user only if the controller is set
 in MANUAL execution mode, because in RANDOM mode the commands are not used.</p>
@@ -1177,7 +1366,7 @@ in MANUAL execution mode, because in RANDOM mode the commands are not used.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.motion_controller.MotionController._manual_controller">
-<span class="sig-name descname"><span class="pre">_manual_controller</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/motion_controller.html#MotionController._manual_controller"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.motion_controller.MotionController._manual_controller" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_manual_controller</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/motion_controller.html#MotionController._manual_controller"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.motion_controller.MotionController._manual_controller" title="Permalink to this definition"></a></dt>
 <dd><p>This method is executed only if the controller is executed in MANUAL mode.
 It is used to register the commands that are necessary to for the communication
 between the user and this controller.</p>
@@ -1185,7 +1374,7 @@ between the user and this controller.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.motion_controller.MotionController._move_command">
-<span class="sig-name descname"><span class="pre">_move_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/motion_controller.html#MotionController._move_command"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.motion_controller.MotionController._move_command" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_move_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/motion_controller.html#MotionController._move_command"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.motion_controller.MotionController._move_command" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>args</strong> (<em>list</em>) – The list of arguments for the command.</p>
@@ -1197,7 +1386,7 @@ with the related method.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.motion_controller.MotionController._move_robot">
-<span class="sig-name descname"><span class="pre">_move_robot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">goal_delta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/motion_controller.html#MotionController._move_robot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.motion_controller.MotionController._move_robot" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_move_robot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">goal_delta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/motion_controller.html#MotionController._move_robot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.motion_controller.MotionController._move_robot" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1213,14 +1402,14 @@ goal position randomized with the specified amount.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.motion_controller.MotionController._random_controller">
-<span class="sig-name descname"><span class="pre">_random_controller</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/motion_controller.html#MotionController._random_controller"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.motion_controller.MotionController._random_controller" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_random_controller</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/motion_controller.html#MotionController._random_controller"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.motion_controller.MotionController._random_controller" title="Permalink to this definition"></a></dt>
 <dd><p>This method is executed only if the controller is executed in RANDOM mode.
 It makes the robot move with the related method.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.motion_controller.MotionController.start">
-<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/motion_controller.html#MotionController.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.motion_controller.MotionController.start" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/motion_controller.html#MotionController.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.motion_controller.MotionController.start" title="Permalink to this definition"></a></dt>
 <dd><p>This method creates and starts an ActionServer called /follow_path.
 And then starts the StimulusController.</p>
 </dd></dl>
@@ -1229,10 +1418,10 @@ And then starts the StimulusController.</p>
 
 </div>
 <div class="section" id="module-stimulus_arch.scripts.planner_controller">
-<span id="planner-controller-module"></span><h1>Planner Controller Module<a class="headerlink" href="#module-stimulus_arch.scripts.planner_controller" title="Permalink to this heading">¶</a></h1>
+<span id="planner-controller-module"></span><h1>Planner Controller Module<a class="headerlink" href="#module-stimulus_arch.scripts.planner_controller" title="Permalink to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.planner_controller.PlannerController">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">stimulus_arch.scripts.planner_controller.</span></span><span class="sig-name descname"><span class="pre">PlannerController</span></span><a class="reference internal" href="_modules/stimulus_arch/scripts/planner_controller.html#PlannerController"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.planner_controller.PlannerController" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">stimulus_arch.scripts.planner_controller.</span></span><span class="sig-name descname"><span class="pre">PlannerController</span></span><a class="reference internal" href="_modules/stimulus_arch/scripts/planner_controller.html#PlannerController"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.planner_controller.PlannerController" title="Permalink to this definition"></a></dt>
 <dd><dl class="simple">
 <dt>Creates an action server for:</dt><dd><ul class="simple">
 <li><p>/follow_path (FollowPath)</p></li>
@@ -1242,14 +1431,14 @@ And then starts the StimulusController.</p>
 <p>This class is a controller that handles the planning of a path.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.planner_controller.PlannerController.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/planner_controller.html#PlannerController.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.planner_controller.PlannerController.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/planner_controller.html#PlannerController.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.planner_controller.PlannerController.__init__" title="Permalink to this definition"></a></dt>
 <dd><p>This is the constructor method for the MotionController class.
 It initializes the /motion_controller node.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.planner_controller.PlannerController._explain_commands">
-<span class="sig-name descname"><span class="pre">_explain_commands</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/planner_controller.html#PlannerController._explain_commands"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.planner_controller.PlannerController._explain_commands" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_explain_commands</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/planner_controller.html#PlannerController._explain_commands"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.planner_controller.PlannerController._explain_commands" title="Permalink to this definition"></a></dt>
 <dd><p>This method is used to print in console the available commands in console.
 Actually, the commands are shown to the user only if the controller is set
 in MANUAL execution mode, because in RANDOM mode the commands are not used.</p>
@@ -1257,7 +1446,7 @@ in MANUAL execution mode, because in RANDOM mode the commands are not used.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.planner_controller.PlannerController._manual_controller">
-<span class="sig-name descname"><span class="pre">_manual_controller</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/planner_controller.html#PlannerController._manual_controller"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.planner_controller.PlannerController._manual_controller" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_manual_controller</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/planner_controller.html#PlannerController._manual_controller"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.planner_controller.PlannerController._manual_controller" title="Permalink to this definition"></a></dt>
 <dd><p>This method is executed only if the controller is executed in MANUAL mode.
 It is used to register the commands that are necessary to for the communication
 between the user and this controller.</p>
@@ -1265,7 +1454,7 @@ between the user and this controller.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.planner_controller.PlannerController._plan_command">
-<span class="sig-name descname"><span class="pre">_plan_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/planner_controller.html#PlannerController._plan_command"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.planner_controller.PlannerController._plan_command" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_plan_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/planner_controller.html#PlannerController._plan_command"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.planner_controller.PlannerController._plan_command" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>args</strong> (<em>list</em>) – The list of arguments for the command.</p>
@@ -1278,7 +1467,7 @@ first point of the path and the goal positions as the last point.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.planner_controller.PlannerController._random_controller">
-<span class="sig-name descname"><span class="pre">_random_controller</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/planner_controller.html#PlannerController._random_controller"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.planner_controller.PlannerController._random_controller" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_random_controller</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/planner_controller.html#PlannerController._random_controller"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.planner_controller.PlannerController._random_controller" title="Permalink to this definition"></a></dt>
 <dd><p>This method is executed only if the controller is execute in RANDOM mode.
 It fills the path with completely random points except the first and the last
 one which are the initial and goal positions.</p>
@@ -1286,7 +1475,7 @@ one which are the initial and goal positions.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.planner_controller.PlannerController._set_result_path">
-<span class="sig-name descname"><span class="pre">_set_result_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/planner_controller.html#PlannerController._set_result_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.planner_controller.PlannerController._set_result_path" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_set_result_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/planner_controller.html#PlannerController._set_result_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.planner_controller.PlannerController._set_result_path" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>path</strong> (<em>list</em>) – A list of Points which compose the path.</p>
@@ -1297,7 +1486,7 @@ one which are the initial and goal positions.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stimulus_arch.scripts.planner_controller.PlannerController.start">
-<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/planner_controller.html#PlannerController.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.planner_controller.PlannerController.start" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/stimulus_arch/scripts/planner_controller.html#PlannerController.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stimulus_arch.scripts.planner_controller.PlannerController.start" title="Permalink to this definition"></a></dt>
 <dd><p>This method creates and starts an ActionServer called /compute_path.
 And then starts the StimulusController.</p>
 </dd></dl>
@@ -1307,57 +1496,31 @@ And then starts the StimulusController.</p>
 </div>
 
 
+           </div>
           </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Mattia Musumeci.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="#">exprob_assignment_1</a></h1>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
 
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="#">Documentation overview</a><ul>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2022, Mattia Musumeci.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.3.0</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
-      
-      |
-      <a href="_sources/index.rst.txt"
-          rel="nofollow">Page source</a>
-    </div>
-
-    
-
-    
-  </body>
+</body>
 </html>
