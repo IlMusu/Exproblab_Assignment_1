@@ -240,7 +240,7 @@ The <b>motion_controller</b> node uses the following parameters:
 ### Waiting For The Ontology
 
 <p align="center">
-![](https://github.com/IlMusu/Exproblab_Assignment_1/blob/documentation/gifs/wait_for_ontology.gif)
+![](documentation/gifs/wait_for_ontology.gif)
 </p>
 
 The gif shows two running nodes:
@@ -250,7 +250,7 @@ The <b>robot_behavior node</b> requests to the <b>ontology_map_building</b> node
 
 ### Moving In The Environment
 <p align="center">
-![](https://raw.githubusercontent.com/IlMusu/Exproblab_Assignment_1/documentation/gifs/moving.gif?token=GHSAT0AAAAAAB3G3VIQMR5UH6ELW5OTTED4Y4EUFWQ)
+![](documentation/gifs/moving.gif)
 </p>
 
 The gif show four running nodes:  
@@ -264,7 +264,7 @@ It can be seen that at first the <b>robot_behavior</b> makes a request to the <b
 Since the <b>planner_controller</b> node is executed in MANUAL mode, the user has to prompt the path in console in order to make the node finalize the <b>/compute_path</b> ActionServer response.  
 Then, <b>robot_behavior</b> makes a request to the <b>/follow_path</b> ActionServer in order to make the robot follow the previously computed path.  
 Again, since the <b>movement_controller</b> node is executed in MANUAL mode, the user has to prompt the command in console in order to make the robot move and finalize the <b>/follow_path</b> ActionServer response.  
-At the end, in the <b>robot_behavior</b> console it is shown that the robot reaches the room R4.  
+At the end, in the <b>robot_behavior</b> console it is shown that the robot reache
 
 
 
