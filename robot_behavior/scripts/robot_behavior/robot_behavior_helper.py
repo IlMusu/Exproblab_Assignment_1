@@ -34,6 +34,12 @@ class RobotBehaviorHelper(object):
     to the armor_api library.
     '''
     def __init__(self):
+        '''
+        |  This is the constructor method for the RobotBehaviorHelper class.
+        |  1. Initializes some internal variables.
+        |  2. Creates a Subscriber to the /battery_level topic.
+        |  3. Creates an ActionClient for /robot_move ActionServer.
+        '''
         # Subscriber for the battery level update
         self._battery_level = 100
         # A subscriber for the battery level

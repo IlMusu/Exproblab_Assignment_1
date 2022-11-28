@@ -275,6 +275,11 @@ class RobotSurveillance(object):
     This class generates the robot behavior by creating a state machine.
     '''
     def __init__(self):
+        '''
+        This is the constructor method of the RobotSurveillance class.
+        It initializes a ros node with name 'robot_behavior'.
+        It retrieves some parameters from rospy and initializes the RobotBehaviorHelper.
+        '''
         # Initializing a ROS node which represents the robot behavior
         rospy.init_node('robot_behavior', log_level=rospy.INFO)
         # Creating a instance of the helper
