@@ -236,7 +236,7 @@ The <b>planner_controller</b> node uses the following parameters:
 The <b>motion_controller</b> node uses the following parameters:
 - `/execution_mode (string)` : The execution mode of this controller (MANUAL or RANDOM).
 
-## 5. RUNNING CODE
+## 4. RUNNING CODE
 ### Waiting For The Ontology
 
 <p align="center">
@@ -250,8 +250,8 @@ The <b>robot_behavior node</b> requests to the <b>ontology_map_building</b> node
 
 ### Moving In The Environment
 <p align="center">
-</p>
 ![moving](https://user-images.githubusercontent.com/51080342/204278438-aa04c194-8c56-4b9e-b5c3-b9777d4512dc.gif)
+</p>
 
 The gif show four running nodes:  
 - On left there is the `robot_behavior` node.  
@@ -275,16 +275,30 @@ The gif show four running nodes:
 - On left there is the `robot_behavior` node.  
 - On the right, from top to bottom, there are:  
   - The `battery_controller` node executed in MANUAL mode.  
-  - The `planner_controller` node executed in RANDOM mode.  
-  - The `movement_controller` node executed in RANDOM mode.  
+  - The `planner_controller` node executed in MANUAL mode.  
+  - The `movement_controller` node executed in MANUAL mode.  
 
 Initially, the robot is freely moving in the environment because the battery is charged enough.  
 Then, the user prompts the battery command and the <b>battery_controller</b> node published on the <b>/battery_level</b> topic the new value for the battery level.  
 The <b>robot_behavior</b> node receives the new battery level and the next time the state machine is in the CHOOSE_NEXT_ROOM state, it will choose a room containing the reacharging station, which is E.  
 After the robot has moved to recharging station, it waits until the battery level is enough.  
-The <b>battery_controller</b> node publishes again the battery level value on the related topic. This time the value is 90% which is considered enough for the robot to stop recharging.
+The <b>battery_controller</b> node publishes again the battery level value on the related topic. This time the value is 90% which is considered enough for the robot to stop recharging.  
 
-## 4. LIMITATIONS, FEATURES AND FUTURE WORK
+### Random Execution Mode
+<p align="center">
+![random_execution](https://user-images.githubusercontent.com/51080342/204282237-5e657d96-2f0b-42c9-81db-c9a30d998c5c.gif)
+</p>
+
+The gif show four running nodes:  
+- On left there is the `robot_behavior` node.  
+- On the right, from top to bottom, there are:  
+  - The `battery_controller` node executed in RANDOM mode.  
+  - The `planner_controller` node executed in RANDOM mode.  
+  - The `movement_controller` node executed in RANDOM mode.  
+  
+All the controller nodes are executed in RANDOM mode and the execution of the behaviour does not require the input of the user. Instead, the necessary values are randomly generated.
+
+## 5. LIMITATIONS, FEATURES AND FUTURE WORK
 ### Limitations
 The surveillance software has been developed under the following hypothesis:
 - The robot in a fixed two-dimensional environment that does not change in time.
