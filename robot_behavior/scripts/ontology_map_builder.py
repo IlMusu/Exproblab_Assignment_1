@@ -71,6 +71,7 @@ class OntologyMapBuilder(object):
         '''
         # Getting the map parameters from the Parameter Server
         onto_path = rospy.get_param('/ontology_path')
+        print(onto_path)
         onto_uri = rospy.get_param('/ontology_uri')
         encoded_map = ast.literal_eval(rospy.get_param('/map'))
         rooms_positions = ast.literal_eval(rospy.get_param('/room_positions'))
