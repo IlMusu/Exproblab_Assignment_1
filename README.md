@@ -135,6 +135,8 @@ In the <b>component diagram</b> are shown all the <b>blocks</b> and <b>interface
 
 - The `ontology_map_builder` node loads the default ontology into ARMOR and builds the map following the user requests. It also contains a mapping between each room and its position with respect to the world frame. Notice that in this context, the "position of a room" is defined as a point inside the room that the robot is able to reach.  It interacts with:
    - The `armor_service` library through the <b>/armor_interface_srv</b> service.  
+   - The `robot_behavior` node through the <b>/ontology_map/reference_name</b> service.  
+   - The `robot_behavior` node through the <b>/ontology_map/room_position</b> service.  
 - The `robot_behavior` node contains the state machine that describes the desired behavior of the robot. The functionality of this node is based on the interaction with other nodes. In particular, it interacts with:  
   - The `ontology_map_builder` node through the <b>/ontology_map/reference_name</b> service.  
   - The `ontology_map_builder` node through the <b>/ontology_map/room_position</b> service.  
