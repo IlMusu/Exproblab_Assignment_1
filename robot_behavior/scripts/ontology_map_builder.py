@@ -45,7 +45,7 @@ class OntologyMapBuilder(object):
         '''
         # Initializing the ROS node
         rospy.init_node('ontology_map_builder', log_level=rospy.INFO)
-        # Creating a Publisher for when the map is ready
+        # Creating a Service for the map reference name
         self._map_ready_pub = rospy.Service('ontology_map/reference_name', ReferenceName, self._onto_reference_service)
         # Creating a Service to provide the room positions
         self._rooms_pos_pub = rospy.Service('ontology_map/room_position', RoomPosition, self._room_position_service)
@@ -71,7 +71,6 @@ class OntologyMapBuilder(object):
         '''
         # Getting the map parameters from the Parameter Server
         onto_path = rospy.get_param('/ontology_path')
-        print(onto_path)
         onto_uri = rospy.get_param('/ontology_uri')
         encoded_map = ast.literal_eval(rospy.get_param('/map'))
         rooms_positions = ast.literal_eval(rospy.get_param('/room_positions'))

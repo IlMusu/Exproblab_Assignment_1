@@ -154,22 +154,19 @@ class RobotBehaviorHelper(object):
             (list) : The list of Point composing the path.
         
         |  Requests from other nodes to compute a path:
-        |  1. Retrieves the current room from ARMOR.
-        |  2. Requests the /ontology_map/room_position service to obtain a position
-           inside next_room.
+        |  2. Requests the /ontology_map/room_position service to obtain the position
+           of the next_room.
         |  3. Requests from the /compute_path ActionServer to compute a path from
            the current position of the robot to the poisition of the room.
         '''
-        # Retrieving the current room the Robot1 is in
-        current_room = self.retrieve_current_room()
         # Retrieving the position of the room
         rospy.wait_for_service('/ontology_map/room_position')
         get_room_position = rospy.ServiceProxy('/ontology_map/room_position', RoomPosition)
-        room_position = get_room_position(current_room).position
+        next_room_position = get_room_position(next_room).position
         # Computing the path between the current position and the other position
         path_goal = ComputePathGoal()
         path_goal.start = self._robot_position
-        path_goal.goal = room_position
+        path_goal.goal = next_room_position
         self._path_clt.wait_for_server()
         self._path_clt.send_goal(path_goal)
         self._path_clt.wait_for_result()
